@@ -7,5 +7,13 @@
 
 import Foundation
 
-print("Hello, World!")
-
+while true {
+    print(">", terminator: " ")
+    guard let input = readLine() else {
+        continue
+    }
+    
+    if input == "exit" {
+        break
+    }
+}
