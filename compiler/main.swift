@@ -17,18 +17,28 @@ while true {
         break
     }
     
-    let lexer = Lexer(text: input)
-    while true {
-        let token = lexer.nextToken()
-        if token.kind == .endOfFileToken {
-            break
-        }
-        print("\(token.kind): \(token.text)", terminator: " ")
-        if token.value != nil {
-            print("\(token.value ?? "")")
-        }
-        
-        print("")
+    let parser = Parser(text: input)
+    let expression = parser.parse()
+    
+    formattedPrint(expression)
+}
+
+func formattedPrint(_ node: SyntaxNode, indent: String = "", isLast: Bool = true) {
+    var indent = indent
+    let marker = isLast ? "└──" : "├──";
+    print(indent, terminator: "")
+    print(marker, terminator: "")
+    print(node.kind, terminator: "")
+    if let node = node as? SyntaxToken, node.value != nil {
+        print(" \(node.value ?? "")", terminator: "")
+    }
+    print("")
+    indent += isLast ? "    " : "│   "
+    
+    let lastChildNode = node.getChildren().last
+    
+    for child in node.getChildren() {
+        formattedPrint(child, indent: indent, isLast: (child.kind == lastChildNode?.kind))
     }
 }
 
@@ -105,11 +115,15 @@ class Lexer {
     }
 }
 
-struct SyntaxToken {
+struct SyntaxToken: SyntaxNode {
     let kind: SyntaxKind
     let position: Int
-    let text: String
+    let text: String?
     let value: Any?
+    
+    func getChildren() -> Array<SyntaxNode> {
+        return []
+    }
 }
 
 enum SyntaxKind {
@@ -123,8 +137,9 @@ enum SyntaxKind {
     case closeParenthesisToken
     case badToken
     case endOfFileToken
+    case numberExpression
+    case binaryExpression
 }
-
 
 extension String {
     func substring(_ r: Range<Int>) -> String {
@@ -144,3 +159,106 @@ extension String {
         return self[i]
     }
 }
+
+class Parser {
+    private let tokens: [SyntaxToken]
+    private var position: Int = 0
+    private var current: SyntaxToken {
+        peek(0)
+    }
+    
+    init(text: String) {
+        var tokens: [SyntaxToken] = []
+        let lexer = Lexer(text: text)
+        var token: SyntaxToken
+        repeat {
+            token = lexer.nextToken()
+            
+            if token.kind != .whitespaceToken && token.kind != .badToken {
+                tokens.append(token)
+            }
+        } while token.kind != SyntaxKind.endOfFileToken
+        
+        self.tokens = tokens
+        //current = self.tokens[0]
+    }
+    
+    private func peek(_ offset: Int) -> SyntaxToken {
+        let index = position + offset
+        if index >= tokens.count {
+            return tokens[tokens.count - 1]
+        }
+        
+        return tokens[index]
+    }
+    
+    private func nextToken() -> SyntaxToken {
+        let current = self.current
+        position += 1
+        return current
+    }
+    
+    private func match(kind: SyntaxKind) -> SyntaxToken {
+        if current.kind == kind {
+            return nextToken()
+        }
+        
+        return SyntaxToken(kind: kind, position: current.position, text: nil, value: nil)
+    }
+    
+    func parse() -> ExpressionSyntax {
+        var left = parsePrimaryExpression()
+        
+        while current.kind == .pluseToken || current.kind == .minusToken {
+            let operatorToken = nextToken()
+            let right = parsePrimaryExpression()
+            left = BinaryExpressionSyntax(left: left, operatorToken: operatorToken, right: right)
+        }
+        
+        return left
+    }
+    
+    private func parsePrimaryExpression() -> ExpressionSyntax {
+        let numberToken = match(kind: .numberToken)
+        return NumberExpressionSyntax(numberToken: numberToken)
+    }
+}
+
+protocol SyntaxNode {
+    var kind: SyntaxKind { get }
+    func getChildren() -> Array<SyntaxNode>
+}
+
+protocol ExpressionSyntax: SyntaxNode {
+    
+}
+
+struct NumberExpressionSyntax: ExpressionSyntax {
+    let numberToken: SyntaxToken
+    var kind: SyntaxKind {
+        .numberExpression
+    }
+    
+    func getChildren() -> Array<SyntaxNode> {
+        return [numberToken]
+    }
+}
+
+struct BinaryExpressionSyntax: ExpressionSyntax {
+    let left: ExpressionSyntax
+    let operatorToken: SyntaxToken
+    let right: ExpressionSyntax
+    var kind: SyntaxKind {
+        .binaryExpression
+    }
+    
+    func getChildren() -> Array<SyntaxNode> {
+        return [
+            left,
+            operatorToken,
+            right
+        ]
+    }
+}
+
+
