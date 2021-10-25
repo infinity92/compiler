@@ -21,7 +21,7 @@ class Parser {
         let lexer = Lexer(text: text)
         var token: SyntaxToken
         repeat {
-            token = lexer.nextToken()
+            token = lexer.lex()
             
             if token.kind != .whitespaceToken && token.kind != .badToken {
                 tokens.append(token)

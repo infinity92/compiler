@@ -24,7 +24,7 @@ class Lexer {
         self.text = text
     }
     
-    func nextToken() -> SyntaxToken {
+    func lex() -> SyntaxToken {
         if position >= text.count {
             return SyntaxToken(kind: .endOfFileToken, position: position, text: "\0", value: nil)
         }
@@ -54,27 +54,29 @@ class Lexer {
             return SyntaxToken(kind: .whitespaceToken, position: start, text: substring, value: nil)
         }
         
-        if current == "+" {
+        switch current {
+        case "+":
             next()
             return SyntaxToken(kind: .pluseToken, position: position, text: "+", value: nil)
-        } else if current == "-" {
+        case "-":
             next()
             return SyntaxToken(kind: .minusToken, position: position, text: "-", value: nil)
-        } else if current == "*" {
+        case "*":
             next()
             return SyntaxToken(kind: .starToken, position: position, text: "*", value: nil)
-        } else if current == "/" {
+        case "/":
             next()
             return SyntaxToken(kind: .slashToken, position: position, text: "/", value: nil)
-        } else if current == "(" {
+        case "(":
             next()
             return SyntaxToken(kind: .openParenthesisToken, position: position, text: "(", value: nil)
-        } else if current == ")" {
+        case ")":
             next()
             return SyntaxToken(kind: .closeParenthesisToken, position: position, text: ")", value: nil)
+        default:
+            diagnostics.append("ERROR: bad character input: \(current)")
         }
         
-        diagnostics.append("ERROR: bad character input: \(current)")
         next()
         return SyntaxToken(kind: .badToken, position: position, text: text.substring(position-1,offset: 1), value: nil)
     }
