@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct NumberExpressionSyntax: ExpressionSyntax {
-    let numberToken: SyntaxToken
+struct LiteralExpressionSyntax: ExpressionSyntax {
+    let literalToken: SyntaxToken
     var kind: SyntaxKind {
         .numberExpression
     }
     
     func getChildren() -> Array<SyntaxNode> {
-        return [numberToken]
+        return [literalToken]
     }
 }

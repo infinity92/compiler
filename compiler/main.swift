@@ -52,7 +52,7 @@ func formattedPrint(_ node: SyntaxNode, indent: String = "", isLast: Bool = true
         print(" \(node.value ?? "")", terminator: "")
     }
     print("")
-    indent += isLast ? "    " : "│   "
+    indent += isLast ? "   " : "│   "
     
     let lastChildNode = node.getChildren().last
     

@@ -19,8 +19,8 @@ class Evaluator {
     }
     
     private func evaluateExpression(_ node: ExpressionSyntax) throws -> Int  {
-        if let number = node as? NumberExpressionSyntax {
-            return Int(number.numberToken.text ?? "")!
+        if let number = node as? LiteralExpressionSyntax {
+            return Int(number.literalToken.text ?? "")!
         }
         
         if let binary = node as? BinaryExpressionSyntax {

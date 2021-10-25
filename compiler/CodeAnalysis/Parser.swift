@@ -11,6 +11,7 @@ class Parser {
     private let tokens: [SyntaxToken]
     private var position: Int = 0
     private var current: SyntaxToken {
+        // TODO: create factory methods in future
         peek(0)
     }
     private(set) var diagnostics: [String] = []
@@ -46,7 +47,7 @@ class Parser {
         return current
     }
     
-    private func match(kind: SyntaxKind) -> SyntaxToken {
+    private func matchToken(kind: SyntaxKind) -> SyntaxToken {
         if current.kind == kind {
             return nextToken()
         }
@@ -88,7 +89,7 @@ class Parser {
     
     func parse() -> SyntaxTree {
         let expression = parseTerm()
-        let endOfFileToken = match(kind: .endOfFileToken)
+        let endOfFileToken = matchToken(kind: .endOfFileToken)
         
         return SyntaxTree(root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
     }
@@ -97,11 +98,11 @@ class Parser {
         if current.kind == .openParenthesisToken {
             let left = nextToken()
             let expression = pareExpression()
-            let right = match(kind: .closeParenthesisToken)
+            let right = matchToken(kind: .closeParenthesisToken)
             
             return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
         }
-        let numberToken = match(kind: .numberToken)
-        return NumberExpressionSyntax(numberToken: numberToken)
+        let numberToken = matchToken(kind: .numberToken)
+        return LiteralExpressionSyntax(literalToken: numberToken)
     }
 }

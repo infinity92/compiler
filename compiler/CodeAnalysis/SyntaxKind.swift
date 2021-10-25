@@ -8,6 +8,7 @@
 import Foundation
 
 enum SyntaxKind {
+    // MARK: Tokens
     case numberToken
     case pluseToken
     case whitespaceToken
@@ -18,6 +19,8 @@ enum SyntaxKind {
     case closeParenthesisToken
     case badToken
     case endOfFileToken
+    
+    // MARK: Expressions
     case numberExpression
     case binaryExpression
     case parenthesizedExpression
