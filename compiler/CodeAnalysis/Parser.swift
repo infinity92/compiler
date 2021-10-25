@@ -55,40 +55,36 @@ class Parser {
         return SyntaxToken(kind: kind, position: current.position, text: nil, value: nil)
     }
     
-    private func parseTerm() -> ExpressionSyntax {
-        var left = parseFactor()
-        
-        while current.kind == .pluseToken ||
-                current.kind == .minusToken
-        {
-            let operatorToken = nextToken()
-            let right = parseFactor()
-            left = BinaryExpressionSyntax(left: left, operatorToken: operatorToken, right: right)
-        }
-        
-        return left
-    }
-    
-    private func parseFactor() -> ExpressionSyntax {
+    private func parseExpression(parentPrecedence: Int = 0) -> ExpressionSyntax {
         var left = parsePrimaryExpression()
         
-        while current.kind == .starToken ||
-                current.kind == .slashToken
-        {
+        while true {
+            let precedence = Parser.getBinaryOperatorPrecedence(kind: current.kind)
+            if precedence == 0 || precedence <= parentPrecedence {
+                break
+            }
+            
             let operatorToken = nextToken()
-            let right = parsePrimaryExpression()
+            let right = parseExpression()
             left = BinaryExpressionSyntax(left: left, operatorToken: operatorToken, right: right)
         }
         
         return left
     }
     
-    private func pareExpression() -> ExpressionSyntax {
-        return parseTerm()
+    private static func getBinaryOperatorPrecedence(kind: SyntaxKind) -> Int {
+        switch kind {
+        case .starToken, .slashToken:
+            return 2
+        case .pluseToken, .minusToken:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func parse() -> SyntaxTree {
-        let expression = parseTerm()
+        let expression = parseExpression()
         let endOfFileToken = matchToken(kind: .endOfFileToken)
         
         return SyntaxTree(root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
@@ -97,7 +93,7 @@ class Parser {
     private func parsePrimaryExpression() -> ExpressionSyntax {
         if current.kind == .openParenthesisToken {
             let left = nextToken()
-            let expression = pareExpression()
+            let expression = parseExpression()
             let right = matchToken(kind: .closeParenthesisToken)
             
             return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
