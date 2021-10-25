@@ -10,7 +10,7 @@ import Foundation
 struct LiteralExpressionSyntax: ExpressionSyntax {
     let literalToken: SyntaxToken
     var kind: SyntaxKind {
-        .numberExpression
+        .literalExpression
     }
     
     func getChildren() -> Array<SyntaxNode> {

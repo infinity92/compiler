@@ -21,7 +21,7 @@ enum SyntaxKind {
     case endOfFileToken
     
     // MARK: Expressions
-    case numberExpression
+    case literalExpression
     case binaryExpression
     case parenthesizedExpression
 }
