@@ -59,7 +59,7 @@ class Parser {
         var left = parsePrimaryExpression()
         
         while true {
-            let precedence = Parser.getBinaryOperatorPrecedence(kind: current.kind)
+            let precedence = current.kind.getBinaryOperatorPrecedence()
             if precedence == 0 || precedence <= parentPrecedence {
                 break
             }
@@ -70,17 +70,6 @@ class Parser {
         }
         
         return left
-    }
-    
-    private static func getBinaryOperatorPrecedence(kind: SyntaxKind) -> Int {
-        switch kind {
-        case .starToken, .slashToken:
-            return 2
-        case .pluseToken, .minusToken:
-            return 1
-        default:
-            return 0
-        }
     }
     
     func parse() -> SyntaxTree {
@@ -102,3 +91,6 @@ class Parser {
         return LiteralExpressionSyntax(literalToken: numberToken)
     }
 }
+
+
+

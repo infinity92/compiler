@@ -145,7 +145,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1300;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					7DDEE4AE271AD94E00892378 = {
 						CreatedOnToolsVersion = 13.0;
@@ -313,6 +313,7 @@
 		7DDEE4B7271AD94E00892378 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3NWMYS8K45;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -324,6 +325,7 @@
 		7DDEE4B8271AD94E00892378 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3NWMYS8K45;
 				ENABLE_HARDENED_RUNTIME = YES;
