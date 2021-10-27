@@ -23,6 +23,19 @@ class Evaluator {
             return Int(number.literalToken.text ?? "")!
         }
         
+        if let unary = node as? UnaryExpressionSyntax {
+            let operand = try! evaluateExpression(unary.operand)
+            if unary.operatorToken.kind == .pluseToken {
+                return operand
+            } else if unary.operatorToken.kind == .minusToken {
+                    return -operand
+            } else {
+                throw Exception("Unexpected unary operator \(unary.operatorToken.kind)")
+            }
+            
+            
+        }
+        
         if let binary = node as? BinaryExpressionSyntax {
             let left = try! evaluateExpression(binary.left)
             let right = try! evaluateExpression(binary.right)

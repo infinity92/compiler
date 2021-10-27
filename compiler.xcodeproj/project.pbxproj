@@ -21,6 +21,7 @@
 		7DDEE4D2272191C000892378 /* LiteralExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDEE4D1272191C000892378 /* LiteralExpressionSyntax.swift */; };
 		7DDEE4D4272191FB00892378 /* BinaryExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDEE4D3272191FB00892378 /* BinaryExpressionSyntax.swift */; };
 		7DDEE4D62721921F00892378 /* ParenthesizedExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDEE4D52721921F00892378 /* ParenthesizedExpressionSyntax.swift */; };
+		7DEAD295272827B1008F0259 /* UnaryExpressionSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD294272827B1008F0259 /* UnaryExpressionSyntax.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,7 @@
 		7DDEE4D1272191C000892378 /* LiteralExpressionSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiteralExpressionSyntax.swift; sourceTree = "<group>"; };
 		7DDEE4D3272191FB00892378 /* BinaryExpressionSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BinaryExpressionSyntax.swift; sourceTree = "<group>"; };
 		7DDEE4D52721921F00892378 /* ParenthesizedExpressionSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParenthesizedExpressionSyntax.swift; sourceTree = "<group>"; };
+		7DEAD294272827B1008F0259 /* UnaryExpressionSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnaryExpressionSyntax.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				7DDEE4CF2721918000892378 /* ExpressionSyntax.swift */,
 				7DDEE4D1272191C000892378 /* LiteralExpressionSyntax.swift */,
 				7DDEE4D3272191FB00892378 /* BinaryExpressionSyntax.swift */,
+				7DEAD294272827B1008F0259 /* UnaryExpressionSyntax.swift */,
 				7DDEE4D52721921F00892378 /* ParenthesizedExpressionSyntax.swift */,
 			);
 			path = Expressions;
@@ -180,6 +183,7 @@
 				7DDEE4C227218F9600892378 /* Exception.swift in Sources */,
 				7DDEE4D4272191FB00892378 /* BinaryExpressionSyntax.swift in Sources */,
 				7DDEE4C027218EF800892378 /* Evaluator.swift in Sources */,
+				7DEAD295272827B1008F0259 /* UnaryExpressionSyntax.swift in Sources */,
 				7DDEE4BE27218EA700892378 /* String+Extension.swift in Sources */,
 				7DDEE4C82721905F00892378 /* SyntaxToken.swift in Sources */,
 				7DDEE4C427218FD500892378 /* SyntaxKind.swift in Sources */,

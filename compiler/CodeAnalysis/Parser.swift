@@ -56,7 +56,15 @@ class Parser {
     }
     
     private func parseExpression(parentPrecedence: Int = 0) -> ExpressionSyntax {
-        var left = parsePrimaryExpression()
+        var left: ExpressionSyntax
+        let unaryOperatorPrecedence = current.kind.getUnaryOperatorPrecedence()
+        if unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence {
+            let operatorToken = nextToken()
+            let operand = parseExpression(parentPrecedence: unaryOperatorPrecedence)
+            left = UnaryExpressionSyntax(operatorToken: operatorToken, operand: operand)
+        } else {
+            left = parsePrimaryExpression()
+        }
         
         while true {
             let precedence = current.kind.getBinaryOperatorPrecedence()

@@ -22,6 +22,7 @@ enum SyntaxKind {
     
     // MARK: Expressions
     case literalExpression
+    case unaryExpression
     case binaryExpression
     case parenthesizedExpression
     
@@ -29,6 +30,15 @@ enum SyntaxKind {
         switch self {
         case .starToken, .slashToken:
             return 2
+        case .pluseToken, .minusToken:
+            return 1
+        default:
+            return 0
+        }
+    }
+    
+    func getUnaryOperatorPrecedence() -> Int {
+        switch self {
         case .pluseToken, .minusToken:
             return 1
         default:
