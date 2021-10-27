@@ -26,17 +26,21 @@ while true {
     }
     
     let syntaxTree = SyntaxTree.parse(input)
+    let binder = Binder()
+    let boudeExpression = try! binder.bindExpression(syntax: syntaxTree.root)
+    
+    let diagnostics = syntaxTree.diagnostics + binder.diagnostics
     
     if showTree {
         formattedPrint(syntaxTree.root)
     }
     
-    if !syntaxTree.diagnostics.isEmpty {
-        for diagnostic in syntaxTree.diagnostics {
+    if !diagnostics.isEmpty {
+        for diagnostic in diagnostics {
             print(diagnostic)
         }
     } else {
-        let evaluator = Evaluator(root: syntaxTree.root)
+        let evaluator = Evaluator(root: boudeExpression)
         let result = evaluator.evaluate()
         print(result)
     }

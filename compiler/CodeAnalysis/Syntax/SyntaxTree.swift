@@ -10,7 +10,7 @@ import Foundation
 struct SyntaxTree {
     let root: ExpressionSyntax
     let endOfFileToken: SyntaxToken
-    let diagnostics: [String]
+    var diagnostics: [String]
     
     static func parse(_ text: String) -> SyntaxTree {
         let parser = Parser(text: text)

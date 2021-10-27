@@ -8,9 +8,9 @@
 import Foundation
 
 class Evaluator {
-    let root: ExpressionSyntax
+    private let root: BoundExpression
     
-    init(root: ExpressionSyntax) {
+    init(root: BoundExpression) {
         self.root = root
     }
     
@@ -18,45 +18,41 @@ class Evaluator {
         return try! evaluateExpression(root)
     }
     
-    private func evaluateExpression(_ node: ExpressionSyntax) throws -> Int  {
-        if let number = node as? LiteralExpressionSyntax {
-            return Int(number.literalToken.text ?? "")!
+    private func evaluateExpression(_ node: BoundExpression) throws -> Int  {
+        if let literal = node as? BoundLiteralExpression {
+            return literal.value as! Int
         }
         
-        if let unary = node as? UnaryExpressionSyntax {
+        if let unary = node as? BoundUnaryExpression {
             let operand = try! evaluateExpression(unary.operand)
-            if unary.operatorToken.kind == .pluseToken {
+            if unary.operatorKind == .identity {
                 return operand
-            } else if unary.operatorToken.kind == .minusToken {
+            } else if unary.operatorKind == .negation {
                     return -operand
             } else {
-                throw Exception("Unexpected unary operator \(unary.operatorToken.kind)")
+                throw Exception("Unexpected unary operator \(unary.operatorKind)")
             }
             
             
         }
         
-        if let binary = node as? BinaryExpressionSyntax {
+        if let binary = node as? BoundBinaryExpression {
             let left = try! evaluateExpression(binary.left)
             let right = try! evaluateExpression(binary.right)
             
-            if binary.operatorToken.kind == .pluseToken {
+            switch binary.operatorKind {
+            case .addition:
                 return left + right
-            } else if binary.operatorToken.kind == .minusToken {
+            case .substruction:
                 return left - right
-            }
-            else if binary.operatorToken.kind == .starToken {
+            case .multiplication:
                 return left * right
-            }
-            else if binary.operatorToken.kind == .slashToken {
+            case .division:
                 return left / right
-            } else {
-                throw Exception("Unexpected binary operator \(binary.operatorToken.kind)")
+            default:
+                throw Exception("Unexpected binary operator \(binary.operatorKind)")
             }
-        }
         
-        if let p = node as? ParenthesizedExpressionSyntax {
-            return try! evaluateExpression(p.expression)
         }
         
         throw Exception("Unexpected node \(node.kind)")
