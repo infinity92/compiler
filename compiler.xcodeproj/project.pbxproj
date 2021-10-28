@@ -31,6 +31,7 @@
 		7DEAD2A527298CA9008F0259 /* BoundLiteralExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A427298CA9008F0259 /* BoundLiteralExpression.swift */; };
 		7DEAD2A727298CCB008F0259 /* BoundBinaryOperatorKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A627298CCB008F0259 /* BoundBinaryOperatorKind.swift */; };
 		7DEAD2A927298CE2008F0259 /* BoundBinaryExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A827298CE2008F0259 /* BoundBinaryExpression.swift */; };
+		7DEAD2AB272A876E008F0259 /* SyntaxFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,7 @@
 		7DEAD2A427298CA9008F0259 /* BoundLiteralExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundLiteralExpression.swift; sourceTree = "<group>"; };
 		7DEAD2A627298CCB008F0259 /* BoundBinaryOperatorKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBinaryOperatorKind.swift; sourceTree = "<group>"; };
 		7DEAD2A827298CE2008F0259 /* BoundBinaryExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBinaryExpression.swift; sourceTree = "<group>"; };
+		7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxFacts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 				7DDEE4C52721901F00892378 /* Parser.swift */,
 				7DDEE4C72721905F00892378 /* SyntaxToken.swift */,
 				7DDEE4C9272190B600892378 /* SyntaxTree.swift */,
+				7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */,
 			);
 			path = Syntax;
 			sourceTree = "<group>";
@@ -244,6 +247,7 @@
 				7DEAD2A727298CCB008F0259 /* BoundBinaryOperatorKind.swift in Sources */,
 				7DDEE4D62721921F00892378 /* ParenthesizedExpressionSyntax.swift in Sources */,
 				7DDEE4C62721901F00892378 /* Parser.swift in Sources */,
+				7DEAD2AB272A876E008F0259 /* SyntaxFacts.swift in Sources */,
 				7DDEE4D2272191C000892378 /* LiteralExpressionSyntax.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

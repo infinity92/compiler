@@ -14,17 +14,17 @@ class Evaluator {
         self.root = root
     }
     
-    func evaluate() -> Int {
+    func evaluate() -> Any {
         return try! evaluateExpression(root)
     }
     
-    private func evaluateExpression(_ node: BoundExpression) throws -> Int  {
-        if let literal = node as? BoundLiteralExpression {
-            return literal.value as! Int
+    private func evaluateExpression(_ node: BoundExpression) throws -> Any  {
+        if let number = node as? BoundLiteralExpression {
+            return number.value
         }
         
         if let unary = node as? BoundUnaryExpression {
-            let operand = try! evaluateExpression(unary.operand)
+            let operand = try! evaluateExpression(unary.operand) as! Int
             if unary.operatorKind == .identity {
                 return operand
             } else if unary.operatorKind == .negation {
@@ -37,8 +37,8 @@ class Evaluator {
         }
         
         if let binary = node as? BoundBinaryExpression {
-            let left = try! evaluateExpression(binary.left)
-            let right = try! evaluateExpression(binary.right)
+            let left = try! evaluateExpression(binary.left) as! Int
+            let right = try! evaluateExpression(binary.right) as! Int
             
             switch binary.operatorKind {
             case .addition:

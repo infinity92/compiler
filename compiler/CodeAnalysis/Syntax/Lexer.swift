@@ -54,6 +54,17 @@ class Lexer {
             return SyntaxToken(kind: .whitespaceToken, position: start, text: substring, value: nil)
         }
         
+        if current.isLetter {
+            let start = position
+            while current.isLetter {
+                next()
+            }
+            let length = position - start
+            let substring = text.substring(start, offset: length)
+            let kind = SyntaxFacts.getKeywordKind(text: text)
+            return SyntaxToken(kind: kind, position: start, text: substring, value: nil)
+        }
+        
         switch current {
         case "+":
             next()

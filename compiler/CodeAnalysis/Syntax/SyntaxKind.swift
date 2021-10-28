@@ -8,7 +8,7 @@
 import Foundation
 
 enum SyntaxKind {
-    // MARK: Tokens
+    // MARK: - Tokens
     case numberToken
     case pluseToken
     case whitespaceToken
@@ -19,12 +19,17 @@ enum SyntaxKind {
     case closeParenthesisToken
     case badToken
     case endOfFileToken
+    case identifierToken
     
-    // MARK: Expressions
+    // MARK: - Expressions
     case literalExpression
     case unaryExpression
     case binaryExpression
     case parenthesizedExpression
+    
+    // MARK: - Keyword
+    case trueKeyword
+    case falseKeyword
     
     func getBinaryOperatorPrecedence() -> Int {
         switch self {
@@ -47,17 +52,6 @@ enum SyntaxKind {
     }
 }
 
-/*
-class SyntaxFacts {
-    public static func getBinaryOperatorPrecedence(kind: SyntaxKind) -> Int {
-        switch kind {
-        case .starToken, .slashToken:
-            return 2
-        case .pluseToken, .minusToken:
-            return 1
-        default:
-            return 0
-        }
-    }
-}
-*/
+
+
+

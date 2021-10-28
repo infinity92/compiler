@@ -43,7 +43,7 @@ class Binder {
     }
     
     private func bindLiteralExpression(_ syntax: LiteralExpressionSyntax) -> BoundExpression {
-        let value = syntax.literalToken.value as? Int ?? 0
+        let value = syntax.value ?? 0
         return BoundLiteralExpression(value: value)
     }
     
