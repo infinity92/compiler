@@ -9,14 +9,14 @@ import Foundation
 
 struct BoundBinaryExpression: BoundExpression {
     let left: BoundExpression
-    let operatorKind: BoundBinaryOperatorKind
+    let op: BoundBinaryOperator
     let right: BoundExpression
     
     var kind: BoundNodeKind {
         .unaryExpression
     }
     
-    var type: Any  {
-        left.self
+    var expressionType: Any  {
+        type(of: left)
     }
 }

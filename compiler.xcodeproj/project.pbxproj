@@ -26,12 +26,14 @@
 		7DEAD29B27298BAC008F0259 /* BoundNodeKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD29A27298BAC008F0259 /* BoundNodeKind.swift */; };
 		7DEAD29D27298BCE008F0259 /* BoundNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD29C27298BCE008F0259 /* BoundNode.swift */; };
 		7DEAD29F27298C07008F0259 /* BoundExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD29E27298C07008F0259 /* BoundExpression.swift */; };
-		7DEAD2A127298C36008F0259 /* BoundUnaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A027298C36008F0259 /* BoundUnaryOperator.swift */; };
+		7DEAD2A127298C36008F0259 /* BoundUnaryOperatorKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A027298C36008F0259 /* BoundUnaryOperatorKind.swift */; };
 		7DEAD2A327298C84008F0259 /* BoundUnaryExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A227298C84008F0259 /* BoundUnaryExpression.swift */; };
 		7DEAD2A527298CA9008F0259 /* BoundLiteralExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A427298CA9008F0259 /* BoundLiteralExpression.swift */; };
 		7DEAD2A727298CCB008F0259 /* BoundBinaryOperatorKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A627298CCB008F0259 /* BoundBinaryOperatorKind.swift */; };
 		7DEAD2A927298CE2008F0259 /* BoundBinaryExpression.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2A827298CE2008F0259 /* BoundBinaryExpression.swift */; };
 		7DEAD2AB272A876E008F0259 /* SyntaxFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */; };
+		7DEAD2B1272C0496008F0259 /* BoundBinaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2B0272C0496008F0259 /* BoundBinaryOperator.swift */; };
+		7DEAD2B3272C04C4008F0259 /* BoundUnaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2B2272C04C4008F0259 /* BoundUnaryOperator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,12 +69,14 @@
 		7DEAD29A27298BAC008F0259 /* BoundNodeKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundNodeKind.swift; sourceTree = "<group>"; };
 		7DEAD29C27298BCE008F0259 /* BoundNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundNode.swift; sourceTree = "<group>"; };
 		7DEAD29E27298C07008F0259 /* BoundExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundExpression.swift; sourceTree = "<group>"; };
-		7DEAD2A027298C36008F0259 /* BoundUnaryOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundUnaryOperator.swift; sourceTree = "<group>"; };
+		7DEAD2A027298C36008F0259 /* BoundUnaryOperatorKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundUnaryOperatorKind.swift; sourceTree = "<group>"; };
 		7DEAD2A227298C84008F0259 /* BoundUnaryExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundUnaryExpression.swift; sourceTree = "<group>"; };
 		7DEAD2A427298CA9008F0259 /* BoundLiteralExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundLiteralExpression.swift; sourceTree = "<group>"; };
 		7DEAD2A627298CCB008F0259 /* BoundBinaryOperatorKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBinaryOperatorKind.swift; sourceTree = "<group>"; };
 		7DEAD2A827298CE2008F0259 /* BoundBinaryExpression.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBinaryExpression.swift; sourceTree = "<group>"; };
 		7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxFacts.swift; sourceTree = "<group>"; };
+		7DEAD2B0272C0496008F0259 /* BoundBinaryOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBinaryOperator.swift; sourceTree = "<group>"; };
+		7DEAD2B2272C04C4008F0259 /* BoundUnaryOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundUnaryOperator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,11 +161,13 @@
 				7DEAD29E27298C07008F0259 /* BoundExpression.swift */,
 				7DEAD29A27298BAC008F0259 /* BoundNodeKind.swift */,
 				7DEAD29C27298BCE008F0259 /* BoundNode.swift */,
-				7DEAD2A027298C36008F0259 /* BoundUnaryOperator.swift */,
+				7DEAD2A027298C36008F0259 /* BoundUnaryOperatorKind.swift */,
 				7DEAD2A227298C84008F0259 /* BoundUnaryExpression.swift */,
 				7DEAD2A427298CA9008F0259 /* BoundLiteralExpression.swift */,
 				7DEAD2A627298CCB008F0259 /* BoundBinaryOperatorKind.swift */,
 				7DEAD2A827298CE2008F0259 /* BoundBinaryExpression.swift */,
+				7DEAD2B0272C0496008F0259 /* BoundBinaryOperator.swift */,
+				7DEAD2B2272C04C4008F0259 /* BoundUnaryOperator.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -226,11 +232,13 @@
 			files = (
 				7DDEE4BB27218DE600892378 /* Lexer.swift in Sources */,
 				7DDEE4CA272190B600892378 /* SyntaxTree.swift in Sources */,
-				7DEAD2A127298C36008F0259 /* BoundUnaryOperator.swift in Sources */,
+				7DEAD2B3272C04C4008F0259 /* BoundUnaryOperator.swift in Sources */,
+				7DEAD2A127298C36008F0259 /* BoundUnaryOperatorKind.swift in Sources */,
 				7DEAD29D27298BCE008F0259 /* BoundNode.swift in Sources */,
 				7DDEE4C227218F9600892378 /* Exception.swift in Sources */,
 				7DDEE4D4272191FB00892378 /* BinaryExpressionSyntax.swift in Sources */,
 				7DDEE4C027218EF800892378 /* Evaluator.swift in Sources */,
+				7DEAD2B1272C0496008F0259 /* BoundBinaryOperator.swift in Sources */,
 				7DEAD295272827B1008F0259 /* UnaryExpressionSyntax.swift in Sources */,
 				7DDEE4BE27218EA700892378 /* String+Extension.swift in Sources */,
 				7DEAD2A527298CA9008F0259 /* BoundLiteralExpression.swift in Sources */,

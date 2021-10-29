@@ -26,7 +26,7 @@ class Evaluator {
         if let unary = node as? BoundUnaryExpression {
             let operand = try! evaluateExpression(unary.operand)
             
-            switch unary.operatorKind {
+            switch unary.op.kind {
             case .identity:
                 return operand as! Int
             case .negation:
@@ -34,7 +34,7 @@ class Evaluator {
             case .logicalNagarion:
                 return !(operand as! Bool)
             default:
-                throw Exception("Unexpected unary operator \(unary.operatorKind)")
+                throw Exception("Unexpected unary operator \(unary.op.kind)")
             }
         }
         
@@ -42,7 +42,7 @@ class Evaluator {
             let left = try! evaluateExpression(binary.left)
             let right = try! evaluateExpression(binary.right)
             
-            switch binary.operatorKind {
+            switch binary.op.kind {
             case .addition:
                 return (left as! Int) + (right as! Int)
             case .substruction:
@@ -56,7 +56,7 @@ class Evaluator {
             case .logicalOr:
                 return (left as! Bool) || (right as! Bool)
             default:
-                throw Exception("Unexpected binary operator \(binary.operatorKind)")
+                throw Exception("Unexpected binary operator \(binary.op.kind)")
             }
         
         }

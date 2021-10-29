@@ -8,14 +8,14 @@
 import Foundation
 
 struct BoundUnaryExpression: BoundExpression {
-    let operatorKind: BoundUnaryOperatorKind
+    let op: BoundUnaryOperator
     let operand: BoundExpression
     
     var kind: BoundNodeKind {
         .unaryExpression
     }
     
-    var type: Any  {
-        operand.self
+    var expressionType: Any  {
+        type(of: operand)
     }
 }

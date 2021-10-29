@@ -26,20 +26,20 @@ class Binder {
     private func bindBinaryExpression(_ syntax: BinaryExpressionSyntax) -> BoundExpression {
         let boundLeft = try! bindExpression(syntax: syntax.left)
         let boundRight = try! bindExpression(syntax: syntax.right)
-        guard let boundOperatorKind = try! bindBinaryOperatorKind(syntax.operatorToken.kind, boundLeft.type, boundRight.type) else {
-            diagnostics.append("Binary operator '\(String(describing: syntax.operatorToken.text))' is not defined for type \(boundLeft.type) and \(boundRight.type)")
+        guard let boundOperator = BoundBinaryOperator.bind(syntaxKind: syntax.operatorToken.kind, leftType: boundLeft.expressionType, rightType: boundRight.expressionType)else {
+            diagnostics.append("Binary operator '\(String(describing: syntax.operatorToken.text))' is not defined for type \(boundLeft.expressionType) and \(boundRight.expressionType)")
             return boundLeft
         }
-        return BoundBinaryExpression(left: boundLeft, operatorKind: boundOperatorKind, right: boundRight)
+        return BoundBinaryExpression(left: boundLeft, op: boundOperator, right: boundRight)
     }
     
     private func bindUnaryExpression(_ syntax: UnaryExpressionSyntax) -> BoundExpression {
         let boundOperand = try! bindExpression(syntax: syntax.operand)
-        guard let boundOperatorKind = try! bindUnaryOperatorKind(syntax.operatorToken.kind, boundOperand.type) else {
-            diagnostics.append("Unary operator '\(String(describing: syntax.operatorToken.text))' is not defined for type \(boundOperand.type)")
+        guard let boundOperator = BoundUnaryOperator.bind(syntaxKind: syntax.operatorToken.kind, operandType: boundOperand.expressionType) else {
+            diagnostics.append("Unary operator '\(String(describing: syntax.operatorToken.text))' is not defined for type \(boundOperand.expressionType)")
             return boundOperand
         }
-        return BoundUnaryExpression(operatorKind: boundOperatorKind, operand: boundOperand)
+        return BoundUnaryExpression(op: boundOperator, operand: boundOperand)
     }
     
     private func bindLiteralExpression(_ syntax: LiteralExpressionSyntax) -> BoundExpression {
@@ -47,7 +47,7 @@ class Binder {
         return BoundLiteralExpression(value: value)
     }
     
-    private func bindUnaryOperatorKind(_ kind: SyntaxKind, _ operandType: Any) throws -> BoundUnaryOperatorKind? {
+    /*private func bindUnaryOperatorKind(_ kind: SyntaxKind, _ operandType: Any) throws -> BoundUnaryOperatorKind? {
         if operandType is Int {
             switch kind {
             case .pluseToken:
@@ -71,9 +71,9 @@ class Binder {
         
         return nil
        
-    }
+    }*/
     
-    private func bindBinaryOperatorKind(_ kind: SyntaxKind, _ leftType: Any, _ rightType: Any) throws -> BoundBinaryOperatorKind? {
+    /*private func bindBinaryOperatorKind(_ kind: SyntaxKind, _ leftType: Any, _ rightType: Any) throws -> BoundBinaryOperatorKind? {
         if leftType is Int && leftType is Int {
             switch kind {
             case .pluseToken:
@@ -99,5 +99,5 @@ class Binder {
         }
         
         return nil
-    }
+    }*/
 }

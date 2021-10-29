@@ -12,7 +12,7 @@ struct BoundLiteralExpression: BoundExpression {
     var kind: BoundNodeKind {
         .literalExpression
     }
-    var type: Any {
-        value.self
+    var expressionType: Any {
+        type(of: value)
     }
 }
