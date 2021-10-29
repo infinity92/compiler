@@ -48,35 +48,56 @@ class Binder {
     }
     
     private func bindUnaryOperatorKind(_ kind: SyntaxKind, _ operandType: Any) throws -> BoundUnaryOperatorKind? {
-        if !(operandType is Int) {
-            return nil
+        if operandType is Int {
+            switch kind {
+            case .pluseToken:
+                return .identity
+            case .minusToken:
+                return .negation
+            default: break
+            }
+            
         }
         
-        switch kind {
-        case .pluseToken:
-            return .identity
-        case .minusToken:
-            return .negation
-        default:
-            throw Exception("Unexpected unary operator \(kind)")
+        if operandType is Bool {
+            switch kind {
+            case .bangToken:
+                return .logicalNagarion
+            default: break
+            }
+            
+            
         }
+        
+        return nil
+       
     }
     
     private func bindBinaryOperatorKind(_ kind: SyntaxKind, _ leftType: Any, _ rightType: Any) throws -> BoundBinaryOperatorKind? {
-        if !(leftType is Int) || !(leftType is Int) {
-            return nil
+        if leftType is Int && leftType is Int {
+            switch kind {
+            case .pluseToken:
+                return .addition
+            case .minusToken:
+                return .substruction
+            case .starToken:
+                return .multiplication
+            case .slashToken:
+                return .division
+            default: break
+            }
         }
-        switch kind {
-        case .pluseToken:
-            return .addition
-        case .minusToken:
-            return .substruction
-        case .starToken:
-            return .multiplication
-        case .slashToken:
-            return .division
-        default:
-            throw Exception("Unexpected binary operator \(kind)")
+        
+        if leftType is Bool && leftType is Bool {
+            switch kind {
+            case .ampersantAmpersantToken:
+                return .logicalAnd
+            case .pipePipeToken:
+                return .logicalOr
+            default: break
+            }
         }
+        
+        return nil
     }
 }

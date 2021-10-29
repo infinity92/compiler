@@ -73,7 +73,7 @@ class Parser {
             }
             
             let operatorToken = nextToken()
-            let right = parseExpression()
+            let right = parseExpression(parentPrecedence: precedence)
             left = BinaryExpressionSyntax(left: left, operatorToken: operatorToken, right: right)
         }
         
@@ -87,7 +87,7 @@ class Parser {
         return SyntaxTree(root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
     }
     
-    private func parsePrimaryExpression() -> ExpressionSyntax {        
+    private func parsePrimaryExpression() -> ExpressionSyntax {
         switch current.kind {
         case .openParenthesisToken:
             let left = nextToken()
@@ -97,7 +97,7 @@ class Parser {
             return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
         case .falseKeyword, .trueKeyword:
             let keywordToken = nextToken()
-            let value = (current.kind == .trueKeyword)
+            let value = (keywordToken.kind == .trueKeyword)
             
             return LiteralExpressionSyntax(literalToken: keywordToken, value: value)
         default:

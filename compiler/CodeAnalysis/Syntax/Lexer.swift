@@ -12,16 +12,22 @@ class Lexer {
     private var position: Int = 0
     private(set) var diagnostics: [String] = []
     private var current: Character {
-        get {
-            if position >= text.count {
-                return "\0"
-            }
-            return text.char(at: position)
-        }
+        peek(0)
+    }
+    private var lookahead: Character {
+        peek(1)
     }
     
     init(text: String) {
         self.text = text
+    }
+    
+    private func peek(_ offset: Int) -> Character {
+        let index = position + offset
+        if index >= text.count {
+            return "\0"
+        }
+        return text.char(at: position)
     }
     
     func lex() -> SyntaxToken {
@@ -61,7 +67,7 @@ class Lexer {
             }
             let length = position - start
             let substring = text.substring(start, offset: length)
-            let kind = SyntaxFacts.getKeywordKind(text: text)
+            let kind = SyntaxFacts.getKeywordKind(text: substring)
             return SyntaxToken(kind: kind, position: start, text: substring, value: nil)
         }
         
@@ -84,6 +90,21 @@ class Lexer {
         case ")":
             next()
             return SyntaxToken(kind: .closeParenthesisToken, position: position, text: ")", value: nil)
+        case "!":
+            next()
+            return SyntaxToken(kind: .bangToken, position: position, text: "!", value: nil)
+        case "&":
+            if lookahead == "&" {
+                next()
+                next()
+                return SyntaxToken(kind: .ampersantAmpersantToken, position: position, text: "&&", value: nil)
+            }
+        case "|":
+            if lookahead == "|" {
+                next()
+                next()
+                return SyntaxToken(kind: .pipePipeToken, position: position, text: "||", value: nil)
+            }
         default:
             diagnostics.append("ERROR: bad character input: \(current)")
         }

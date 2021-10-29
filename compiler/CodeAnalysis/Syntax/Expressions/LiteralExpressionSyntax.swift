@@ -11,7 +11,7 @@ struct LiteralExpressionSyntax: ExpressionSyntax {
     
     init(literalToken: SyntaxToken, value: Any) {
         self.literalToken = literalToken
-        self.value = literalToken
+        self.value = value
     }
     
     init(literalToken: SyntaxToken) {

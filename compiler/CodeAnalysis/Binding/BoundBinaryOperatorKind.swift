@@ -12,4 +12,7 @@ enum BoundBinaryOperatorKind {
     case substruction
     case multiplication
     case division
+    
+    case logicalAnd
+    case logicalOr
 }

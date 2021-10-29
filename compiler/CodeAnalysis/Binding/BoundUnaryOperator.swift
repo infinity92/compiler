@@ -10,4 +10,5 @@ import Foundation
 enum BoundUnaryOperatorKind {
     case identity
     case negation
+    case logicalNagarion
 }
