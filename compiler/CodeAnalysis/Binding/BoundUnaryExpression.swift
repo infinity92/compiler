@@ -16,6 +16,6 @@ struct BoundUnaryExpression: BoundExpression {
     }
     
     var expressionType: Any  {
-        type(of: operand)
+        type(of: op)
     }
 }

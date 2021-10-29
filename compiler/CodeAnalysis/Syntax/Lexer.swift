@@ -90,9 +90,6 @@ class Lexer {
         case ")":
             next()
             return SyntaxToken(kind: .closeParenthesisToken, position: position, text: ")", value: nil)
-        case "!":
-            next()
-            return SyntaxToken(kind: .bangToken, position: position, text: "!", value: nil)
         case "&":
             if lookahead == "&" {
                 next()
@@ -104,6 +101,21 @@ class Lexer {
                 next()
                 next()
                 return SyntaxToken(kind: .pipePipeToken, position: position, text: "||", value: nil)
+            }
+        case "=":
+            if lookahead == "=" {
+                next()
+                next()
+                return SyntaxToken(kind: .equalsEqualsToken, position: position, text: "==", value: nil)
+            }
+        case "!":
+            if lookahead == "=" {
+                next()
+                next()
+                return SyntaxToken(kind: .bangEqualsToken, position: position, text: "!=", value: nil)
+            } else {
+                next()
+                return SyntaxToken(kind: .bangToken, position: position, text: "!", value: nil)
             }
         default:
             diagnostics.append("ERROR: bad character input: \(current)")

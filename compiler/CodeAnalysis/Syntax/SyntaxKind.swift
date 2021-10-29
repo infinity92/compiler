@@ -23,6 +23,8 @@ enum SyntaxKind {
     case bangToken
     case ampersantAmpersantToken
     case pipePipeToken
+    case equalsEqualsToken
+    case bangEqualsToken
     
     // MARK: - Expressions
     case literalExpression
@@ -38,8 +40,10 @@ enum SyntaxKind {
     func getBinaryOperatorPrecedence() -> Int {
         switch self {
         case .starToken, .slashToken:
-            return 4
+            return 5
         case .pluseToken, .minusToken:
+            return 4
+        case .equalsEqualsToken, .bangEqualsToken:
             return 3
         case .ampersantAmpersantToken:
             return 2
@@ -53,7 +57,7 @@ enum SyntaxKind {
     func getUnaryOperatorPrecedence() -> Int {
         switch self {
         case .pluseToken, .minusToken, .bangToken:
-            return 5
+            return 6
         default:
             return 0
         }

@@ -55,6 +55,22 @@ class Evaluator {
                 return (left as! Bool) && (right as! Bool)
             case .logicalOr:
                 return (left as! Bool) || (right as! Bool)
+            case .equals:
+                if let left = left as? Bool, let right = right as? Bool {
+                    return left == right
+                } else if let left = left as? Int, let right = right as? Int {
+                    return left == right
+                } else {
+                    throw Exception("Could not cast value of type")
+                }
+            case .notEquals:
+                if let left = left as? Bool, let right = right as? Bool {
+                    return left != right
+                } else if let left = left as? Int, let right = right as? Int {
+                    return left != right
+                } else {
+                    throw Exception("Could not cast value of type")
+                }
             default:
                 throw Exception("Unexpected binary operator \(binary.op.kind)")
             }

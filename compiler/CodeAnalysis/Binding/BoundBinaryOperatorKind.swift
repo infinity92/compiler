@@ -15,4 +15,6 @@ enum BoundBinaryOperatorKind {
     
     case logicalAnd
     case logicalOr
+    case equals
+    case notEquals
 }

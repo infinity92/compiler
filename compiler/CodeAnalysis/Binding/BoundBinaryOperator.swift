@@ -16,6 +16,14 @@ struct BoundBinaryOperator {
         self.resultType = resultType
     }
     
+    init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, operandType: Any, resultType: Any) {
+        self.syntaxKind = syntaxKind
+        self.kind = kind
+        self.leftType = operandType
+        self.rightType = operandType
+        self.resultType = resultType
+    }
+    
     init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, type: Any) {
         self.syntaxKind = syntaxKind
         self.kind = kind
@@ -36,8 +44,14 @@ struct BoundBinaryOperator {
         BoundBinaryOperator(syntaxKind: .starToken, kind: .multiplication, type: Int.self),
         BoundBinaryOperator(syntaxKind: .slashToken, kind: .division, type: Int.self),
         
+        BoundBinaryOperator(syntaxKind: .equalsEqualsToken, kind: .equals, operandType: Int.self, resultType: Bool.self),
+        BoundBinaryOperator(syntaxKind: .bangEqualsToken, kind: .notEquals, operandType: Int.self, resultType: Bool.self),
+        
         BoundBinaryOperator(syntaxKind: .ampersantAmpersantToken, kind: .logicalAnd, type: Bool.self),
         BoundBinaryOperator(syntaxKind: .pipePipeToken, kind: .logicalOr, type: Bool.self),
+        
+        BoundBinaryOperator(syntaxKind: .equalsEqualsToken, kind: .equals,  type: Bool.self),
+        BoundBinaryOperator(syntaxKind: .bangEqualsToken, kind: .notEquals,  type: Bool.self),
     ]
     
     static func bind(syntaxKind: SyntaxKind, leftType: Any, rightType: Any) -> BoundBinaryOperator? {

@@ -17,6 +17,6 @@ struct BoundBinaryExpression: BoundExpression {
     }
     
     var expressionType: Any  {
-        type(of: left)
+        type(of: op)
     }
 }
