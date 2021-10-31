@@ -10,4 +10,5 @@ import Foundation
 enum BoundNodeKind {
     case unaryExpression
     case literalExpression
+    case binaryExpression
 }

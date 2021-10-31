@@ -13,7 +13,7 @@ struct BoundBinaryExpression: BoundExpression {
     let right: BoundExpression
     
     var kind: BoundNodeKind {
-        .unaryExpression
+        .binaryExpression
     }
     
     var expressionType: Any  {

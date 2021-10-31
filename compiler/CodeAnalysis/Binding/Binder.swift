@@ -18,6 +18,8 @@ class Binder {
             return bindBinaryExpression(syntax as! BinaryExpressionSyntax)
         case .literalExpression:
             return bindLiteralExpression(syntax as! LiteralExpressionSyntax)
+        case .parenthesizedExpression:
+            return try! bindExpression(syntax: (syntax as! ParenthesizedExpressionSyntax).expression)
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
