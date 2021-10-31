@@ -26,7 +26,7 @@ class Parser {
             if token.kind != .whitespaceToken && token.kind != .badToken {
                 tokens.append(token)
             }
-        } while token.kind != SyntaxKind.endOfFileToken
+        } while token.kind != .endOfFileToken
         
         self.tokens = tokens
         diagnostics.append(contentsOf: lexer.diagnostics)
@@ -57,6 +57,8 @@ class Parser {
     
     private func parseExpression(parentPrecedence: Int = 0) -> ExpressionSyntax {
         var left: ExpressionSyntax
+        //Get the priority of the unary operator
+        //If it is not operator then return 0
         let unaryOperatorPrecedence = current.kind.getUnaryOperatorPrecedence()
         if unaryOperatorPrecedence != 0 && unaryOperatorPrecedence >= parentPrecedence {
             let operatorToken = nextToken()

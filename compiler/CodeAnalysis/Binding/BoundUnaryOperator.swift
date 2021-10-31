@@ -12,20 +12,17 @@ struct BoundUnaryOperator {
         self.syntaxKind = syntaxKind
         self.kind = kind
         self.operandType = operandType
-        self.resultType = resultType
+        self.operatorType = resultType
     }
     
     init(syntaxKind: SyntaxKind, kind: BoundUnaryOperatorKind, operandType: Any) {
-        self.syntaxKind = syntaxKind
-        self.kind = kind
-        self.operandType = operandType
-        self.resultType = operandType
+        self.init(syntaxKind: syntaxKind, kind: kind, operandType: operandType, resultType: operandType)
     }
     
     let syntaxKind: SyntaxKind
     let kind: BoundUnaryOperatorKind
     let operandType: Any
-    let resultType: Any
+    let operatorType: Any
     
     private static let operators: [BoundUnaryOperator] = [
         BoundUnaryOperator(syntaxKind: .bangToken, kind: .logicalNagarion, operandType: Bool.self),

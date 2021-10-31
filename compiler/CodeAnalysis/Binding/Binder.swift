@@ -26,7 +26,7 @@ class Binder {
     private func bindBinaryExpression(_ syntax: BinaryExpressionSyntax) -> BoundExpression {
         let boundLeft = try! bindExpression(syntax: syntax.left)
         let boundRight = try! bindExpression(syntax: syntax.right)
-        guard let boundOperator = BoundBinaryOperator.bind(syntaxKind: syntax.operatorToken.kind, leftType: boundLeft.expressionType, rightType: boundRight.expressionType)else {
+        guard let boundOperator = BoundBinaryOperator.bind(syntaxKind: syntax.operatorToken.kind, leftType: boundLeft.expressionType, rightType: boundRight.expressionType) else {
             diagnostics.append("Binary operator '\(String(describing: syntax.operatorToken.text))' is not defined for type \(boundLeft.expressionType) and \(boundRight.expressionType)")
             return boundLeft
         }
@@ -46,58 +46,4 @@ class Binder {
         let value = syntax.value ?? 0
         return BoundLiteralExpression(value: value)
     }
-    
-    /*private func bindUnaryOperatorKind(_ kind: SyntaxKind, _ operandType: Any) throws -> BoundUnaryOperatorKind? {
-        if operandType is Int {
-            switch kind {
-            case .pluseToken:
-                return .identity
-            case .minusToken:
-                return .negation
-            default: break
-            }
-            
-        }
-        
-        if operandType is Bool {
-            switch kind {
-            case .bangToken:
-                return .logicalNagarion
-            default: break
-            }
-            
-            
-        }
-        
-        return nil
-       
-    }*/
-    
-    /*private func bindBinaryOperatorKind(_ kind: SyntaxKind, _ leftType: Any, _ rightType: Any) throws -> BoundBinaryOperatorKind? {
-        if leftType is Int && leftType is Int {
-            switch kind {
-            case .pluseToken:
-                return .addition
-            case .minusToken:
-                return .substruction
-            case .starToken:
-                return .multiplication
-            case .slashToken:
-                return .division
-            default: break
-            }
-        }
-        
-        if leftType is Bool && leftType is Bool {
-            switch kind {
-            case .ampersantAmpersantToken:
-                return .logicalAnd
-            case .pipePipeToken:
-                return .logicalOr
-            default: break
-            }
-        }
-        
-        return nil
-    }*/
 }

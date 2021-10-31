@@ -15,7 +15,7 @@ while true {
         continue
     }
     
-    if input == "exit" {
+    if input == "#exit" {
         break
     }
     
