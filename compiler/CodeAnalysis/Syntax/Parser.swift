@@ -14,7 +14,7 @@ class Parser {
         // TODO: create factory methods in future
         peek(0)
     }
-    private(set) var diagnostics: [String] = []
+    private(set) var diagnostics = DiagnosticBag()
     
     init(text: String) {
         var tokens: [SyntaxToken] = []
@@ -29,7 +29,7 @@ class Parser {
         } while token.kind != .endOfFileToken
         
         self.tokens = tokens
-        diagnostics.append(contentsOf: lexer.diagnostics)
+        diagnostics.addRange(lexer.diagnostics)
     }
     
     private func peek(_ offset: Int) -> SyntaxToken {
@@ -51,7 +51,7 @@ class Parser {
         if current.kind == kind {
             return nextToken()
         }
-        diagnostics.append("ERROR: Unexpected token <\(current.kind)>, expected <\(kind)>")
+        diagnostics.reportUnexpectedToken(current.span, current.kind, kind)
         return SyntaxToken(kind: kind, position: current.position, text: nil, value: nil)
     }
     

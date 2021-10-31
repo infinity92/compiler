@@ -10,7 +10,7 @@ import Foundation
 class Lexer {
     private let text: String
     private var position: Int = 0
-    private(set) var diagnostics: [String] = []
+    private(set) var diagnostics = DiagnosticBag()
     private var current: Character {
         peek(0)
     }
@@ -34,8 +34,11 @@ class Lexer {
         if position >= text.count {
             return SyntaxToken(kind: .endOfFileToken, position: position, text: "\0", value: nil)
         }
+        
+        let start = position
+        
         if current.isNumber {
-            let start = position
+            
             while current.isNumber {
                 next()
             }
@@ -43,14 +46,14 @@ class Lexer {
             let substring = text.substring(start, offset: length)
             let value = Int(substring)
             if value == nil {
-                diagnostics.append("The number \(substring) cannot be represented by a Int")
+                diagnostics.reportInvalidNumber(TextSpan(start: start, length: length), text, Int.self)
             }
             
             return SyntaxToken(kind: .numberToken, position: start, text: substring, value: value)
         }
         
         if current.isWhitespace {
-            let start = position
+            
             while current.isWhitespace {
                 next()
             }
@@ -61,7 +64,6 @@ class Lexer {
         }
         
         if current.isLetter {
-            let start = position
             while current.isLetter {
                 next()
             }
@@ -94,31 +96,31 @@ class Lexer {
             if lookahead == "&" {
                 next()
                 next()
-                return SyntaxToken(kind: .ampersantAmpersantToken, position: position, text: "&&", value: nil)
+                return SyntaxToken(kind: .ampersantAmpersantToken, position: start, text: "&&", value: nil)
             }
         case "|":
             if lookahead == "|" {
                 next()
                 next()
-                return SyntaxToken(kind: .pipePipeToken, position: position, text: "||", value: nil)
+                return SyntaxToken(kind: .pipePipeToken, position: start, text: "||", value: nil)
             }
         case "=":
             if lookahead == "=" {
                 next()
                 next()
-                return SyntaxToken(kind: .equalsEqualsToken, position: position, text: "==", value: nil)
+                return SyntaxToken(kind: .equalsEqualsToken, position: start, text: "==", value: nil)
             }
         case "!":
             if lookahead == "=" {
                 next()
                 next()
-                return SyntaxToken(kind: .bangEqualsToken, position: position, text: "!=", value: nil)
+                return SyntaxToken(kind: .bangEqualsToken, position: start, text: "!=", value: nil)
             } else {
                 next()
-                return SyntaxToken(kind: .bangToken, position: position, text: "!", value: nil)
+                return SyntaxToken(kind: .bangToken, position: start, text: "!", value: nil)
             }
         default:
-            diagnostics.append("ERROR: bad character input: \(current)")
+            diagnostics.reportBadCharacter(position, current)
         }
         
         next()

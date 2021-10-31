@@ -34,6 +34,11 @@
 		7DEAD2AB272A876E008F0259 /* SyntaxFacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */; };
 		7DEAD2B1272C0496008F0259 /* BoundBinaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2B0272C0496008F0259 /* BoundBinaryOperator.swift */; };
 		7DEAD2B3272C04C4008F0259 /* BoundUnaryOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2B2272C04C4008F0259 /* BoundUnaryOperator.swift */; };
+		7DEAD2B5272EE0F7008F0259 /* Compilation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2B4272EE0F7008F0259 /* Compilation.swift */; };
+		7DEAD2B7272EE117008F0259 /* EvaluationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2B6272EE117008F0259 /* EvaluationResult.swift */; };
+		7DEAD2B9272EE47D008F0259 /* TextSpan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2B8272EE47D008F0259 /* TextSpan.swift */; };
+		7DEAD2BB272EE49D008F0259 /* Diagnostic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2BA272EE49D008F0259 /* Diagnostic.swift */; };
+		7DEAD2BD272EEB57008F0259 /* DiagnosticBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD2BC272EEB57008F0259 /* DiagnosticBag.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +82,11 @@
 		7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxFacts.swift; sourceTree = "<group>"; };
 		7DEAD2B0272C0496008F0259 /* BoundBinaryOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBinaryOperator.swift; sourceTree = "<group>"; };
 		7DEAD2B2272C04C4008F0259 /* BoundUnaryOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundUnaryOperator.swift; sourceTree = "<group>"; };
+		7DEAD2B4272EE0F7008F0259 /* Compilation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Compilation.swift; sourceTree = "<group>"; };
+		7DEAD2B6272EE117008F0259 /* EvaluationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResult.swift; sourceTree = "<group>"; };
+		7DEAD2B8272EE47D008F0259 /* TextSpan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextSpan.swift; sourceTree = "<group>"; };
+		7DEAD2BA272EE49D008F0259 /* Diagnostic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnostic.swift; sourceTree = "<group>"; };
+		7DEAD2BC272EEB57008F0259 /* DiagnosticBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticBag.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +133,11 @@
 				7DEAD29727297550008F0259 /* Binding */,
 				7DEAD29627297488008F0259 /* Syntax */,
 				7DDEE4BF27218EF800892378 /* Evaluator.swift */,
+				7DEAD2B4272EE0F7008F0259 /* Compilation.swift */,
+				7DEAD2B6272EE117008F0259 /* EvaluationResult.swift */,
+				7DEAD2B8272EE47D008F0259 /* TextSpan.swift */,
+				7DEAD2BA272EE49D008F0259 /* Diagnostic.swift */,
+				7DEAD2BC272EEB57008F0259 /* DiagnosticBag.swift */,
 			);
 			path = CodeAnalysis;
 			sourceTree = "<group>";
@@ -241,6 +256,7 @@
 				7DEAD2B1272C0496008F0259 /* BoundBinaryOperator.swift in Sources */,
 				7DEAD295272827B1008F0259 /* UnaryExpressionSyntax.swift in Sources */,
 				7DDEE4BE27218EA700892378 /* String+Extension.swift in Sources */,
+				7DEAD2B5272EE0F7008F0259 /* Compilation.swift in Sources */,
 				7DEAD2A527298CA9008F0259 /* BoundLiteralExpression.swift in Sources */,
 				7DEAD2A327298C84008F0259 /* BoundUnaryExpression.swift in Sources */,
 				7DDEE4C82721905F00892378 /* SyntaxToken.swift in Sources */,
@@ -248,13 +264,17 @@
 				7DDEE4C427218FD500892378 /* SyntaxKind.swift in Sources */,
 				7DDEE4D02721918000892378 /* ExpressionSyntax.swift in Sources */,
 				7DDEE4B3271AD94E00892378 /* main.swift in Sources */,
+				7DEAD2BB272EE49D008F0259 /* Diagnostic.swift in Sources */,
 				7DEAD29927297570008F0259 /* Binder.swift in Sources */,
+				7DEAD2B9272EE47D008F0259 /* TextSpan.swift in Sources */,
 				7DDEE4CD2721914100892378 /* SyntaxNode.swift in Sources */,
 				7DEAD29F27298C07008F0259 /* BoundExpression.swift in Sources */,
 				7DEAD2A927298CE2008F0259 /* BoundBinaryExpression.swift in Sources */,
 				7DEAD2A727298CCB008F0259 /* BoundBinaryOperatorKind.swift in Sources */,
 				7DDEE4D62721921F00892378 /* ParenthesizedExpressionSyntax.swift in Sources */,
 				7DDEE4C62721901F00892378 /* Parser.swift in Sources */,
+				7DEAD2B7272EE117008F0259 /* EvaluationResult.swift in Sources */,
+				7DEAD2BD272EEB57008F0259 /* DiagnosticBag.swift in Sources */,
 				7DEAD2AB272A876E008F0259 /* SyntaxFacts.swift in Sources */,
 				7DDEE4D2272191C000892378 /* LiteralExpressionSyntax.swift in Sources */,
 			);
