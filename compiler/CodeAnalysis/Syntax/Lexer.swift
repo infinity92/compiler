@@ -109,6 +109,9 @@ class Lexer {
                 next()
                 next()
                 return SyntaxToken(kind: .equalsEqualsToken, position: start, text: "==", value: nil)
+            } else {
+                next()
+                return SyntaxToken(kind: .equalsToken, position: start, text: "=", value: nil)
             }
         case "!":
             if lookahead == "=" {

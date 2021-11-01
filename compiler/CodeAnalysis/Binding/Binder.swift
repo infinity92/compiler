@@ -19,10 +19,26 @@ class Binder {
         case .literalExpression:
             return bindLiteralExpression(syntax as! LiteralExpressionSyntax)
         case .parenthesizedExpression:
-            return try! bindExpression(syntax: (syntax as! ParenthesizedExpressionSyntax).expression)
+            return bindParenthesizedExpression(syntax: (syntax as! ParenthesizedExpressionSyntax))
+        case .nameExpression:
+            return bindNameExpression(syntax: (syntax as! NameExpressionSyntax))
+        case .assigmentExpression:
+            return bindAssigmentExpression(syntax: (syntax as! AssigmentExpressionSyntax))
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
+    }
+    
+    private func bindNameExpression(syntax: NameExpressionSyntax) -> BoundExpression {
+        
+    }
+    
+    private func bindAssigmentExpression(syntax: AssigmentExpressionSyntax) -> BoundExpression {
+        
+    }
+    
+    private func bindParenthesizedExpression(syntax: ParenthesizedExpressionSyntax) -> BoundExpression {
+        return try! bindExpression(syntax: syntax.expression)
     }
     
     private func bindBinaryExpression(_ syntax: BinaryExpressionSyntax) -> BoundExpression {
