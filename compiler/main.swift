@@ -8,6 +8,7 @@
 import Foundation
 
 var showTree = false
+var variables: [VariableSymbol: Any] = [:]
 
 while true {
     print(">", terminator: " ")
@@ -26,10 +27,9 @@ while true {
     }
     
     let syntaxTree = SyntaxTree.parse(input)
-    let binder = Binder()
-    let boudeExpression = try! binder.bindExpression(syntax: syntaxTree.root)
-    
-    let diagnostics = syntaxTree.diagnostics + binder.diagnostics
+    let compilation = Compilation(syntax: syntaxTree)
+    let result = compilation.evaluate()
+    let diagnostics = result.diagnostics
     
     if showTree {
         formattedPrint(syntaxTree.root)
@@ -37,12 +37,29 @@ while true {
     
     if !diagnostics.isEmpty {
         for diagnostic in diagnostics {
+            
             print(diagnostic)
+            
+            let prefix = input.substring(0, offset: diagnostic.span.start)
+            let error = input.substring(diagnostic.span.start, offset: diagnostic.span.length)
+            let suffix = input.substring(diagnostic.span.end, offset: input.count - diagnostic.span.end)
+            
+            print(prefix, terminator: "")
+            print(error, terminator: "")
+            print(suffix)
+            for index in 0...diagnostic.span.start {
+                if index == diagnostic.span.start {
+                    print("^", terminator: "")
+                } else {
+                    print("-", terminator: "")
+                }
+                
+            }
+            print("")
+            
         }
     } else {
-        let evaluator = Evaluator(root: boudeExpression)
-        let result = evaluator.evaluate()
-        print(result)
+        print(result.value ?? "")
     }
 }
 

@@ -25,12 +25,15 @@ enum SyntaxKind {
     case pipePipeToken
     case equalsEqualsToken
     case bangEqualsToken
+    case equalsToken
     
     // MARK: - Expressions
     case literalExpression
     case unaryExpression
     case binaryExpression
     case parenthesizedExpression
+    case nameExpression
+    case assigmentExpression
     
     // MARK: - Keyword
     case trueKeyword
