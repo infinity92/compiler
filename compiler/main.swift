@@ -8,6 +8,7 @@
 import Foundation
 
 var showTree = false
+var variables: [VariableSymbol: Any] = [:]
 
 while true {
     print(">", terminator: " ")
@@ -28,7 +29,6 @@ while true {
     let syntaxTree = SyntaxTree.parse(input)
     let compilation = Compilation(syntax: syntaxTree)
     let result = compilation.evaluate()
-    
     let diagnostics = result.diagnostics
     
     if showTree {

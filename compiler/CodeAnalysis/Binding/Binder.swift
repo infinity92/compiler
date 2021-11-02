@@ -9,6 +9,12 @@ import Foundation
 
 class Binder {
     private(set) var diagnostics = DiagnosticBag()
+    //private var variables: [VariableSymbol: Any]
+    
+//    init(_ variables: inout [VariableSymbol:Any]) {
+//        self.variables = variables
+//        variables["b"] = 3
+//    }
     
     func bindExpression(syntax: ExpressionSyntax) throws -> BoundExpression {
         switch syntax.kind {
@@ -23,18 +29,36 @@ class Binder {
         case .nameExpression:
             return bindNameExpression(syntax: (syntax as! NameExpressionSyntax))
         case .assigmentExpression:
-            return bindAssigmentExpression(syntax: (syntax as! AssigmentExpressionSyntax))
+            return try! bindAssignmentExpression(syntax: (syntax as! AssigmentExpressionSyntax))
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
     }
     
     private func bindNameExpression(syntax: NameExpressionSyntax) -> BoundExpression {
+        let name = syntax.identifierToken.text!
+        let variable = variables.keys.first { $0.name == name }
         
+        if variable == nil {
+            diagnostics.reportUndefinedName(syntax.identifierToken.span, name)
+            return BoundLiteralExpression(value: 0)
+        }
+        
+        return BoundVariableExpression(variable: variable!)
     }
     
-    private func bindAssigmentExpression(syntax: AssigmentExpressionSyntax) -> BoundExpression {
+    private func bindAssignmentExpression(syntax: AssigmentExpressionSyntax) throws -> BoundExpression {
+        let name = syntax.identifierToken.text!
+        let boundExpression = try! bindExpression(syntax: syntax.expression)
         
+        let existingVariable = variables.keys.first { $0.name == name }
+        if existingVariable != nil {
+            variables.removeValue(forKey: existingVariable!)
+        }
+        let variable = VariableSymbol(name: name, varType: boundExpression.expressionType)
+        variables[variable] = nil
+        
+        return BoundAssignmentExpression(variable: variable, expression: boundExpression)
     }
     
     private func bindParenthesizedExpression(syntax: ParenthesizedExpressionSyntax) -> BoundExpression {

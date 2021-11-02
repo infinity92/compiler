@@ -83,7 +83,7 @@ class Parser {
     }
     
     func parse() -> SyntaxTree {
-        let expression = parseBinaryExpression()
+        let expression = parseExpression()
         let endOfFileToken = matchToken(kind: .endOfFileToken)
         
         return SyntaxTree(root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
@@ -94,8 +94,7 @@ class Parser {
     }
     
     private func parseAssigmentExpression() -> ExpressionSyntax {
-        
-        if peek(0).kind == .identifierToken && peek(1).kind == .equalsEqualsToken {
+        if peek(0).kind == .identifierToken && peek(1).kind == .equalsToken {
             let identifierToken = nextToken()
             let operatorToken = nextToken()
             let right = parseAssigmentExpression()

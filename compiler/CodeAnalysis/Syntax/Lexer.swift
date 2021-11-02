@@ -12,10 +12,10 @@ class Lexer {
     private var position: Int = 0
     private(set) var diagnostics = DiagnosticBag()
     private var current: Character {
-        peek(0)
+        return peek(0)
     }
     private var lookahead: Character {
-        peek(1)
+        return peek(1)
     }
     
     init(text: String) {
@@ -27,7 +27,7 @@ class Lexer {
         if index >= text.count {
             return "\0"
         }
-        return text.char(at: position)
+        return text.char(at: index)
     }
     
     func lex() -> SyntaxToken {

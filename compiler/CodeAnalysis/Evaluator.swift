@@ -9,9 +9,11 @@ import Foundation
 
 class Evaluator {
     private let root: BoundExpression
+    //private var variables: [VariableSymbol: Any]
     
     init(root: BoundExpression) {
         self.root = root
+        //self.variables = variables
     }
     
     func evaluate() -> Any {
@@ -21,6 +23,16 @@ class Evaluator {
     private func evaluateExpression(_ node: BoundExpression) throws -> Any  {
         if let number = node as? BoundLiteralExpression {
             return number.value
+        }
+        
+        if let variable = node as? BoundVariableExpression {
+            return variables[variable.variable]!
+        }
+        
+        if let assign = node as? BoundAssignmentExpression {
+            let value = try! evaluateExpression(assign.expression)
+            variables[assign.variable] = value
+            return value
         }
         
         if let unary = node as? BoundUnaryExpression {

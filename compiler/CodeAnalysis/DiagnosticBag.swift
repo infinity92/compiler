@@ -55,6 +55,10 @@ struct DiagnosticBag: Sequence, IteratorProtocol {
         report(span: span, message: message)
     }
     
+    mutating func reportUndefinedName(_ span: TextSpan, _ name: String) {
+        report(span: span, message: "Variable \(name) doesn't exist")
+    }
+    
     static func + (lhs: DiagnosticBag, rhs: DiagnosticBag) -> DiagnosticBag  {
         //TODO: add init(array<Diagnostic>)
         var bag = DiagnosticBag()
