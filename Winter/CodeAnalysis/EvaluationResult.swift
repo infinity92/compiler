@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EvaluationResult {
-    let diagnostics: DiagnosticBag
-    let value: Any?
+public struct EvaluationResult {
+    public let diagnostics: DiagnosticBag
+    public let value: Any?
 }

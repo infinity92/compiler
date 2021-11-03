@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol ExpressionSyntax: SyntaxNode {
+public protocol ExpressionSyntax: SyntaxNode {
     
 }

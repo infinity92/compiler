@@ -6,15 +6,15 @@
 //
 
 import Foundation
-
-class Compilation {
-    init(syntax: SyntaxTree) {
+var variables: [VariableSymbol: Any] = [:]
+public class Compilation {
+    public init(syntax: SyntaxTree) {
         self.syntax = syntax
     }
     
     let syntax: SyntaxTree
     
-    func evaluate() -> EvaluationResult {
+    public func evaluate() -> EvaluationResult {
         let binder = Binder()
         let boundExpression = try! binder.bindExpression(syntax: syntax.root)
         let diagnostics = syntax.diagnostics + binder.diagnostics

@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct SyntaxTree {
-    let root: ExpressionSyntax
+public struct SyntaxTree {
+    public let root: ExpressionSyntax
     let endOfFileToken: SyntaxToken
     var diagnostics: DiagnosticBag
     
-    static func parse(_ text: String) -> SyntaxTree {
+    public static func parse(_ text: String) -> SyntaxTree {
         let parser = Parser(text: text)
         return parser.parse()
     }
     
-    static func parseTokens(_ text: String) -> [SyntaxToken] {
+    public static func parseTokens(_ text: String) -> [SyntaxToken] {
         let lexer = Lexer(text: text)
         var tokens: [SyntaxToken] = []
         while true {

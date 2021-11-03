@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum SyntaxKind {
+public enum SyntaxKind {
     // MARK: - Tokens
     case numberToken
     case pluseToken

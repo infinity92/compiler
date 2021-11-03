@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Diagnostic: CustomStringConvertible {
-    let span: TextSpan
+public struct Diagnostic: CustomStringConvertible {
+    public let span: TextSpan
     let message: String
     
     func toString() -> String {
         message
     }
-    var description: String {
+    public var description: String {
         message
     }
 }

@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct DiagnosticBag: Sequence, IteratorProtocol {
+public struct DiagnosticBag: Sequence, IteratorProtocol {
     private var diagnostics: [Diagnostic] = []
     private var index = 0
-    var isEmpty: Bool {
+    public var isEmpty: Bool {
         diagnostics.isEmpty
     }
     
@@ -19,7 +19,7 @@ struct DiagnosticBag: Sequence, IteratorProtocol {
         self.diagnostics.append(diagnostic)
     }
     
-    mutating func next() -> Diagnostic? {
+    public mutating func next() -> Diagnostic? {
         if diagnostics.count == 0 {
                 return nil
         } else {
