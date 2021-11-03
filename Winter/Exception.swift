@@ -7,14 +7,14 @@
 
 import Foundation
 
-struct Exception: Error {
-    let message: String
+public struct Exception: Error {
+    public let message: String
 
-    init(_ message: String) {
+    public init(_ message: String) {
         self.message = message
     }
 
-    var localizedDescription: String {
+    public var localizedDescription: String {
         return message
     }
 }

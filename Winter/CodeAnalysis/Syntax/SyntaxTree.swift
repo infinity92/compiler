@@ -16,4 +16,19 @@ struct SyntaxTree {
         let parser = Parser(text: text)
         return parser.parse()
     }
+    
+    static func parseTokens(_ text: String) -> [SyntaxToken] {
+        let lexer = Lexer(text: text)
+        var tokens: [SyntaxToken] = []
+        while true {
+            let token = lexer.lex()
+            if token.kind == .endOfFileToken {
+                break
+            }
+            
+            tokens.append(token)
+        }
+        
+        return tokens
+    }
 }

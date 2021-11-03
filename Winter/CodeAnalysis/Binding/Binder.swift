@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Winter
 
 class Binder {
     private(set) var diagnostics = DiagnosticBag()
