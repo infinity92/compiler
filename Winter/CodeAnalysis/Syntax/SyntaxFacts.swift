@@ -18,4 +18,39 @@ class SyntaxFacts {
             return .identifierToken
         }
     }
+    
+    static func getText(kind: SyntaxKind) -> String? {
+        switch kind {
+        case .pluseToken:
+            return "+"
+        case .minusToken:
+            return  "-"
+        case .starToken:
+            return  "*"
+        case .slashToken:
+            return  "/"
+        case .openParenthesisToken:
+            return  "("
+        case .closeParenthesisToken:
+            return  ")"
+        case .bangToken:
+            return  "!"
+        case .ampersantAmpersantToken:
+            return "&&"
+        case .pipePipeToken:
+            return "||"
+        case .equalsEqualsToken:
+            return "=="
+        case .bangEqualsToken:
+            return "!="
+        case .equalsToken:
+            return  "="
+        case .trueKeyword:
+            return "true"
+        case .falseKeyword:
+            return "false"
+        default:
+            return nil
+        }
+    }
 }
