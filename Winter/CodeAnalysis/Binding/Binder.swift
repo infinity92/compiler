@@ -56,7 +56,7 @@ class Binder {
             variables.removeValue(forKey: existingVariable!)
         }
         let variable = VariableSymbol(name: name, varType: boundExpression.expressionType)
-        variables[variable] = nil
+        variables[variable] = ""
         
         return BoundAssignmentExpression(variable: variable, expression: boundExpression)
     }

@@ -53,7 +53,6 @@ class Lexer {
         }
         
         if current.isWhitespace {
-            
             while current.isWhitespace {
                 next()
             }
@@ -70,6 +69,7 @@ class Lexer {
             let length = position - start
             let substring = text.substring(start, offset: length)
             let kind = SyntaxFacts.getKeywordKind(text: substring)
+            
             return SyntaxToken(kind: kind, position: start, text: substring, value: nil)
         }
         

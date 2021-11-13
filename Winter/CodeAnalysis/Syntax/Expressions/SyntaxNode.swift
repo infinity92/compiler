@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SyntaxNode {
+public protocol SyntaxNode {
     var kind: SyntaxKind { get }
     func getChildren() -> Array<SyntaxNode>
 }

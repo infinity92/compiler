@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import Winter
 
 var showTree = false
-var variables: [VariableSymbol: Any] = [:]
+//var variables: [VariableSymbol: Any] = [:]
 
 while true {
     print(">", terminator: " ")

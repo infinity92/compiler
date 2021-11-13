@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct TextSpan {
-    let start: Int
-    let length: Int
-    var end: Int {
+public struct TextSpan {
+    public let start: Int
+    public let length: Int
+    public var end: Int {
         start + length
     }
 }

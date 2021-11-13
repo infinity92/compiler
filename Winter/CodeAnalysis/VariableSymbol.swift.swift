@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct VariableSymbol {
+public struct VariableSymbol {
     let name: String
     let varType: Any
 }
 
 extension VariableSymbol: Hashable {
-    static func == (lhs: VariableSymbol, rhs: VariableSymbol) -> Bool {
+    public static func == (lhs: VariableSymbol, rhs: VariableSymbol) -> Bool {
         lhs.name == rhs.name
     }
     
-    func hash(into hasher: inout Hasher) {
+    public func hash(into hasher: inout Hasher) {
         hasher.combine(name)
     }
 }

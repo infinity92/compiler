@@ -108,7 +108,7 @@ class Parser {
         switch current.kind {
         case .openParenthesisToken:
             let left = nextToken()
-            let expression = parseBinaryExpression()
+            let expression = parseExpression()
             let right = matchToken(kind: .closeParenthesisToken)
             
             return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
