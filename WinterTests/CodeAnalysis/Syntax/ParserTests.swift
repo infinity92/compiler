@@ -46,11 +46,55 @@ class ParserTests: XCTestCase {
         }
     }
     
+    func testUnaryExpressionHonorsPrecedences() {
+        ParserTests.getUnaryOperatorPairsData().forEach { (unaryKind, binaryKind) in
+            let unaryPrecedence = unaryKind.getUnaryOperatorPrecedence()
+            let binaryPrecedence = binaryKind.getBinaryOperatorPrecedence()
+            let unaryText = SyntaxFacts.getText(kind: unaryKind)
+            let binaryText = SyntaxFacts.getText(kind: binaryKind)
+            let text = "\(unaryText ?? "") a \(binaryText ?? "") b"
+            let expression = SyntaxTree.parse(text).root
+            
+            if unaryPrecedence >= binaryPrecedence {
+                var e = AssertingEnumerator(expression)
+                e.assertNode(.binaryExpression)
+                e.assertNode(.unaryExpression)
+                e.assertToken(unaryKind, unaryText!)
+                e.assertNode(.nameExpression)
+                e.assertToken(.identifierToken, "a")
+                e.assertToken(binaryKind, binaryText!)
+                e.assertNode(.nameExpression)
+                e.assertToken(.identifierToken, "b")
+            } else {
+                var e = AssertingEnumerator(expression)
+                e.assertNode(.unaryExpression)
+                e.assertToken(unaryKind, unaryText!)
+                e.assertNode(.binaryExpression)
+                e.assertNode(.nameExpression)
+                e.assertToken(.identifierToken, "a")
+                e.assertToken(binaryKind, binaryText!)
+                e.assertNode(.nameExpression)
+                e.assertToken(.identifierToken, "b")
+            }
+        }
+    }
+    
     static func getBinaryOperatorPairsData() -> [(SyntaxKind, SyntaxKind)] {
         var data: [(SyntaxKind, SyntaxKind)] = []
         SyntaxFacts.getBinaryOperatorKinds().forEach {operator1 in
             SyntaxFacts.getBinaryOperatorKinds().forEach {operator2 in
                 data.append((operator1, operator2))
+            }
+        }
+        
+        return data
+    }
+    
+    static func getUnaryOperatorPairsData() -> [(SyntaxKind, SyntaxKind)] {
+        var data: [(SyntaxKind, SyntaxKind)] = []
+        SyntaxFacts.getUnaryOperatorKinds().forEach {unary in
+            SyntaxFacts.getBinaryOperatorKinds().forEach {binary in
+                data.append((unary, binary))
             }
         }
         
