@@ -9,7 +9,6 @@ import XCTest
 @testable import Winter
 
 class SyntaxFactTests: XCTestCase {
-
     func testGetTextRoundTrips() {
         for kind in SyntaxKind.allCases {
             guard let text = SyntaxFacts.getText(kind: kind) else {

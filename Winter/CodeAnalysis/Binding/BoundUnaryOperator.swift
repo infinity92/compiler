@@ -27,8 +27,8 @@ struct BoundUnaryOperator {
     private static let operators: [BoundUnaryOperator] = [
         BoundUnaryOperator(syntaxKind: .bangToken, kind: .logicalNagarion, operandType: Bool.self),
         
-        BoundUnaryOperator(syntaxKind: .pluseToken, kind: .logicalNagarion, operandType: Int.self),
-        BoundUnaryOperator(syntaxKind: .minusToken, kind: .logicalNagarion, operandType: Int.self),
+        BoundUnaryOperator(syntaxKind: .pluseToken, kind: .identity, operandType: Int.self),
+        BoundUnaryOperator(syntaxKind: .minusToken, kind: .negation, operandType: Int.self),
     ]
     
     static func bind(syntaxKind: SyntaxKind, operandType: Any) -> BoundUnaryOperator? {

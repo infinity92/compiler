@@ -6,7 +6,9 @@
 //
 
 import Foundation
-var variables: [VariableSymbol: Any] = [:]
+
+public var variables: [VariableSymbol: Any] = [:]
+
 public class Compilation {
     public init(syntax: SyntaxTree) {
         self.syntax = syntax
