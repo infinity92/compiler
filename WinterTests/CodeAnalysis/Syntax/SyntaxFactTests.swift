@@ -22,6 +22,4 @@ class SyntaxFactTests: XCTestCase {
             XCTAssertEqual(text, token.text)
         }
     }
-    
-    
 }

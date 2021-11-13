@@ -53,4 +53,26 @@ class SyntaxFacts {
             return nil
         }
     }
+    
+    public static func getBinaryOperatorKinds() -> [SyntaxKind] {
+        var binaryOperators: [SyntaxKind] = []
+        for kind in SyntaxKind.allCases {
+            if kind.getBinaryOperatorPrecedence() > 0 {
+                binaryOperators.append(kind)
+            }
+        }
+        
+        return binaryOperators
+    }
+    
+    public static func getUnaryOperatorKinds() -> [SyntaxKind] {
+        var unaryOperators: [SyntaxKind] = []
+        for kind in SyntaxKind.allCases {
+            if kind.getUnaryOperatorPrecedence() > 0 {
+                unaryOperators.append(kind)
+            }
+        }
+        
+        return unaryOperators
+    }
 }
