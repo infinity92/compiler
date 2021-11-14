@@ -33,7 +33,7 @@ while true {
     let diagnostics = result.diagnostics
     
     if showTree {
-        formattedPrint(syntaxTree.root)
+        syntaxTree.root.writeTo()
     }
     
     if !diagnostics.isEmpty {
@@ -61,25 +61,6 @@ while true {
         }
     } else {
         print(result.value ?? "")
-    }
-}
-
-func formattedPrint(_ node: SyntaxNode, indent: String = "", isLast: Bool = true) {
-    var indent = indent
-    let marker = isLast ? "└──" : "├──";
-    print(indent, terminator: "")
-    print(marker, terminator: "")
-    print(node.kind, terminator: "")
-    if let node = node as? SyntaxToken, node.value != nil {
-        print(" \(node.value ?? "")", terminator: "")
-    }
-    print("")
-    indent += isLast ? "   " : "│   "
-    
-    let lastChildNode = node.getChildren().last
-    
-    for child in node.getChildren() {
-        formattedPrint(child, indent: indent, isLast: (child.kind == lastChildNode?.kind))
     }
 }
 
