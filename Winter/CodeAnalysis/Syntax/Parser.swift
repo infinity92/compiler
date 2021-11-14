@@ -104,25 +104,43 @@ class Parser {
         return parseBinaryExpression()
     }
     
+    private func parseNameExpression() -> ExpressionSyntax {
+        let identifierToken = matchToken(kind: .identifierToken)
+        return NameExpressionSyntax(identifierToken: identifierToken)
+    }
+    
+    private func parseBooleanExpression() -> ExpressionSyntax {
+        let isTrue = current.kind == .trueKeyword
+        let keywordToken = isTrue ? matchToken(kind: .trueKeyword) : matchToken(kind: .falseKeyword)
+        
+        return LiteralExpressionSyntax(literalToken: keywordToken, value: isTrue)
+    }
+    
+    private func parseParenthesizedExpression() -> ExpressionSyntax {
+        let left = matchToken(kind: .openParenthesisToken)
+        let expression = parseExpression()
+        let right = matchToken(kind: .closeParenthesisToken)
+        
+        return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
+    }
+    
+    fileprivate func parseNumberLiteral() -> ExpressionSyntax {
+        let numberToken = matchToken(kind: .numberToken)
+        return LiteralExpressionSyntax(literalToken: numberToken)
+    }
+    
     private func parsePrimaryExpression() -> ExpressionSyntax {
         switch current.kind {
         case .openParenthesisToken:
-            let left = nextToken()
-            let expression = parseExpression()
-            let right = matchToken(kind: .closeParenthesisToken)
-            
-            return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
+            return parseParenthesizedExpression()
         case .falseKeyword, .trueKeyword:
-            let keywordToken = nextToken()
-            let value = (keywordToken.kind == .trueKeyword)
-            
-            return LiteralExpressionSyntax(literalToken: keywordToken, value: value)
+            return parseBooleanExpression()
+        case .numberToken:
+            return parseNumberLiteral()
         case .identifierToken:
-            let identifierToken = nextToken()
-            return NameExpressionSyntax(identifierToken: identifierToken)
+            return parseNameExpression()
         default:
-            let numberToken = matchToken(kind: .numberToken)
-            return LiteralExpressionSyntax(literalToken: numberToken)
+            return parseNameExpression()
         }
     }
 }
