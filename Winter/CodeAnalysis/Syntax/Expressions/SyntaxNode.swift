@@ -9,6 +9,7 @@ import Foundation
 
 public protocol SyntaxNode {
     var kind: SyntaxKind { get }
+    var span: TextSpan { get }
     func getChildren() -> Array<SyntaxNode>
 }
 
@@ -25,5 +26,11 @@ extension SyntaxNode {
         }
         
         return result
+    }
+    
+    public var span: TextSpan {
+        let first = getChildren().first!.span
+        let last = getChildren().last!.span
+        return TextSpan.fromBounds(first.start, last.end)
     }
 }

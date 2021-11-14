@@ -13,4 +13,10 @@ public struct TextSpan {
     public var end: Int {
         start + length
     }
+    
+    public static func fromBounds(_ start: Int, _ end: Int) -> TextSpan {
+        let length = end - start
+        
+        return TextSpan(start: start, length: length)
+    }
 }
