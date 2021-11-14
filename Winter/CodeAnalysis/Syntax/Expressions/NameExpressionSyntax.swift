@@ -12,7 +12,4 @@ struct NameExpressionSyntax: ExpressionSyntax {
     var kind: SyntaxKind {
         .nameExpression
     }
-    func getChildren() -> Array<SyntaxNode> {
-        return [identifierToken]
-    }
 }

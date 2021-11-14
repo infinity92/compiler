@@ -24,9 +24,4 @@ struct LiteralExpressionSyntax: ExpressionSyntax {
         .literalExpression
     }
     let value: Any?
-    
-    func getChildren() -> Array<SyntaxNode> {
-        return [literalToken]
-    }
-    
 }

@@ -15,8 +15,4 @@ public struct SyntaxToken: SyntaxNode {
     var span: TextSpan {
         TextSpan(start: position, length: text?.count ?? 0)
     }
-    
-    public func getChildren() -> Array<SyntaxNode> {
-        return []
-    }
 }
