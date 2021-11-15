@@ -27,6 +27,9 @@ public enum SyntaxKind: CaseIterable {
     case bangEqualsToken
     case equalsToken
     
+    // MARK: - Nodes
+    case compilationUnit
+    
     // MARK: - Expressions
     case literalExpression
     case unaryExpression

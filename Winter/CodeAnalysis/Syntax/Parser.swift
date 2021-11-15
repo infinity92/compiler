@@ -84,11 +84,11 @@ class Parser {
         return left
     }
     
-    func parse() -> SyntaxTree {
+    func parseCompilationUnit() -> CompilationUnitSyntax {
         let expression = parseExpression()
         let endOfFileToken = matchToken(kind: .endOfFileToken)
         
-        return SyntaxTree(text: text, root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
+        return CompilationUnitSyntax(expression: expression, endOfFileToken: endOfFileToken)
     }
     
     private func parseExpression() -> ExpressionSyntax {

@@ -18,7 +18,7 @@ public class Compilation {
     
     public func evaluate() -> EvaluationResult {
         let binder = Binder()
-        let boundExpression = try! binder.bindExpression(syntax: syntax.root)
+        let boundExpression = try! binder.bindExpression(syntax: syntax.root.expression)
         let diagnostics = syntax.diagnostics + binder.diagnostics
         if !diagnostics.isEmpty {
             return EvaluationResult(diagnostics: diagnostics, value: nil)
