@@ -63,7 +63,7 @@ public struct SourceText {
                 lineStart = position
             }
             
-            if position > lineStart {
+            if position >= lineStart {
                 SourceText.addLine(&result, sourceText, position, lineStart, 0)
             }
             
