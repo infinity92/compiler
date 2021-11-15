@@ -15,8 +15,9 @@ class Parser {
         peek(0)
     }
     private(set) var diagnostics = DiagnosticBag()
+    private let text: SourceText
     
-    init(text: String) {
+    init(text: SourceText) {
         var tokens: [SyntaxToken] = []
         let lexer = Lexer(text: text)
         var token: SyntaxToken
@@ -30,6 +31,7 @@ class Parser {
         
         self.tokens = tokens
         diagnostics.addRange(lexer.diagnostics)
+        self.text = text
     }
     
     private func peek(_ offset: Int) -> SyntaxToken {
@@ -86,7 +88,7 @@ class Parser {
         let expression = parseExpression()
         let endOfFileToken = matchToken(kind: .endOfFileToken)
         
-        return SyntaxTree(root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
+        return SyntaxTree(text: text, root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
     }
     
     private func parseExpression() -> ExpressionSyntax {

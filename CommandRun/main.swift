@@ -37,7 +37,13 @@ while true {
     }
     
     if !diagnostics.isEmpty {
+        let text = syntaxTree.text
         for diagnostic in diagnostics {
+            let lineIndex = text.getLineIndex(by: diagnostic.span.start)
+            let lineNumber = lineIndex + 1
+            let character = diagnostic.span.start - text.lines[lineIndex].start + 1
+            
+            print("(\(lineNumber), \(character)): ", terminator: "")
             
             print(diagnostic)
             
@@ -45,7 +51,10 @@ while true {
             let error = input.substring(diagnostic.span.start, offset: diagnostic.span.length)
             let suffix = input.substring(diagnostic.span.end, offset: input.count - diagnostic.span.end)
             
+            
             print(prefix, terminator: "")
+            
+            
             print(error, terminator: "")
             print(suffix)
             for index in 0...diagnostic.span.start {

@@ -8,7 +8,7 @@
 import Foundation
 
 class Lexer {
-    private let text: String
+    private let text: SourceText
     private var position: Int = 0
     
     private var start: Int = 0
@@ -23,7 +23,7 @@ class Lexer {
         return peek(1)
     }
     
-    init(text: String) {
+    init(text: SourceText) {
         self.text = text
     }
     
@@ -105,7 +105,7 @@ class Lexer {
         let length = position - start
         var text = SyntaxFacts.getText(kind: kind!)
         if text == nil {
-            text = self.text.substring(start, offset: length)
+            text = self.text.toString(start, offset: length)
         }
         
         return SyntaxToken(kind: kind!, position: start, text: text, value: value)
@@ -116,10 +116,10 @@ class Lexer {
             position += 1
         }
         let length = position - start
-        let substring = text.substring(start, offset: length)
+        let substring = text.toString(start, offset: length)
         value = Int(substring)
         if value == nil {
-            diagnostics.reportInvalidNumber(TextSpan(start: start, length: length), text, Int.self)
+            diagnostics.reportInvalidNumber(TextSpan(start: start, length: length), substring, Int.self)
         }
         
         kind = .numberToken
@@ -137,7 +137,7 @@ class Lexer {
             position += 1
         }
         let length = position - start
-        let substring = text.substring(start, offset: length)
+        let substring = text.toString(start, offset: length)
         kind = SyntaxFacts.getKeywordKind(text: substring)
     }
 }

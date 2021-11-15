@@ -53,6 +53,8 @@
 		7DEAD3C7273A95B3008F0259 /* ParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3C6273A95B3008F0259 /* ParserTests.swift */; };
 		7DEAD3C9273A97BB008F0259 /* SyntaxFactTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3C8273A97BB008F0259 /* SyntaxFactTests.swift */; };
 		7DEAD3CB273FE48D008F0259 /* EvalutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3CA273FE48D008F0259 /* EvalutorTests.swift */; };
+		7DEAD3CE2741833F008F0259 /* SourceText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3CD2741833F008F0259 /* SourceText.swift */; };
+		7DEAD3D027420DB5008F0259 /* TextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3CF27420DB5008F0259 /* TextLine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -142,6 +144,8 @@
 		7DEAD3C6273A95B3008F0259 /* ParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParserTests.swift; sourceTree = "<group>"; };
 		7DEAD3C8273A97BB008F0259 /* SyntaxFactTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntaxFactTests.swift; sourceTree = "<group>"; };
 		7DEAD3CA273FE48D008F0259 /* EvalutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvalutorTests.swift; sourceTree = "<group>"; };
+		7DEAD3CD2741833F008F0259 /* SourceText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceText.swift; sourceTree = "<group>"; };
+		7DEAD3CF27420DB5008F0259 /* TextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,12 +207,12 @@
 		7DDEE4B927218D2800892378 /* CodeAnalysis */ = {
 			isa = PBXGroup;
 			children = (
+				7DEAD3CC274182AF008F0259 /* Text */,
 				7DEAD29727297550008F0259 /* Binding */,
 				7DEAD29627297488008F0259 /* Syntax */,
 				7DDEE4BF27218EF800892378 /* Evaluator.swift */,
 				7DEAD2B4272EE0F7008F0259 /* Compilation.swift */,
 				7DEAD2B6272EE117008F0259 /* EvaluationResult.swift */,
-				7DEAD2B8272EE47D008F0259 /* TextSpan.swift */,
 				7DEAD2BA272EE49D008F0259 /* Diagnostic.swift */,
 				7DEAD2BC272EEB57008F0259 /* DiagnosticBag.swift */,
 				7DEAD2C627316774008F0259 /* VariableSymbol.swift.swift */,
@@ -309,6 +313,16 @@
 				7DEAD39A2732A426008F0259 /* LexerTests.swift */,
 			);
 			path = Syntax;
+			sourceTree = "<group>";
+		};
+		7DEAD3CC274182AF008F0259 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				7DEAD2B8272EE47D008F0259 /* TextSpan.swift */,
+				7DEAD3CD2741833F008F0259 /* SourceText.swift */,
+				7DEAD3CF27420DB5008F0259 /* TextLine.swift */,
+			);
+			path = Text;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -454,7 +468,9 @@
 				7DEAD3B52732A74E008F0259 /* UnaryExpressionSyntax.swift in Sources */,
 				7DEAD386273297D3008F0259 /* Winter.docc in Sources */,
 				7DEAD3A92732A742008F0259 /* DiagnosticBag.swift in Sources */,
+				7DEAD3CE2741833F008F0259 /* SourceText.swift in Sources */,
 				7DEAD3B72732A75A008F0259 /* BoundNode.swift in Sources */,
+				7DEAD3D027420DB5008F0259 /* TextLine.swift in Sources */,
 				7DEAD3AB2732A742008F0259 /* Diagnostic.swift in Sources */,
 				7DEAD3A72732A732008F0259 /* SyntaxTree.swift in Sources */,
 				7DEAD3BE2732A75A008F0259 /* BoundUnaryOperator.swift in Sources */,
