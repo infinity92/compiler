@@ -36,7 +36,7 @@ class Binder {
     }
     
     private func bindNameExpression(syntax: NameExpressionSyntax) -> BoundExpression {
-        let name = syntax.identifierToken.text!
+        let name = syntax.identifierToken.text ?? ""
         let variable = variables.keys.first { $0.name == name }
         
         if variable == nil {
