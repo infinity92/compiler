@@ -11,7 +11,7 @@ public struct SyntaxTree {
     public let text: SourceText
     public let root: ExpressionSyntax
     let endOfFileToken: SyntaxToken
-    var diagnostics: DiagnosticBag
+    public var diagnostics: DiagnosticBag
     
     public static func parse(_ text: String) -> SyntaxTree {
         let sourceText = SourceText.from(text: text)

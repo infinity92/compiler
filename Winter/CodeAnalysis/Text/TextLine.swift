@@ -18,7 +18,7 @@ public struct TextLine {
     var spanIncludingLineBreak: TextSpan {
         TextSpan(start: start, length: lengthIncludingLineBreak)
     }
-    var end: Int { start + length }
+    public var end: Int { start + length }
     
     public func toString () -> String {
         return text.toString(span)
