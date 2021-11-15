@@ -14,7 +14,5 @@ struct AssigmentExpressionSyntax: ExpressionSyntax {
     var kind: SyntaxKind {
         .assigmentExpression
     }
-    func getChildren() -> Array<SyntaxNode> {
-        return [identifierToken, equalsToken, expression]
-    }
+
 }

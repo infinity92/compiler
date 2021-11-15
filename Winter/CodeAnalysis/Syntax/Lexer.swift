@@ -8,9 +8,14 @@
 import Foundation
 
 class Lexer {
-    private let text: String
+    private let text: SourceText
     private var position: Int = 0
+    
+    private var start: Int = 0
     private(set) var diagnostics = DiagnosticBag()
+    private var kind: SyntaxKind?
+    private var value: Any?
+    
     private var current: Character {
         return peek(0)
     }
@@ -18,7 +23,7 @@ class Lexer {
         return peek(1)
     }
     
-    init(text: String) {
+    init(text: SourceText) {
         self.text = text
     }
     
@@ -31,106 +36,108 @@ class Lexer {
     }
     
     func lex() -> SyntaxToken {
-        if position >= text.count {
-            return SyntaxToken(kind: .endOfFileToken, position: position, text: "\0", value: nil)
-        }
-        
-        let start = position
-        
-        if current.isNumber {
-            
-            while current.isNumber {
-                next()
-            }
-            let length = position - start
-            let substring = text.substring(start, offset: length)
-            let value = Int(substring)
-            if value == nil {
-                diagnostics.reportInvalidNumber(TextSpan(start: start, length: length), text, Int.self)
-            }
-            
-            return SyntaxToken(kind: .numberToken, position: start, text: substring, value: value)
-        }
-        
-        if current.isWhitespace {
-            while current.isWhitespace {
-                next()
-            }
-            let length = position - start
-            let substring = text.substring(start, offset: length)
-            
-            return SyntaxToken(kind: .whitespaceToken, position: start, text: substring, value: nil)
-        }
-        
-        if current.isLetter {
-            while current.isLetter {
-                next()
-            }
-            let length = position - start
-            let substring = text.substring(start, offset: length)
-            let kind = SyntaxFacts.getKeywordKind(text: substring)
-            
-            return SyntaxToken(kind: kind, position: start, text: substring, value: nil)
-        }
+        start = position
+        kind = .badToken
+        value = nil
         
         switch current {
+        case "\0":
+            kind = .endOfFileToken
         case "+":
-            next()
-            return SyntaxToken(kind: .pluseToken, position: position, text: "+", value: nil)
+            kind = .pluseToken
+            position += 1
         case "-":
-            next()
-            return SyntaxToken(kind: .minusToken, position: position, text: "-", value: nil)
+            kind = .minusToken
+            position += 1
         case "*":
-            next()
-            return SyntaxToken(kind: .starToken, position: position, text: "*", value: nil)
+            kind = .starToken
+            position += 1
         case "/":
-            next()
-            return SyntaxToken(kind: .slashToken, position: position, text: "/", value: nil)
+            kind = .slashToken
+            position += 1
         case "(":
-            next()
-            return SyntaxToken(kind: .openParenthesisToken, position: position, text: "(", value: nil)
+            kind = .openParenthesisToken
+            position += 1
         case ")":
-            next()
-            return SyntaxToken(kind: .closeParenthesisToken, position: position, text: ")", value: nil)
+            kind = .closeParenthesisToken
+            position += 1
         case "&":
             if lookahead == "&" {
-                next()
-                next()
-                return SyntaxToken(kind: .ampersantAmpersantToken, position: start, text: "&&", value: nil)
+                kind = .ampersantAmpersantToken
+                position += 2
             }
         case "|":
             if lookahead == "|" {
-                next()
-                next()
-                return SyntaxToken(kind: .pipePipeToken, position: start, text: "||", value: nil)
+                kind = .pipePipeToken
+                position += 2
             }
         case "=":
-            if lookahead == "=" {
-                next()
-                next()
-                return SyntaxToken(kind: .equalsEqualsToken, position: start, text: "==", value: nil)
+            position += 1
+            if current != "=" {
+                kind = .equalsToken
             } else {
-                next()
-                return SyntaxToken(kind: .equalsToken, position: start, text: "=", value: nil)
+                position += 1
+                kind = .equalsEqualsToken
             }
         case "!":
-            if lookahead == "=" {
-                next()
-                next()
-                return SyntaxToken(kind: .bangEqualsToken, position: start, text: "!=", value: nil)
+            position += 1
+            if current != "=" {
+                kind = .bangToken
             } else {
-                next()
-                return SyntaxToken(kind: .bangToken, position: start, text: "!", value: nil)
+                kind = .bangEqualsToken
+                position += 1
             }
+        case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9":
+            readNumberToken()
+        case " ", "\t", "\n", "\r":
+            readWhiteSpace()
         default:
-            diagnostics.reportBadCharacter(position, current)
+            if current.isLetter {
+                readIdentifierOrKeyword()
+            } else if current.isWhitespace {
+                readWhiteSpace()
+            } else {
+                diagnostics.reportBadCharacter(position, current)
+                position += 1
+            }
         }
         
-        next()
-        return SyntaxToken(kind: .badToken, position: position, text: text.substring(position-1,offset: 1), value: nil)
+        let length = position - start
+        var text = SyntaxFacts.getText(kind: kind!)
+        if text == nil {
+            text = self.text.toString(start, offset: length)
+        }
+        
+        return SyntaxToken(kind: kind!, position: start, text: text, value: value)
     }
     
-    private func next() {
-        position += 1
+    private func readNumberToken() {
+        while current.isNumber {
+            position += 1
+        }
+        let length = position - start
+        let substring = text.toString(start, offset: length)
+        value = Int(substring)
+        if value == nil {
+            diagnostics.reportInvalidNumber(TextSpan(start: start, length: length), substring, Int.self)
+        }
+        
+        kind = .numberToken
+    }
+    
+    private func readWhiteSpace() {
+        while current.isWhitespace {
+            position += 1
+        }
+        kind = .whitespaceToken
+    }
+    
+    private func readIdentifierOrKeyword() {
+        while current.isLetter {
+            position += 1
+        }
+        let length = position - start
+        let substring = text.toString(start, offset: length)
+        kind = SyntaxFacts.getKeywordKind(text: substring)
     }
 }

@@ -14,25 +14,15 @@ class LexerTests: XCTestCase {
     var dataSeparators : [(SyntaxKind, String)] = []
     
     override func setUpWithError() throws {
-        dataTokens = [
-            (SyntaxKind.pluseToken, "+"),
-            (SyntaxKind.minusToken, "-"),
-            (SyntaxKind.starToken, "*"),
-            (SyntaxKind.slashToken, "/"),
-            (SyntaxKind.openParenthesisToken, "("),
-            (SyntaxKind.closeParenthesisToken, ")"),
-            (SyntaxKind.bangToken, "!"),
-            (SyntaxKind.ampersantAmpersantToken, "&&"),
-            (SyntaxKind.pipePipeToken, "||"),
-            (SyntaxKind.equalsEqualsToken, "=="),
-            (SyntaxKind.bangEqualsToken, "!="),
-            (SyntaxKind.equalsToken, "="),
-            (SyntaxKind.trueKeyword, "true"),
-            (SyntaxKind.falseKeyword, "false"),
-            
+        let fixedTokens = SyntaxKind.allCases.filter { kind in
+            SyntaxFacts.getText(kind: kind) != nil
+        }.map { kind in
+                return (kind, SyntaxFacts.getText(kind: kind)!)
+            }
+        
+        dataTokens = fixedTokens + [
             (SyntaxKind.identifierToken, "a"),
             (SyntaxKind.identifierToken, "abc"),
-            
             (SyntaxKind.numberToken, "1"),
             (SyntaxKind.numberToken, "123"),
         ]
@@ -44,14 +34,22 @@ class LexerTests: XCTestCase {
             (SyntaxKind.whitespaceToken, "\n"),
             (SyntaxKind.whitespaceToken, "\r\n"),
         ]
-        
-        
-        
     }
 
     override func tearDownWithError() throws {
         dataTokens = []
         dataSeparators = []
+    }
+    
+    func testLexesAllTokens() throws {
+        let tokenKinds = SyntaxKind.allCases.filter { kind in
+            String(describing: kind).hasSuffix("Keyword") || String(describing: kind).hasSuffix("Token")
+        }
+        let testedTokenKinds = (dataTokens + dataSeparators).map { $0.0 }
+        var untestedTokenKinds = tokenKinds.filter { !testedTokenKinds.contains($0) }
+        untestedTokenKinds = untestedTokenKinds.filter { $0 != .badToken && $0 != .endOfFileToken}
+        
+        XCTAssert(untestedTokenKinds.isEmpty)
     }
 
     func testLexesToken() throws {

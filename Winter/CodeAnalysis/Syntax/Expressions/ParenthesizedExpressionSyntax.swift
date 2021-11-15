@@ -14,12 +14,4 @@ struct ParenthesizedExpressionSyntax: ExpressionSyntax {
     var kind: SyntaxKind {
         .parenthesizedExpression
     }
-    
-    func getChildren() -> Array<SyntaxNode> {
-        return [
-            openParenthesisToken,
-            expression,
-            closeParenthesisToken
-        ]
-    }
 }

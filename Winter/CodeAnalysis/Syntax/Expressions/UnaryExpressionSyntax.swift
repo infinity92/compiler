@@ -13,11 +13,4 @@ struct UnaryExpressionSyntax: ExpressionSyntax {
     var kind: SyntaxKind {
         .unaryExpression
     }
-    
-    func getChildren() -> Array<SyntaxNode> {
-        return [
-            operatorToken,
-            operand
-        ]
-    }
 }

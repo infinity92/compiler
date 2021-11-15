@@ -14,12 +14,4 @@ struct BinaryExpressionSyntax: ExpressionSyntax {
     var kind: SyntaxKind {
         .binaryExpression
     }
-    
-    func getChildren() -> Array<SyntaxNode> {
-        return [
-            left,
-            operatorToken,
-            right
-        ]
-    }
 }

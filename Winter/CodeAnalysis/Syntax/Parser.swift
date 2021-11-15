@@ -15,8 +15,9 @@ class Parser {
         peek(0)
     }
     private(set) var diagnostics = DiagnosticBag()
+    private let text: SourceText
     
-    init(text: String) {
+    init(text: SourceText) {
         var tokens: [SyntaxToken] = []
         let lexer = Lexer(text: text)
         var token: SyntaxToken
@@ -30,6 +31,7 @@ class Parser {
         
         self.tokens = tokens
         diagnostics.addRange(lexer.diagnostics)
+        self.text = text
     }
     
     private func peek(_ offset: Int) -> SyntaxToken {
@@ -86,7 +88,7 @@ class Parser {
         let expression = parseExpression()
         let endOfFileToken = matchToken(kind: .endOfFileToken)
         
-        return SyntaxTree(root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
+        return SyntaxTree(text: text, root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
     }
     
     private func parseExpression() -> ExpressionSyntax {
@@ -104,25 +106,43 @@ class Parser {
         return parseBinaryExpression()
     }
     
+    private func parseNameExpression() -> ExpressionSyntax {
+        let identifierToken = matchToken(kind: .identifierToken)
+        return NameExpressionSyntax(identifierToken: identifierToken)
+    }
+    
+    private func parseBooleanExpression() -> ExpressionSyntax {
+        let isTrue = current.kind == .trueKeyword
+        let keywordToken = isTrue ? matchToken(kind: .trueKeyword) : matchToken(kind: .falseKeyword)
+        
+        return LiteralExpressionSyntax(literalToken: keywordToken, value: isTrue)
+    }
+    
+    private func parseParenthesizedExpression() -> ExpressionSyntax {
+        let left = matchToken(kind: .openParenthesisToken)
+        let expression = parseExpression()
+        let right = matchToken(kind: .closeParenthesisToken)
+        
+        return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
+    }
+    
+    fileprivate func parseNumberLiteral() -> ExpressionSyntax {
+        let numberToken = matchToken(kind: .numberToken)
+        return LiteralExpressionSyntax(literalToken: numberToken)
+    }
+    
     private func parsePrimaryExpression() -> ExpressionSyntax {
         switch current.kind {
         case .openParenthesisToken:
-            let left = nextToken()
-            let expression = parseExpression()
-            let right = matchToken(kind: .closeParenthesisToken)
-            
-            return ParenthesizedExpressionSyntax(openParenthesisToken: left, expression: expression, closeParenthesisToken: right)
+            return parseParenthesizedExpression()
         case .falseKeyword, .trueKeyword:
-            let keywordToken = nextToken()
-            let value = (keywordToken.kind == .trueKeyword)
-            
-            return LiteralExpressionSyntax(literalToken: keywordToken, value: value)
+            return parseBooleanExpression()
+        case .numberToken:
+            return parseNumberLiteral()
         case .identifierToken:
-            let identifierToken = nextToken()
-            return NameExpressionSyntax(identifierToken: identifierToken)
+            return parseNameExpression()
         default:
-            let numberToken = matchToken(kind: .numberToken)
-            return LiteralExpressionSyntax(literalToken: numberToken)
+            return parseNameExpression()
         }
     }
 }
