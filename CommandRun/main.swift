@@ -9,9 +9,8 @@ import Foundation
 import Winter
 
 var showTree = false
-//var variables: [VariableSymbol: Any] = [:]
 var textBuilder = String()
-
+var previous: Compilation? = nil
 
 while true {
     if textBuilder.count == 0 {
@@ -31,6 +30,9 @@ while true {
             showTree = !showTree
             print(showTree ? "Showing parse trees" : "Not showing parse")
             continue
+        } else if (input == "#reset") {
+            previous = nil
+            continue
         }
     }
     
@@ -43,7 +45,9 @@ while true {
         continue
     }
     
-    let compilation = Compilation(syntax: syntaxTree)
+    let compilation = previous == nil ? Compilation(syntax: syntaxTree) : previous!.continueWith(syntaxTree: syntaxTree)
+    
+    
     let result = compilation.evaluate()
     let diagnostics = result.diagnostics
     
@@ -88,6 +92,7 @@ while true {
         }
     } else {
         print(result.value ?? "")
+        previous = compilation
     }
     
     textBuilder = ""

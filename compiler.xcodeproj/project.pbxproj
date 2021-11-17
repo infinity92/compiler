@@ -57,6 +57,8 @@
 		7DEAD3D027420DB5008F0259 /* TextLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3CF27420DB5008F0259 /* TextLine.swift */; };
 		7DEAD3D22742B511008F0259 /* SourceTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3D12742B511008F0259 /* SourceTextTests.swift */; };
 		7DEAD3D52742BD82008F0259 /* CompilationUnitSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3D42742BD82008F0259 /* CompilationUnitSyntax.swift */; };
+		7DEAD3D72742C1F2008F0259 /* BoundScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3D62742C1F2008F0259 /* BoundScope.swift */; };
+		7DEAD3D927435D1E008F0259 /* BoundGlobalScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3D827435D1E008F0259 /* BoundGlobalScope.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +152,8 @@
 		7DEAD3CF27420DB5008F0259 /* TextLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextLine.swift; sourceTree = "<group>"; };
 		7DEAD3D12742B511008F0259 /* SourceTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceTextTests.swift; sourceTree = "<group>"; };
 		7DEAD3D42742BD82008F0259 /* CompilationUnitSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationUnitSyntax.swift; sourceTree = "<group>"; };
+		7DEAD3D62742C1F2008F0259 /* BoundScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundScope.swift; sourceTree = "<group>"; };
+		7DEAD3D827435D1E008F0259 /* BoundGlobalScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundGlobalScope.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +274,8 @@
 				7DEAD2B2272C04C4008F0259 /* BoundUnaryOperator.swift */,
 				7DEAD2C2272FD21B008F0259 /* BoundVariableExpression.swift */,
 				7DEAD2C4272FD479008F0259 /* BoundAssignmentExpression.swift */,
+				7DEAD3D62742C1F2008F0259 /* BoundScope.swift */,
+				7DEAD3D827435D1E008F0259 /* BoundGlobalScope.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -513,9 +519,11 @@
 				7DEAD3C12732A75A008F0259 /* BoundLiteralExpression.swift in Sources */,
 				7DEAD3A42732A732008F0259 /* SyntaxToken.swift in Sources */,
 				7DEAD3C22732A75A008F0259 /* BoundBinaryOperator.swift in Sources */,
+				7DEAD3D72742C1F2008F0259 /* BoundScope.swift in Sources */,
 				7DEAD3AF2732A74E008F0259 /* SyntaxNode.swift in Sources */,
 				7DEAD3B62732A74E008F0259 /* LiteralExpressionSyntax.swift in Sources */,
 				7DEAD3BA2732A75A008F0259 /* BoundUnaryOperatorKind.swift in Sources */,
+				7DEAD3D927435D1E008F0259 /* BoundGlobalScope.swift in Sources */,
 				7DEAD3922732A0BE008F0259 /* String+Extension.swift in Sources */,
 				7DEAD3A52732A732008F0259 /* SyntaxKind.swift in Sources */,
 				7DEAD3B42732A74E008F0259 /* ParenthesizedExpressionSyntax.swift in Sources */,

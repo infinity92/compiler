@@ -28,6 +28,10 @@ public struct DiagnosticBag: Sequence, IteratorProtocol {
         }
     }
     
+    public func toArray() -> [Diagnostic] {
+        return diagnostics
+    }
+    
     mutating func reportInvalidNumber(_ span: TextSpan, _ text: String, _ type: Any) {
         report(span: span, message: "The number \(text) isn't valid \(type)")
     }
@@ -57,6 +61,14 @@ public struct DiagnosticBag: Sequence, IteratorProtocol {
     
     mutating func reportUndefinedName(_ span: TextSpan, _ name: String) {
         report(span: span, message: "Variable \(name) doesn't exist")
+    }
+    
+//    mutating func reportVariableAlreadyDeclared(_ span: TextSpan, _ name: String) {
+//        report(span: span, message: "Variable \(name) is already declared")
+//    }
+    
+    mutating func reportCannotConvert(_ span: TextSpan, _ fromeType: Any, _ toType: Any) {
+        report(span: span, message: "Cannot convert type \(fromeType) to \(toType)")
     }
     
     static func + (lhs: DiagnosticBag, rhs: DiagnosticBag) -> DiagnosticBag  {
