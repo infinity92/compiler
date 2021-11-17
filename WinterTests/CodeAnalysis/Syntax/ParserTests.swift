@@ -16,7 +16,7 @@ class ParserTests: XCTestCase {
             let op1Text = SyntaxFacts.getText(kind: op1)
             let op2Text = SyntaxFacts.getText(kind: op2)
             let text = "a \(op1Text ?? "") b \(op2Text ?? "") c"
-            let expression = SyntaxTree.parse(text).root
+            let expression = ParserTests.parseExpression(text: text)
             
             if op1Precedence >= op2Precedence {
                 var e = AssertingEnumerator(expression)
@@ -53,7 +53,7 @@ class ParserTests: XCTestCase {
             let unaryText = SyntaxFacts.getText(kind: unaryKind)
             let binaryText = SyntaxFacts.getText(kind: binaryKind)
             let text = "\(unaryText ?? "") a \(binaryText ?? "") b"
-            let expression = SyntaxTree.parse(text).root
+            let expression = ParserTests.parseExpression(text: text)
             
             if unaryPrecedence >= binaryPrecedence {
                 var e = AssertingEnumerator(expression)
@@ -77,6 +77,13 @@ class ParserTests: XCTestCase {
                 e.assertToken(.identifierToken, "b")
             }
         }
+    }
+    
+    private static func parseExpression(text: String) -> ExpressionSyntax {
+        let syntaxTree = SyntaxTree.parse(text)
+        let root = syntaxTree.root
+        
+        return root.expression
     }
     
     static func getBinaryOperatorPairsData() -> [(SyntaxKind, SyntaxKind)] {
