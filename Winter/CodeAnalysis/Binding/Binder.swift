@@ -18,11 +18,11 @@ class Binder {
     public static func bindGlobalScope(previous: BoundGlobalScope?, syntax: CompilationUnitSyntax) -> BoundGlobalScope {
         let parentScope = createParentScopes(previous: previous)
         let binder = Binder(parent: parentScope)
-        let expression = try! binder.bindExpression(syntax: syntax.expression)
+        let expression = try! binder.bindStatement(syntax: syntax.statement)
         let variables = binder.scope.getDeclaredVariables()
         let diagnostics = binder.diagnostics
         
-        return BoundGlobalScope(previous: previous, diagnostics: diagnostics, variables: variables, expression: expression)
+        return BoundGlobalScope(previous: previous, diagnostics: diagnostics, variables: variables, statement: expression)
     }
     
     private static func createParentScopes(previous: BoundGlobalScope?) -> BoundScope? {
@@ -45,7 +45,33 @@ class Binder {
         return parent
     }
     
-    func bindExpression(syntax: ExpressionSyntax) throws -> BoundExpression {
+    private func bindStatement(syntax: StatementSyntax) throws -> BoundStatement {
+        switch syntax.kind {
+        case .blockStatement:
+            return bindBlockStatement(syntax as! BlockStatementSyntax)
+        case .expressionStatement:
+            return bindExpressionStatement(syntax as! ExpressionStatementSyntax)
+        default:
+            throw Exception("Unxpected syntax \(syntax.kind)")
+        }
+    }
+    
+    private func bindExpressionStatement(_ syntax: ExpressionStatementSyntax) -> BoundStatement {
+        let expression = try! bindExpression(syntax: syntax.expression)
+        return BoundExpressionStatement(expression: expression)
+    }
+    
+    private func bindBlockStatement(_ syntax: BlockStatementSyntax) -> BoundStatement {
+        var statements = [BoundStatement]()
+        syntax.statements.forEach { statementSyntax in
+            let statement = try! bindStatement(syntax: statementSyntax)
+            statements.append(statement)
+        }
+        
+        return BoundBlockStatement(statements: statements)
+    }
+    
+    private func bindExpression(syntax: ExpressionSyntax) throws -> BoundExpression {
         switch syntax.kind {
         case .unaryExpression:
             return bindUnaryExpression(syntax as! UnaryExpressionSyntax)

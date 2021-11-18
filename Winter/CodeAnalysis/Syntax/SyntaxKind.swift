@@ -17,6 +17,8 @@ public enum SyntaxKind: CaseIterable {
     case slashToken
     case openParenthesisToken
     case closeParenthesisToken
+    case openBraceToken
+    case closeBraceToken
     case badToken
     case endOfFileToken
     case identifierToken
@@ -29,6 +31,10 @@ public enum SyntaxKind: CaseIterable {
     
     // MARK: - Nodes
     case compilationUnit
+    
+    // MARK: - Statement
+    case blockStatement
+    case expressionStatement
     
     // MARK: - Expressions
     case literalExpression

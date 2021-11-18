@@ -82,8 +82,8 @@ class ParserTests: XCTestCase {
     private static func parseExpression(text: String) -> ExpressionSyntax {
         let syntaxTree = SyntaxTree.parse(text)
         let root = syntaxTree.root
-        
-        return root.expression
+        let statement = root.statement
+        return (statement as! ExpressionStatementSyntax).expression
     }
     
     static func getBinaryOperatorPairsData() -> [(SyntaxKind, SyntaxKind)] {

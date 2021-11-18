@@ -85,10 +85,37 @@ class Parser {
     }
     
     func parseCompilationUnit() -> CompilationUnitSyntax {
-        let expression = parseExpression()
+        let statement = parseStatement()
         let endOfFileToken = matchToken(kind: .endOfFileToken)
         
-        return CompilationUnitSyntax(expression: expression, endOfFileToken: endOfFileToken)
+        return CompilationUnitSyntax(statement: statement, endOfFileToken: endOfFileToken)
+    }
+    
+    private func parseStatement() -> StatementSyntax {
+        if current.kind == .openBraceToken {
+            return parseBlockStatement()
+        }
+        
+        return parseExpressionStatement()
+    }
+    
+    private func parseBlockStatement() -> StatementSyntax {
+        var statements = [StatementSyntax]()
+        let openBraceToken = matchToken(kind: .openBraceToken)
+        
+        while current.kind != .endOfFileToken && current.kind != .closeBraceToken {
+            let statement = parseStatement()
+            statements.append(statement)
+        }
+        
+        let closeBraceToken = matchToken(kind: .closeBraceToken)
+        
+        return BlockStatementSyntax(openBraceToken: openBraceToken, statements: statements, closeBraceToken: closeBraceToken)
+    }
+    
+    private func parseExpressionStatement() -> ExpressionStatementSyntax {
+        let expression = parseExpression()
+        return ExpressionStatementSyntax(expression: expression)
     }
     
     private func parseExpression() -> ExpressionSyntax {

@@ -8,16 +8,17 @@
 import Foundation
 
 class Evaluator {
-    private let root: BoundExpression
-    //private var variables: [VariableSymbol: Any]
+    private let root: BoundStatement
+    private var lastValue: Any?
     
-    init(root: BoundExpression) {
+    init(root: BoundStatement) {
         self.root = root
-        //self.variables = variables
     }
     
     func evaluate() -> Any {
-        return try! evaluateExpression(root)
+        
+        try! evaluateStatement(root)
+        return lastValue!
     }
     
     private func evaluateLiteralExpression(_ number: BoundLiteralExpression) -> Any {
@@ -83,6 +84,28 @@ class Evaluator {
         default:
             throw Exception("Unexpected unary operator \(unary.op.kind)")
         }
+    }
+    
+    private func evaluateStatement(_ node: BoundStatement) throws  {
+        
+        switch node.kind {
+        case .blockStatement:
+            evaluateBlockStatement(node as! BoundBlockStatement)
+        case .expressionStatement:
+            evaluateExpressionStatement(node as! BoundExpressionStatement)
+        default:
+            throw Exception("Unexpected node \(node.kind)")
+        }
+    }
+    
+    private func evaluateBlockStatement(_ node: BoundBlockStatement) {
+        node.statements.forEach { statement in
+            try! evaluateStatement(statement)
+        }
+    }
+    
+    private func evaluateExpressionStatement(_ node: BoundExpressionStatement) {
+        lastValue = try! evaluateExpression(node.expression)
     }
     
     private func evaluateExpression(_ node: BoundExpression) throws -> Any  {

@@ -40,7 +40,7 @@ public class Compilation {
         if !diagnostics.isEmpty {
             return EvaluationResult(diagnostics: diagnostics, value: nil)
         }
-        let evaluator = Evaluator(root: globalScope.expression)
+        let evaluator = Evaluator(root: globalScope.statement)
         let value = evaluator.evaluate()
         
         return EvaluationResult(diagnostics: DiagnosticBag(), value: value)

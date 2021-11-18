@@ -33,6 +33,10 @@ class SyntaxFacts {
             return  "("
         case .closeParenthesisToken:
             return  ")"
+        case .openBraceToken:
+            return "{"
+        case .closeBraceToken:
+            return "}"
         case .bangToken:
             return  "!"
         case .ampersantAmpersantToken:

@@ -8,9 +8,14 @@
 import Foundation
 
 enum BoundNodeKind {
+    // MARK: - Expressions
     case unaryExpression
     case literalExpression
     case binaryExpression
     case variableExpression
     case assignmentExpression
+    
+    //MARK: - Statements
+    case blockStatement
+    case expressionStatement
 }

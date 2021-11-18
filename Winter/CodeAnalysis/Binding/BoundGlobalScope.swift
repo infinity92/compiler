@@ -11,12 +11,12 @@ class BoundGlobalScope {
     public let previous: BoundGlobalScope?
     public let diagnostics: DiagnosticBag
     public var variables: [VariableSymbol]
-    public let expression: BoundExpression
+    public let statement: BoundStatement
     
-    init(previous: BoundGlobalScope?, diagnostics: DiagnosticBag, variables: [VariableSymbol], expression: BoundExpression) {
+    init(previous: BoundGlobalScope?, diagnostics: DiagnosticBag, variables: [VariableSymbol], statement: BoundStatement) {
         self.previous = previous
         self.diagnostics = diagnostics
         self.variables = variables
-        self.expression = expression
+        self.statement = statement
     }
 }

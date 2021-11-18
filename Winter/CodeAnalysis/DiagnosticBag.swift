@@ -63,10 +63,6 @@ public struct DiagnosticBag: Sequence, IteratorProtocol {
         report(span: span, message: "Variable \(name) doesn't exist")
     }
     
-//    mutating func reportVariableAlreadyDeclared(_ span: TextSpan, _ name: String) {
-//        report(span: span, message: "Variable \(name) is already declared")
-//    }
-    
     mutating func reportCannotConvert(_ span: TextSpan, _ fromeType: Any, _ toType: Any) {
         report(span: span, message: "Cannot convert type \(fromeType) to \(toType)")
     }

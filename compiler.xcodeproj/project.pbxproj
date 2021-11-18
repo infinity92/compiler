@@ -59,6 +59,12 @@
 		7DEAD3D52742BD82008F0259 /* CompilationUnitSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3D42742BD82008F0259 /* CompilationUnitSyntax.swift */; };
 		7DEAD3D72742C1F2008F0259 /* BoundScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3D62742C1F2008F0259 /* BoundScope.swift */; };
 		7DEAD3D927435D1E008F0259 /* BoundGlobalScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3D827435D1E008F0259 /* BoundGlobalScope.swift */; };
+		7DEAD3DB27455A9E008F0259 /* StatementSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3DA27455A9E008F0259 /* StatementSyntax.swift */; };
+		7DEAD3DD27455AB5008F0259 /* BlockStatementSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3DC27455AB5008F0259 /* BlockStatementSyntax.swift */; };
+		7DEAD3DF27455AD2008F0259 /* ExpressionStatementSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3DE27455AD2008F0259 /* ExpressionStatementSyntax.swift */; };
+		7DEAD3E127456149008F0259 /* BoundStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E027456149008F0259 /* BoundStatement.swift */; };
+		7DEAD3E3274561B4008F0259 /* BoundBlockStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E2274561B4008F0259 /* BoundBlockStatement.swift */; };
+		7DEAD3E5274562D7008F0259 /* BoundExpressionStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -154,6 +160,12 @@
 		7DEAD3D42742BD82008F0259 /* CompilationUnitSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationUnitSyntax.swift; sourceTree = "<group>"; };
 		7DEAD3D62742C1F2008F0259 /* BoundScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundScope.swift; sourceTree = "<group>"; };
 		7DEAD3D827435D1E008F0259 /* BoundGlobalScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundGlobalScope.swift; sourceTree = "<group>"; };
+		7DEAD3DA27455A9E008F0259 /* StatementSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatementSyntax.swift; sourceTree = "<group>"; };
+		7DEAD3DC27455AB5008F0259 /* BlockStatementSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockStatementSyntax.swift; sourceTree = "<group>"; };
+		7DEAD3DE27455AD2008F0259 /* ExpressionStatementSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpressionStatementSyntax.swift; sourceTree = "<group>"; };
+		7DEAD3E027456149008F0259 /* BoundStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundStatement.swift; sourceTree = "<group>"; };
+		7DEAD3E2274561B4008F0259 /* BoundBlockStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBlockStatement.swift; sourceTree = "<group>"; };
+		7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundExpressionStatement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +266,9 @@
 				7DDEE4C9272190B600892378 /* SyntaxTree.swift */,
 				7DEAD2AA272A876E008F0259 /* SyntaxFacts.swift */,
 				7DEAD3D42742BD82008F0259 /* CompilationUnitSyntax.swift */,
+				7DEAD3DE27455AD2008F0259 /* ExpressionStatementSyntax.swift */,
+				7DEAD3DC27455AB5008F0259 /* BlockStatementSyntax.swift */,
+				7DEAD3DA27455A9E008F0259 /* StatementSyntax.swift */,
 			);
 			path = Syntax;
 			sourceTree = "<group>";
@@ -276,6 +291,9 @@
 				7DEAD2C4272FD479008F0259 /* BoundAssignmentExpression.swift */,
 				7DEAD3D62742C1F2008F0259 /* BoundScope.swift */,
 				7DEAD3D827435D1E008F0259 /* BoundGlobalScope.swift */,
+				7DEAD3E027456149008F0259 /* BoundStatement.swift */,
+				7DEAD3E2274561B4008F0259 /* BoundBlockStatement.swift */,
+				7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -495,6 +513,7 @@
 				7DEAD3AB2732A742008F0259 /* Diagnostic.swift in Sources */,
 				7DEAD3A72732A732008F0259 /* SyntaxTree.swift in Sources */,
 				7DEAD3BE2732A75A008F0259 /* BoundUnaryOperator.swift in Sources */,
+				7DEAD3E3274561B4008F0259 /* BoundBlockStatement.swift in Sources */,
 				7DEAD3AA2732A742008F0259 /* Compilation.swift in Sources */,
 				7DEAD3C02732A75A008F0259 /* BoundNodeKind.swift in Sources */,
 				7DEAD3AD2732A742008F0259 /* Evaluator.swift in Sources */,
@@ -517,12 +536,17 @@
 				7DEAD3BF2732A75A008F0259 /* BoundUnaryExpression.swift in Sources */,
 				7DEAD3AC2732A742008F0259 /* TextSpan.swift in Sources */,
 				7DEAD3C12732A75A008F0259 /* BoundLiteralExpression.swift in Sources */,
+				7DEAD3E127456149008F0259 /* BoundStatement.swift in Sources */,
 				7DEAD3A42732A732008F0259 /* SyntaxToken.swift in Sources */,
 				7DEAD3C22732A75A008F0259 /* BoundBinaryOperator.swift in Sources */,
+				7DEAD3DF27455AD2008F0259 /* ExpressionStatementSyntax.swift in Sources */,
 				7DEAD3D72742C1F2008F0259 /* BoundScope.swift in Sources */,
 				7DEAD3AF2732A74E008F0259 /* SyntaxNode.swift in Sources */,
+				7DEAD3E5274562D7008F0259 /* BoundExpressionStatement.swift in Sources */,
+				7DEAD3DD27455AB5008F0259 /* BlockStatementSyntax.swift in Sources */,
 				7DEAD3B62732A74E008F0259 /* LiteralExpressionSyntax.swift in Sources */,
 				7DEAD3BA2732A75A008F0259 /* BoundUnaryOperatorKind.swift in Sources */,
+				7DEAD3DB27455A9E008F0259 /* StatementSyntax.swift in Sources */,
 				7DEAD3D927435D1E008F0259 /* BoundGlobalScope.swift in Sources */,
 				7DEAD3922732A0BE008F0259 /* String+Extension.swift in Sources */,
 				7DEAD3A52732A732008F0259 /* SyntaxKind.swift in Sources */,

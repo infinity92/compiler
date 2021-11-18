@@ -11,6 +11,6 @@ public struct CompilationUnitSyntax: SyntaxNode {
     public var kind: SyntaxKind {
         .compilationUnit
     }
-    public let expression: ExpressionSyntax
+    public let statement: StatementSyntax
     public let endOfFileToken: SyntaxToken
 }
