@@ -28,6 +28,10 @@ public enum SyntaxKind: CaseIterable {
     case equalsEqualsToken
     case bangEqualsToken
     case equalsToken
+    case lessOrEqualToken
+    case lessToken
+    case greaterToken
+    case greaterOrEqualToken
     
     // MARK: - Nodes
     case compilationUnit
@@ -58,7 +62,7 @@ public enum SyntaxKind: CaseIterable {
             return 5
         case .pluseToken, .minusToken:
             return 4
-        case .equalsEqualsToken, .bangEqualsToken:
+        case .equalsEqualsToken, .bangEqualsToken, .lessToken, .lessOrEqualToken, .greaterToken, .greaterOrEqualToken:
             return 3
         case .ampersantAmpersantToken:
             return 2

@@ -35,6 +35,17 @@ class EvalutorTests: XCTestCase {
         ("false", false),
         ("!true", false),
         ("!false", true),
+        ("3 < 4", true),
+        ("5 < 4", false),
+        ("4 <= 4", true),
+        ("4 <= 5", true),
+        ("5 <= 4", false),
+        
+        ("4 > 3", true),
+        ("4 > 5", false),
+        ("4 >= 4", true),
+        ("5 >= 4", true),
+        ("4 >= 5", false),
     ]
     
     func testGetTextRoundTrips() {

@@ -92,6 +92,18 @@ class LexerTests: XCTestCase {
         if kind1 == .equalsToken && kind2 == .equalsEqualsToken {
             return true
         }
+        if kind1 == .lessToken && kind2 == .equalsToken {
+            return true
+        }
+        if kind1 == .lessToken && kind2 == .equalsEqualsToken {
+            return true
+        }
+        if kind1 == .greaterToken && kind2 == .equalsToken {
+            return true
+        }
+        if kind1 == .greaterToken && kind2 == .equalsEqualsToken {
+            return true
+        }
         
         return false
     }

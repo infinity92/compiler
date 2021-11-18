@@ -246,7 +246,7 @@
 			path = CodeAnalysis;
 			sourceTree = "<group>";
 		};
-		7DDEE4CB2721912000892378 /* Expressions */ = {
+		7DEAD29627297488008F0259 /* Syntax */ = {
 			isa = PBXGroup;
 			children = (
 				7DDEE4CC2721914100892378 /* SyntaxNode.swift */,
@@ -257,14 +257,6 @@
 				7DDEE4D52721921F00892378 /* ParenthesizedExpressionSyntax.swift */,
 				7DEAD2BE272F94D6008F0259 /* AssigmentExpressionSyntax.swift */,
 				7DEAD2C0272F951B008F0259 /* NameExpressionSyntax.swift */,
-			);
-			path = Expressions;
-			sourceTree = "<group>";
-		};
-		7DEAD29627297488008F0259 /* Syntax */ = {
-			isa = PBXGroup;
-			children = (
-				7DDEE4CB2721912000892378 /* Expressions */,
 				7DDEE4BA27218DE600892378 /* Lexer.swift */,
 				7DDEE4C327218FD500892378 /* SyntaxKind.swift */,
 				7DDEE4C52721901F00892378 /* Parser.swift */,

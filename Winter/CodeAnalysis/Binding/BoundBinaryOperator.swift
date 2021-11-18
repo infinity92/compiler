@@ -35,13 +35,15 @@ struct BoundBinaryOperator {
         BoundBinaryOperator(syntaxKind: .minusToken, kind: .substruction, type: Int.self),
         BoundBinaryOperator(syntaxKind: .starToken, kind: .multiplication, type: Int.self),
         BoundBinaryOperator(syntaxKind: .slashToken, kind: .division, type: Int.self),
-        
         BoundBinaryOperator(syntaxKind: .equalsEqualsToken, kind: .equals, operandType: Int.self, resultType: Bool.self),
         BoundBinaryOperator(syntaxKind: .bangEqualsToken, kind: .notEquals, operandType: Int.self, resultType: Bool.self),
+        BoundBinaryOperator(syntaxKind: .lessToken, kind: .less, operandType: Int.self, resultType: Bool.self),
+        BoundBinaryOperator(syntaxKind: .lessOrEqualToken, kind: .lessOrEquals, operandType: Int.self, resultType: Bool.self),
+        BoundBinaryOperator(syntaxKind: .greaterToken, kind: .greater, operandType: Int.self, resultType: Bool.self),
+        BoundBinaryOperator(syntaxKind: .greaterOrEqualToken, kind: .greaterOrEquals, operandType: Int.self, resultType: Bool.self),
         
         BoundBinaryOperator(syntaxKind: .ampersantAmpersantToken, kind: .logicalAnd, type: Bool.self),
         BoundBinaryOperator(syntaxKind: .pipePipeToken, kind: .logicalOr, type: Bool.self),
-        
         BoundBinaryOperator(syntaxKind: .equalsEqualsToken, kind: .equals, type: Bool.self),
         BoundBinaryOperator(syntaxKind: .bangEqualsToken, kind: .notEquals, type: Bool.self),
     ]

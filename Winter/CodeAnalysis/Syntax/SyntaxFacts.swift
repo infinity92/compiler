@@ -53,6 +53,14 @@ class SyntaxFacts {
             return "!="
         case .equalsToken:
             return  "="
+        case .lessToken:
+            return  "<"
+        case .lessOrEqualToken:
+            return  "<="
+        case .greaterToken:
+            return  ">"
+        case .greaterOrEqualToken:
+            return  ">="
         case .trueKeyword:
             return "true"
         case .falseKeyword:

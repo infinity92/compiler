@@ -56,6 +56,14 @@ class Evaluator {
             return try! equalExpressions(left, right)
         case .notEquals:
             return try! !equalExpressions(left, right)
+        case .less:
+            return (left as! Int) < (right as! Int)
+        case .lessOrEquals:
+            return (left as! Int) <= (right as! Int)
+        case .greater:
+            return (left as! Int) > (right as! Int)
+        case .greaterOrEquals:
+            return (left as! Int) >= (right as! Int)
         default:
             throw Exception("Unexpected binary operator \(binary.op.kind)")
         }

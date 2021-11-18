@@ -93,6 +93,22 @@ class Lexer {
                 kind = .bangEqualsToken
                 position += 1
             }
+        case "<":
+            position += 1
+            if current != "=" {
+                kind = .lessToken
+            } else {
+                kind = .lessOrEqualToken
+                position += 1
+            }
+        case ">":
+            position += 1
+            if current != "=" {
+                kind = .greaterToken
+            } else {
+                kind = .greaterOrEqualToken
+                position += 1
+            }
         case "0", "1", "2", "3", "4", "5", "6", "7", "8", "9":
             readNumberToken()
         case " ", "\t", "\n", "\r":
