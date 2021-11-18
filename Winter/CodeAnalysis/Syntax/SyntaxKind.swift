@@ -17,6 +17,8 @@ public enum SyntaxKind: CaseIterable {
     case slashToken
     case openParenthesisToken
     case closeParenthesisToken
+    case openBraceToken
+    case closeBraceToken
     case badToken
     case endOfFileToken
     case identifierToken
@@ -26,6 +28,14 @@ public enum SyntaxKind: CaseIterable {
     case equalsEqualsToken
     case bangEqualsToken
     case equalsToken
+    
+    // MARK: - Nodes
+    case compilationUnit
+    
+    // MARK: - Statement
+    case blockStatement
+    case expressionStatement
+    case variableDeclatation
     
     // MARK: - Expressions
     case literalExpression
@@ -38,6 +48,8 @@ public enum SyntaxKind: CaseIterable {
     // MARK: - Keyword
     case trueKeyword
     case falseKeyword
+    case letKeyword
+    case varKeyword
     
     
     func getBinaryOperatorPrecedence() -> Int {

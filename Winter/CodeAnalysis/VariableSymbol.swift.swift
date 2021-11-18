@@ -8,8 +8,9 @@
 import Foundation
 
 public struct VariableSymbol {
-    let name: String
-    let varType: Any
+    public let name: String
+    public let isReadOnly: Bool
+    public let varType: Any
 }
 
 extension VariableSymbol: Hashable {

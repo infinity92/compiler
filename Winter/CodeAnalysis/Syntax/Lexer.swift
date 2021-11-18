@@ -61,6 +61,12 @@ class Lexer {
         case ")":
             kind = .closeParenthesisToken
             position += 1
+        case "{":
+            kind = .openBraceToken
+            position += 1
+        case "}":
+            kind = .closeBraceToken
+            position += 1
         case "&":
             if lookahead == "&" {
                 kind = .ampersantAmpersantToken

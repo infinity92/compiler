@@ -19,7 +19,7 @@ class EvalutorTests: XCTestCase {
         ("4 * 2", 8),
         ("9 / 3", 3),
         ("(10)", 10),
-        ("(a = 10) * a", 100)
+        ("{ var a = 0 (a = 10) * a }", 100)
     ]
     
     private var dataBool:[(String, Bool)] = [

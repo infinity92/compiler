@@ -9,9 +9,18 @@ import Foundation
 
 public struct SyntaxTree {
     public let text: SourceText
-    public let root: ExpressionSyntax
-    let endOfFileToken: SyntaxToken
+    public let root: CompilationUnitSyntax
     public var diagnostics: DiagnosticBag
+    
+    private init(text: SourceText) {
+        let parser = Parser(text: text)
+        let root = parser.parseCompilationUnit()
+        let diagnostics = parser.diagnostics
+        
+        self.text = text
+        self.diagnostics = diagnostics
+        self.root = root
+    }
     
     public static func parse(_ text: String) -> SyntaxTree {
         let sourceText = SourceText.from(text: text)
@@ -20,8 +29,7 @@ public struct SyntaxTree {
     }
     
     public static func parse(_ text: SourceText) -> SyntaxTree {
-        let parser = Parser(text: text)
-        return parser.parse()
+        return SyntaxTree(text: text)
     }
     
     public static func parseTokens(_ text: String) -> [SyntaxToken] {

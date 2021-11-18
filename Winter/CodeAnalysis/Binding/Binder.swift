@@ -9,14 +9,87 @@ import Foundation
 
 class Binder {
     private(set) var diagnostics = DiagnosticBag()
-    //private var variables: [VariableSymbol: Any]
+    private var scope: BoundScope
     
-//    init(_ variables: inout [VariableSymbol:Any]) {
-//        self.variables = variables
-//        variables["b"] = 3
-//    }
+    init(parent: BoundScope?) {
+        scope = BoundScope(parent: parent)
+    }
     
-    func bindExpression(syntax: ExpressionSyntax) throws -> BoundExpression {
+    public static func bindGlobalScope(previous: BoundGlobalScope?, syntax: CompilationUnitSyntax) -> BoundGlobalScope {
+        let parentScope = createParentScopes(previous: previous)
+        let binder = Binder(parent: parentScope)
+        let expression = try! binder.bindStatement(syntax: syntax.statement)
+        let variables = binder.scope.getDeclaredVariables()
+        let diagnostics = binder.diagnostics
+        
+        return BoundGlobalScope(previous: previous, diagnostics: diagnostics, variables: variables, statement: expression)
+    }
+    
+    private static func createParentScopes(previous: BoundGlobalScope?) -> BoundScope? {
+        var previous = previous
+        var stack = [BoundGlobalScope]()
+        while previous != nil {
+            stack.append(previous!)
+            previous = previous!.previous
+        }
+        var parent: BoundScope? = nil
+        while stack.count > 0 {
+            let previous = stack.popLast()!
+            let scope = BoundScope(parent: parent)
+            for v in previous.variables {
+                let _ = scope.tryDeclare(variable: v)
+            }
+            parent = scope
+        }
+        
+        return parent
+    }
+    
+    private func bindStatement(syntax: StatementSyntax) throws -> BoundStatement {
+        switch syntax.kind {
+        case .blockStatement:
+            return bindBlockStatement(syntax as! BlockStatementSyntax)
+        case .expressionStatement:
+            return bindExpressionStatement(syntax as! ExpressionStatementSyntax)
+        case .variableDeclatation:
+            return bindVariableDeclaretion(syntax as! VariableDeclatationSyntax)
+        default:
+            throw Exception("Unxpected syntax \(syntax.kind)")
+        }
+    }
+    
+    private func bindVariableDeclaretion(_ syntax: VariableDeclatationSyntax) -> BoundStatement {
+        let name = syntax.identifier.text!
+        let isReadOnly = syntax.keyword.kind == .letKeyword
+        let initializer = try! bindExpression(syntax: syntax.initializer)
+        let variable = VariableSymbol(name: name, isReadOnly: isReadOnly, varType: initializer.expressionType)
+        
+        if !scope.tryDeclare(variable: variable) {
+            diagnostics.reportVariableAlreadyDeclared(syntax.identifier.span, name)
+        }
+        
+        return BoundVariableDeclaration(variable: variable, initializer: initializer)
+    }
+    
+    private func bindExpressionStatement(_ syntax: ExpressionStatementSyntax) -> BoundStatement {
+        let expression = try! bindExpression(syntax: syntax.expression)
+        return BoundExpressionStatement(expression: expression)
+    }
+    
+    private func bindBlockStatement(_ syntax: BlockStatementSyntax) -> BoundStatement {
+        var statements = [BoundStatement]()
+        scope = BoundScope(parent: scope)
+        syntax.statements.forEach { statementSyntax in
+            let statement = try! bindStatement(syntax: statementSyntax)
+            statements.append(statement)
+        }
+        
+        scope = scope.parent!
+        
+        return BoundBlockStatement(statements: statements)
+    }
+    
+    private func bindExpression(syntax: ExpressionSyntax) throws -> BoundExpression {
         switch syntax.kind {
         case .unaryExpression:
             return bindUnaryExpression(syntax as! UnaryExpressionSyntax)
@@ -37,9 +110,9 @@ class Binder {
     
     private func bindNameExpression(syntax: NameExpressionSyntax) -> BoundExpression {
         let name = syntax.identifierToken.text ?? ""
-        let variable = variables.keys.first { $0.name == name }
+        var variable: VariableSymbol? = nil
         
-        if variable == nil {
+        if !scope.tryLookup(name: name, variable: &variable) {
             diagnostics.reportUndefinedName(syntax.identifierToken.span, name)
             return BoundLiteralExpression(value: 0)
         }
@@ -51,14 +124,22 @@ class Binder {
         let name = syntax.identifierToken.text!
         let boundExpression = try! bindExpression(syntax: syntax.expression)
         
-        let existingVariable = variables.keys.first { $0.name == name }
-        if existingVariable != nil {
-            variables.removeValue(forKey: existingVariable!)
+        var variable: VariableSymbol? = nil
+        if !scope.tryLookup(name: name, variable: &variable) {
+            diagnostics.reportUndefinedName(syntax.identifierToken.span, name)
+            return boundExpression
         }
-        let variable = VariableSymbol(name: name, varType: boundExpression.expressionType)
-        variables[variable] = ""
         
-        return BoundAssignmentExpression(variable: variable, expression: boundExpression)
+        if variable!.isReadOnly {
+            diagnostics.reportCannotAssign(syntax.equalsToken.span, name)
+        }
+        
+        if type(of: boundExpression.expressionType) != type(of: variable!.varType) {
+            diagnostics.reportCannotConvert(syntax.expression.span, boundExpression.expressionType, variable!.varType)
+            return boundExpression
+        }
+        
+        return BoundAssignmentExpression(variable: variable!, expression: boundExpression)
     }
     
     private func bindParenthesizedExpression(syntax: ParenthesizedExpressionSyntax) -> BoundExpression {

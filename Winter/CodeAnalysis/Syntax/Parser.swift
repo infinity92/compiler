@@ -84,11 +84,51 @@ class Parser {
         return left
     }
     
-    func parse() -> SyntaxTree {
-        let expression = parseExpression()
+    func parseCompilationUnit() -> CompilationUnitSyntax {
+        let statement = parseStatement()
         let endOfFileToken = matchToken(kind: .endOfFileToken)
         
-        return SyntaxTree(text: text, root: expression, endOfFileToken: endOfFileToken, diagnostics: diagnostics)
+        return CompilationUnitSyntax(statement: statement, endOfFileToken: endOfFileToken)
+    }
+    
+    private func parseStatement() -> StatementSyntax {
+        switch current.kind {
+        case .openBraceToken:
+            return parseBlockStatement()
+        case .letKeyword, .varKeyword:
+            return parseVariableDeclatation()
+        default:
+            return parseExpressionStatement()
+        }
+    }
+    
+    private func parseVariableDeclatation() -> StatementSyntax {
+        let expected:SyntaxKind = current.kind == .letKeyword ? .letKeyword : .varKeyword
+        let keyword = matchToken(kind: expected)
+        let identifier = matchToken(kind: .identifierToken)
+        let equals = matchToken(kind: .equalsToken)
+        let initializer = parseExpression()
+        
+        return VariableDeclatationSyntax(keyword: keyword, identifier: identifier, equalsToken: equals, initializer: initializer)
+    }
+    
+    private func parseBlockStatement() -> StatementSyntax {
+        var statements = [StatementSyntax]()
+        let openBraceToken = matchToken(kind: .openBraceToken)
+        
+        while current.kind != .endOfFileToken && current.kind != .closeBraceToken {
+            let statement = parseStatement()
+            statements.append(statement)
+        }
+        
+        let closeBraceToken = matchToken(kind: .closeBraceToken)
+        
+        return BlockStatementSyntax(openBraceToken: openBraceToken, statements: statements, closeBraceToken: closeBraceToken)
+    }
+    
+    private func parseExpressionStatement() -> ExpressionStatementSyntax {
+        let expression = parseExpression()
+        return ExpressionStatementSyntax(expression: expression)
     }
     
     private func parseExpression() -> ExpressionSyntax {
