@@ -14,6 +14,10 @@ class SyntaxFacts {
             return .trueKeyword
         case "false":
             return .falseKeyword
+        case "let":
+            return .letKeyword
+        case "var":
+            return .varKeyword
         default:
             return .identifierToken
         }
@@ -53,6 +57,10 @@ class SyntaxFacts {
             return "true"
         case .falseKeyword:
             return "false"
+        case .letKeyword:
+            return "let"
+        case .varKeyword:
+            return "var"
         default:
             return nil
         }

@@ -65,6 +65,8 @@
 		7DEAD3E127456149008F0259 /* BoundStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E027456149008F0259 /* BoundStatement.swift */; };
 		7DEAD3E3274561B4008F0259 /* BoundBlockStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E2274561B4008F0259 /* BoundBlockStatement.swift */; };
 		7DEAD3E5274562D7008F0259 /* BoundExpressionStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */; };
+		7DEAD3E727461F60008F0259 /* VariableDeclarationSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */; };
+		7DEAD3E927462440008F0259 /* BoundVariableDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E827462440008F0259 /* BoundVariableDeclaration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +168,8 @@
 		7DEAD3E027456149008F0259 /* BoundStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundStatement.swift; sourceTree = "<group>"; };
 		7DEAD3E2274561B4008F0259 /* BoundBlockStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundBlockStatement.swift; sourceTree = "<group>"; };
 		7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundExpressionStatement.swift; sourceTree = "<group>"; };
+		7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclarationSyntax.swift; sourceTree = "<group>"; };
+		7DEAD3E827462440008F0259 /* BoundVariableDeclaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundVariableDeclaration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +273,7 @@
 				7DEAD3DE27455AD2008F0259 /* ExpressionStatementSyntax.swift */,
 				7DEAD3DC27455AB5008F0259 /* BlockStatementSyntax.swift */,
 				7DEAD3DA27455A9E008F0259 /* StatementSyntax.swift */,
+				7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */,
 			);
 			path = Syntax;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				7DEAD29827297570008F0259 /* Binder.swift */,
+				7DEAD3E827462440008F0259 /* BoundVariableDeclaration.swift */,
 				7DEAD29E27298C07008F0259 /* BoundExpression.swift */,
 				7DEAD29A27298BAC008F0259 /* BoundNodeKind.swift */,
 				7DEAD29C27298BCE008F0259 /* BoundNode.swift */,
@@ -506,6 +512,7 @@
 				7DEAD3B52732A74E008F0259 /* UnaryExpressionSyntax.swift in Sources */,
 				7DEAD386273297D3008F0259 /* Winter.docc in Sources */,
 				7DEAD3A92732A742008F0259 /* DiagnosticBag.swift in Sources */,
+				7DEAD3E727461F60008F0259 /* VariableDeclarationSyntax.swift in Sources */,
 				7DEAD3CE2741833F008F0259 /* SourceText.swift in Sources */,
 				7DEAD3D52742BD82008F0259 /* CompilationUnitSyntax.swift in Sources */,
 				7DEAD3B72732A75A008F0259 /* BoundNode.swift in Sources */,
@@ -531,6 +538,7 @@
 				7DEAD3B32732A74E008F0259 /* NameExpressionSyntax.swift in Sources */,
 				7DEAD3A22732A732008F0259 /* Lexer.swift in Sources */,
 				7DEAD3B82732A75A008F0259 /* BoundVariableExpression.swift in Sources */,
+				7DEAD3E927462440008F0259 /* BoundVariableDeclaration.swift in Sources */,
 				7DEAD3A62732A732008F0259 /* SyntaxFacts.swift in Sources */,
 				7DEAD3A82732A742008F0259 /* VariableSymbol.swift.swift in Sources */,
 				7DEAD3BF2732A75A008F0259 /* BoundUnaryExpression.swift in Sources */,

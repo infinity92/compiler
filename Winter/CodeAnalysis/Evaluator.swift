@@ -93,9 +93,18 @@ class Evaluator {
             evaluateBlockStatement(node as! BoundBlockStatement)
         case .expressionStatement:
             evaluateExpressionStatement(node as! BoundExpressionStatement)
+        case .variableDeclatation:
+            evaluateVariableDeclaration(node as! BoundVariableDeclaration)
+            
         default:
             throw Exception("Unexpected node \(node.kind)")
         }
+    }
+    
+    private func evaluateVariableDeclaration(_ node: BoundVariableDeclaration) {
+        let value = try! evaluateExpression(node.initializer)
+        variables[node.variable] = value
+        lastValue = value
     }
     
     private func evaluateBlockStatement(_ node: BoundBlockStatement) {

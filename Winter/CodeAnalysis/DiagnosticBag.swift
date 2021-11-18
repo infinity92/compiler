@@ -67,6 +67,14 @@ public struct DiagnosticBag: Sequence, IteratorProtocol {
         report(span: span, message: "Cannot convert type \(fromeType) to \(toType)")
     }
     
+    mutating func reportVariableAlreadyDeclared(_ span: TextSpan, _ name: String) {
+        report(span: span, message: "Variable  \(name) is already declared")
+    }
+    
+    mutating func reportCannotAssign(_ span: TextSpan, _ name: String) {
+        report(span: span, message: "Variable  \(name) is read-only and cannot bo assigned to")
+    }
+    
     static func + (lhs: DiagnosticBag, rhs: DiagnosticBag) -> DiagnosticBag  {
         //TODO: add init(array<Diagnostic>)
         var bag = DiagnosticBag()

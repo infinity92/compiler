@@ -18,4 +18,5 @@ enum BoundNodeKind {
     //MARK: - Statements
     case blockStatement
     case expressionStatement
+    case variableDeclatation
 }

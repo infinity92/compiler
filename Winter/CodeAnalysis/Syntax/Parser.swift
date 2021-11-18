@@ -92,11 +92,24 @@ class Parser {
     }
     
     private func parseStatement() -> StatementSyntax {
-        if current.kind == .openBraceToken {
+        switch current.kind {
+        case .openBraceToken:
             return parseBlockStatement()
+        case .letKeyword, .varKeyword:
+            return parseVariableDeclatation()
+        default:
+            return parseExpressionStatement()
         }
+    }
+    
+    private func parseVariableDeclatation() -> StatementSyntax {
+        let expected:SyntaxKind = current.kind == .letKeyword ? .letKeyword : .varKeyword
+        let keyword = matchToken(kind: expected)
+        let identifier = matchToken(kind: .identifierToken)
+        let equals = matchToken(kind: .equalsToken)
+        let initializer = parseExpression()
         
-        return parseExpressionStatement()
+        return VariableDeclatationSyntax(keyword: keyword, identifier: identifier, equalsToken: equals, initializer: initializer)
     }
     
     private func parseBlockStatement() -> StatementSyntax {

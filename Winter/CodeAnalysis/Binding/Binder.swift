@@ -51,9 +51,24 @@ class Binder {
             return bindBlockStatement(syntax as! BlockStatementSyntax)
         case .expressionStatement:
             return bindExpressionStatement(syntax as! ExpressionStatementSyntax)
+        case .variableDeclatation:
+            return bindVariableDeclaretion(syntax as! VariableDeclatationSyntax)
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
+    }
+    
+    private func bindVariableDeclaretion(_ syntax: VariableDeclatationSyntax) -> BoundStatement {
+        let name = syntax.identifier.text!
+        let isReadOnly = syntax.keyword.kind == .letKeyword
+        let initializer = try! bindExpression(syntax: syntax.initializer)
+        let variable = VariableSymbol(name: name, isReadOnly: isReadOnly, varType: initializer.expressionType)
+        
+        if !scope.tryDeclare(variable: variable) {
+            diagnostics.reportVariableAlreadyDeclared(syntax.identifier.span, name)
+        }
+        
+        return BoundVariableDeclaration(variable: variable, initializer: initializer)
     }
     
     private func bindExpressionStatement(_ syntax: ExpressionStatementSyntax) -> BoundStatement {
@@ -63,10 +78,13 @@ class Binder {
     
     private func bindBlockStatement(_ syntax: BlockStatementSyntax) -> BoundStatement {
         var statements = [BoundStatement]()
+        scope = BoundScope(parent: scope)
         syntax.statements.forEach { statementSyntax in
             let statement = try! bindStatement(syntax: statementSyntax)
             statements.append(statement)
         }
+        
+        scope = scope.parent!
         
         return BoundBlockStatement(statements: statements)
     }
@@ -108,8 +126,12 @@ class Binder {
         
         var variable: VariableSymbol? = nil
         if !scope.tryLookup(name: name, variable: &variable) {
-            variable = VariableSymbol(name: name, varType: boundExpression.expressionType)
-            let _ = scope.tryDeclare(variable: variable!)
+            diagnostics.reportUndefinedName(syntax.identifierToken.span, name)
+            return boundExpression
+        }
+        
+        if variable!.isReadOnly {
+            diagnostics.reportCannotAssign(syntax.equalsToken.span, name)
         }
         
         if type(of: boundExpression.expressionType) != type(of: variable!.varType) {
