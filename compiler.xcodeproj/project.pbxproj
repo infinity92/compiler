@@ -67,6 +67,7 @@
 		7DEAD3E5274562D7008F0259 /* BoundExpressionStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */; };
 		7DEAD3E727461F60008F0259 /* VariableDeclarationSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */; };
 		7DEAD3E927462440008F0259 /* BoundVariableDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E827462440008F0259 /* BoundVariableDeclaration.swift */; };
+		7DEAD3EB27466CBF008F0259 /* AnnotatedText.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3EA27466CBF008F0259 /* AnnotatedText.swift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -170,6 +171,7 @@
 		7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundExpressionStatement.swift; sourceTree = "<group>"; };
 		7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclarationSyntax.swift; sourceTree = "<group>"; };
 		7DEAD3E827462440008F0259 /* BoundVariableDeclaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundVariableDeclaration.swift; sourceTree = "<group>"; };
+		7DEAD3EA27466CBF008F0259 /* AnnotatedText.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatedText.swift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -337,6 +339,7 @@
 				7DEAD3D32742B623008F0259 /* Text */,
 				7DEAD3C5273A93F1008F0259 /* Syntax */,
 				7DEAD3CA273FE48D008F0259 /* EvalutorTests.swift */,
+				7DEAD3EA27466CBF008F0259 /* AnnotatedText.swift.swift */,
 			);
 			path = CodeAnalysis;
 			sourceTree = "<group>";
@@ -568,6 +571,7 @@
 			files = (
 				7DEAD3C9273A97BB008F0259 /* SyntaxFactTests.swift in Sources */,
 				7DEAD3C7273A95B3008F0259 /* ParserTests.swift in Sources */,
+				7DEAD3EB27466CBF008F0259 /* AnnotatedText.swift.swift in Sources */,
 				7DEAD3D22742B511008F0259 /* SourceTextTests.swift in Sources */,
 				7DEAD39B2732A426008F0259 /* LexerTests.swift in Sources */,
 				7DEAD3CB273FE48D008F0259 /* EvalutorTests.swift in Sources */,

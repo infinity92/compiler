@@ -11,7 +11,6 @@ public var variables: [VariableSymbol: Any] = [:]
 
 public class Compilation {
     public convenience init(syntax: SyntaxTree) {
-        //self.syntax = syntax
         self.init(previous: nil, syntax: syntax)
     }
     

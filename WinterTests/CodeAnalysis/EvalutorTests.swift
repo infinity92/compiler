@@ -55,4 +55,127 @@ class EvalutorTests: XCTestCase {
         XCTAssertEqual(expectedValue, result.value as! T)
     }
 
+    func testVariableDeclarationReportsRedeclaration() {
+        let text = """
+            {
+                var x = 10
+                var y = 100
+                {
+                    var x = 10
+                }
+                var [x] = 5
+            }
+        """
+        
+        let diagnostics = """
+            Variable 'x' is already declared
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testNameReportsUndefined() {
+        let text = """
+            [x] * 10
+        """
+        
+        let diagnostics = """
+            Variable 'x' doesn't exist
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testAssignedReportsUndefined() {
+        let text = """
+            [x] = 10
+        """
+        
+        let diagnostics = """
+            Variable 'x' doesn't exist
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testAssignedReportsCannotAssign() {
+        let text = """
+            {
+                let x = 10
+                x [=] 0
+            }
+        """
+        
+        let diagnostics = """
+            Variable 'x' is read-only and cannot be assigned to
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testAssignedReportsCannotConvert() {
+        let text = """
+            {
+                var x = 10
+                x = [true]
+            }
+        """
+        
+        let diagnostics = """
+            Cannot convert type 'Bool' to 'Int'
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testUnaryReportsUdefined() {
+        let text = """
+            [+]true
+        """
+        
+        let diagnostics = """
+            Unary operator '+' is not defined for type 'Bool'
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testBinaryReportsUdefined() {
+        let text = """
+            10 [*] false
+        """
+        
+        let diagnostics = """
+            Binary operator '*' is not defined for type 'Int' and 'Bool'
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    private func assertHasDiagnostics(_ text: String, _ diagnosticsText: String) throws {
+        let annotatedText = try! AnnotatedText.parse(text)
+        let syntaxTree = SyntaxTree.parse(annotatedText.text)
+        let compilation = Compilation(syntax: syntaxTree)
+        let result = compilation.evaluate()
+        
+        let expectedDiagnostics = AnnotatedText.unindentLines(diagnosticsText)
+        
+        if  annotatedText.spans.count != expectedDiagnostics.count {
+            throw Exception("ERROR: Must mark as many spans as there are expected diagnostics")
+        }
+        
+        XCTAssertEqual(expectedDiagnostics.count, result.diagnostics.toArray().count)
+        
+        for i in 0..<expectedDiagnostics.count {
+            let expectedMessage = expectedDiagnostics[i]
+            let actualMessage = result.diagnostics[i].message
+            
+            XCTAssertEqual(expectedMessage, actualMessage)
+            
+            let expectedSpan = annotatedText.spans[i]
+            let actualSpan = result.diagnostics[i].span
+            
+            XCTAssertEqual(expectedSpan, actualSpan)
+        }
+    }
 }

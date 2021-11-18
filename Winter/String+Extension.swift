@@ -20,6 +20,11 @@ extension String {
         return String(self[start ..< end])
     }
     
+    public func substring(_ start: Int) -> String {
+        let index = index(startIndex, offsetBy: start)
+        return String(self[index...])
+    }
+    
     public func char(at index:Int) -> Character {
         let i = self.index(startIndex, offsetBy: index)
         return self[i]
