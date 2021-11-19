@@ -22,6 +22,8 @@ class SyntaxFacts {
             return .letKeyword
         case "var":
             return .varKeyword
+        case "while":
+            return .whileKeyword
         default:
             return .identifierToken
         }
@@ -77,6 +79,8 @@ class SyntaxFacts {
             return "if"
         case .elseKeyword:
             return "else"
+        case .whileKeyword:
+            return "while"
         default:
             return nil
         }

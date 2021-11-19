@@ -55,9 +55,18 @@ class Binder {
             return bindVariableDeclaretion(syntax as! VariableDeclatationSyntax)
         case .ifStatement:
             return bindIfStatement(syntax as! IfStatementSyntax)
+        case .whileStatement:
+            return bindWhileStatement(syntax as! WhileStatementSyntax)
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
+    }
+    
+    private func bindWhileStatement(_ syntax: WhileStatementSyntax) -> BoundStatement {
+        let condition = try! bindExpression(syntax: syntax.condition, type(of: Bool.self))
+        let body = try! bindStatement(syntax: syntax.body)
+        
+        return BoundWhileStatement(condition: condition, body: body)
     }
     
     private func bindIfStatement(_ syntax: IfStatementSyntax) -> BoundStatement {

@@ -99,9 +99,19 @@ class Parser {
             return parseVariableDeclatation()
         case .ifKeyword:
             return parseIfStatement()
+        case .whileKeyword:
+            return parseWhileStatement()
         default:
             return parseExpressionStatement()
         }
+    }
+    
+    private func parseWhileStatement() -> StatementSyntax {
+        let keyword = matchToken(kind: .whileKeyword)
+        let condition = parseExpression()
+        let body = parseStatement()
+        
+        return WhileStatementSyntax(whileKeyword: keyword, condition: condition, body: body)
     }
     
     private func parseIfStatement() -> StatementSyntax {

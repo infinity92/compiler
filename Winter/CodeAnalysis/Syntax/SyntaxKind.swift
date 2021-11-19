@@ -42,6 +42,7 @@ public enum SyntaxKind: CaseIterable {
     case variableDeclatation
     case ifStatement
     case elseClause
+    case whileStatement
     
     // MARK: - Expressions
     case literalExpression
@@ -58,6 +59,7 @@ public enum SyntaxKind: CaseIterable {
     case varKeyword
     case ifKeyword
     case elseKeyword
+    case whileKeyword
     
     
     func getBinaryOperatorPrecedence() -> Int {

@@ -105,8 +105,16 @@ class Evaluator {
             evaluateVariableDeclaration(node as! BoundVariableDeclaration)
         case .ifStatement:
             evaluateIfStatement(node as! BoundIfStatement)
+        case .whileStatement:
+            evaluateWhileStatement(node as! BoundWhileStatement)
         default:
             throw Exception("Unexpected node \(node.kind)")
+        }
+    }
+    
+    private func evaluateWhileStatement(_ node: BoundWhileStatement) {
+        while (try! evaluateExpression(node.condition) as! Bool) {
+            try! evaluateStatement(node.body)
         }
     }
     
