@@ -103,9 +103,19 @@ class Evaluator {
             evaluateExpressionStatement(node as! BoundExpressionStatement)
         case .variableDeclatation:
             evaluateVariableDeclaration(node as! BoundVariableDeclaration)
-            
+        case .ifStatement:
+            evaluateIfStatement(node as! BoundIfStatement)
         default:
             throw Exception("Unexpected node \(node.kind)")
+        }
+    }
+    
+    private func evaluateIfStatement(_ node: BoundIfStatement) {
+        let condition = try! evaluateExpression(node.condition) as! Bool
+        if condition {
+            try! evaluateStatement(node.thenStatement)
+        } else if node.elseStatement != nil {
+            try! evaluateStatement(node.elseStatement!)
         }
     }
     

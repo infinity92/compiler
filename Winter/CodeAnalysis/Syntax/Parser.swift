@@ -97,9 +97,31 @@ class Parser {
             return parseBlockStatement()
         case .letKeyword, .varKeyword:
             return parseVariableDeclatation()
+        case .ifKeyword:
+            return parseIfStatement()
         default:
             return parseExpressionStatement()
         }
+    }
+    
+    private func parseIfStatement() -> StatementSyntax {
+        let keyword = matchToken(kind: .ifKeyword)
+        let condition = parseExpression()
+        let statement = parseStatement()
+        let elseClause = parseElseClause()
+        
+        return IfStatementSyntax(ifKeyword: keyword, condition: condition, thenStatement: statement, elseClause: elseClause)
+    }
+    
+    private func parseElseClause() -> ElseClauseSyntax? {
+        if current.kind != .elseKeyword {
+            return nil
+        }
+        
+        let keyword = nextToken()
+        let statement = parseStatement()
+        
+        return ElseClauseSyntax(elseKeyword: keyword, elseStatement: statement)
     }
     
     private func parseVariableDeclatation() -> StatementSyntax {

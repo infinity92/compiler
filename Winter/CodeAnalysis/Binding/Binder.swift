@@ -53,9 +53,20 @@ class Binder {
             return bindExpressionStatement(syntax as! ExpressionStatementSyntax)
         case .variableDeclatation:
             return bindVariableDeclaretion(syntax as! VariableDeclatationSyntax)
+        case .ifStatement:
+            return bindIfStatement(syntax as! IfStatementSyntax)
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
+    }
+    
+    private func bindIfStatement(_ syntax: IfStatementSyntax) -> BoundStatement {
+        let condition = try! bindExpression(syntax: syntax.condition, type(of: Bool.self))
+        let thenStatemtnt = try! bindStatement(syntax: syntax.thenStatement)
+        let elseStatement = syntax.elseClause == nil ? nil : try! bindStatement(syntax: syntax.elseClause!.elseStatement)
+        
+        return BoundIfStatement(condition: condition, thenStatement: thenStatemtnt, elseStatement: elseStatement)
+        
     }
     
     private func bindVariableDeclaretion(_ syntax: VariableDeclatationSyntax) -> BoundStatement {
@@ -87,6 +98,15 @@ class Binder {
         scope = scope.parent!
         
         return BoundBlockStatement(statements: statements)
+    }
+    
+    private func bindExpression(syntax: ExpressionSyntax, _ targerType: Any) throws -> BoundExpression {
+        let result = try! bindExpression(syntax: syntax)
+        if type(of: result.expressionType) == type(of: targerType) {
+            diagnostics.reportCannotConvert(syntax.span, result.expressionType, targerType)
+        }
+        
+        return result
     }
     
     private func bindExpression(syntax: ExpressionSyntax) throws -> BoundExpression {

@@ -68,6 +68,9 @@
 		7DEAD3E727461F60008F0259 /* VariableDeclarationSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */; };
 		7DEAD3E927462440008F0259 /* BoundVariableDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3E827462440008F0259 /* BoundVariableDeclaration.swift */; };
 		7DEAD3EB27466CBF008F0259 /* AnnotatedText.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3EA27466CBF008F0259 /* AnnotatedText.swift.swift */; };
+		7DEAD3ED2747667A008F0259 /* IfStatementSyntax.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3EC2747667A008F0259 /* IfStatementSyntax.swift.swift */; };
+		7DEAD3EF27476770008F0259 /* ElseClauseSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3EE27476770008F0259 /* ElseClauseSyntax.swift */; };
+		7DEAD3F127478923008F0259 /* BoundIfStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F027478923008F0259 /* BoundIfStatement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +175,9 @@
 		7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VariableDeclarationSyntax.swift; sourceTree = "<group>"; };
 		7DEAD3E827462440008F0259 /* BoundVariableDeclaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundVariableDeclaration.swift; sourceTree = "<group>"; };
 		7DEAD3EA27466CBF008F0259 /* AnnotatedText.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotatedText.swift.swift; sourceTree = "<group>"; };
+		7DEAD3EC2747667A008F0259 /* IfStatementSyntax.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IfStatementSyntax.swift.swift; sourceTree = "<group>"; };
+		7DEAD3EE27476770008F0259 /* ElseClauseSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElseClauseSyntax.swift; sourceTree = "<group>"; };
+		7DEAD3F027478923008F0259 /* BoundIfStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundIfStatement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +274,8 @@
 				7DEAD3DC27455AB5008F0259 /* BlockStatementSyntax.swift */,
 				7DEAD3DA27455A9E008F0259 /* StatementSyntax.swift */,
 				7DEAD3E627461F60008F0259 /* VariableDeclarationSyntax.swift */,
+				7DEAD3EC2747667A008F0259 /* IfStatementSyntax.swift.swift */,
+				7DEAD3EE27476770008F0259 /* ElseClauseSyntax.swift */,
 			);
 			path = Syntax;
 			sourceTree = "<group>";
@@ -294,6 +302,7 @@
 				7DEAD3E027456149008F0259 /* BoundStatement.swift */,
 				7DEAD3E2274561B4008F0259 /* BoundBlockStatement.swift */,
 				7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */,
+				7DEAD3F027478923008F0259 /* BoundIfStatement.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -527,6 +536,7 @@
 				7DEAD3B92732A75A008F0259 /* BoundExpression.swift in Sources */,
 				7DEAD3BB2732A75A008F0259 /* BoundBinaryOperatorKind.swift in Sources */,
 				7DEAD3BC2732A75A008F0259 /* BoundBinaryExpression.swift in Sources */,
+				7DEAD3F127478923008F0259 /* BoundIfStatement.swift in Sources */,
 				7DEAD3B02732A74E008F0259 /* ExpressionSyntax.swift in Sources */,
 				7DEAD3AE2732A742008F0259 /* EvaluationResult.swift in Sources */,
 				7DEAD3B22732A74E008F0259 /* BinaryExpressionSyntax.swift in Sources */,
@@ -535,6 +545,7 @@
 				7DEAD3B82732A75A008F0259 /* BoundVariableExpression.swift in Sources */,
 				7DEAD3E927462440008F0259 /* BoundVariableDeclaration.swift in Sources */,
 				7DEAD3A62732A732008F0259 /* SyntaxFacts.swift in Sources */,
+				7DEAD3ED2747667A008F0259 /* IfStatementSyntax.swift.swift in Sources */,
 				7DEAD3A82732A742008F0259 /* VariableSymbol.swift.swift in Sources */,
 				7DEAD3BF2732A75A008F0259 /* BoundUnaryExpression.swift in Sources */,
 				7DEAD3AC2732A742008F0259 /* TextSpan.swift in Sources */,
@@ -553,6 +564,7 @@
 				7DEAD3D927435D1E008F0259 /* BoundGlobalScope.swift in Sources */,
 				7DEAD3922732A0BE008F0259 /* String+Extension.swift in Sources */,
 				7DEAD3A52732A732008F0259 /* SyntaxKind.swift in Sources */,
+				7DEAD3EF27476770008F0259 /* ElseClauseSyntax.swift in Sources */,
 				7DEAD3B42732A74E008F0259 /* ParenthesizedExpressionSyntax.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

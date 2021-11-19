@@ -10,8 +10,12 @@ import Foundation
 class SyntaxFacts {
     static func getKeywordKind(text: String) -> SyntaxKind {
         switch (text) {
+        case "else":
+            return .elseKeyword
         case "true":
             return .trueKeyword
+        case "if":
+            return .ifKeyword
         case "false":
             return .falseKeyword
         case "let":
@@ -69,6 +73,10 @@ class SyntaxFacts {
             return "let"
         case .varKeyword:
             return "var"
+        case .ifKeyword:
+            return "if"
+        case .elseKeyword:
+            return "else"
         default:
             return nil
         }
