@@ -50,7 +50,7 @@ public struct DiagnosticBag: Sequence, IteratorProtocol {
     }
     
     mutating func reportUnexpectedToken(_ span: TextSpan, _ actualKind: SyntaxKind, _ expectedKind: SyntaxKind) {
-        report(span: span, message: "ERROR: Unexpected token <\(actualKind)>, expected <\(expectedKind)>")
+        report(span: span, message: "Unexpected token <\(actualKind)>, expected <\(expectedKind)>")
     }
     
     mutating func reportUndefinedUnaryOperator(_ span: TextSpan, _ operatorText: String, _ operandType: Any) {

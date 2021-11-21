@@ -163,8 +163,20 @@ class Parser {
         let openBraceToken = matchToken(kind: .openBraceToken)
         
         while current.kind != .endOfFileToken && current.kind != .closeBraceToken {
+            var startToken = current
             let statement = parseStatement()
             statements.append(statement)
+            
+            // If ParseStatemnt() did not consume any tokens,
+            // we need to skip the current token and continue
+            // in order to avoid an infinite loop
+            //
+            // We don't need to report an error, because we'll
+            // already tried to parse an expression statement
+            // and reported one.
+            if current == startToken {
+                nextToken()
+            }
         }
         
         let closeBraceToken = matchToken(kind: .closeBraceToken)

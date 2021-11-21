@@ -157,6 +157,20 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
+    func testBlockStatementNoInfiniteLoop() {
+        let text = """
+            {
+            [)][]
+        """
+        
+        let diagnostics = """
+            Unexpected token <closeParenthesisToken>, expected <identifierToken>
+            Unexpected token <endOfFileToken>, expected <closeBraceToken>
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
     func testIfStatementReportsCannotConvert() {
         let text = """
             {
