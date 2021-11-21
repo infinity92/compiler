@@ -73,6 +73,8 @@
 		7DEAD3F127478923008F0259 /* BoundIfStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F027478923008F0259 /* BoundIfStatement.swift */; };
 		7DEAD3F32747912C008F0259 /* WhileStatementSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F22747912C008F0259 /* WhileStatementSyntax.swift */; };
 		7DEAD3F52747925F008F0259 /* BoundWhileStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F42747925F008F0259 /* BoundWhileStatement.swift */; };
+		7DEAD3F7274798F8008F0259 /* ForStatementSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F6274798F8008F0259 /* ForStatementSyntax.swift */; };
+		7DEAD3F927479960008F0259 /* BoundForStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F827479960008F0259 /* BoundForStatement.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -182,6 +184,8 @@
 		7DEAD3F027478923008F0259 /* BoundIfStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundIfStatement.swift; sourceTree = "<group>"; };
 		7DEAD3F22747912C008F0259 /* WhileStatementSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhileStatementSyntax.swift; sourceTree = "<group>"; };
 		7DEAD3F42747925F008F0259 /* BoundWhileStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundWhileStatement.swift; sourceTree = "<group>"; };
+		7DEAD3F6274798F8008F0259 /* ForStatementSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForStatementSyntax.swift; sourceTree = "<group>"; };
+		7DEAD3F827479960008F0259 /* BoundForStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundForStatement.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -281,6 +285,7 @@
 				7DEAD3EC2747667A008F0259 /* IfStatementSyntax.swift.swift */,
 				7DEAD3EE27476770008F0259 /* ElseClauseSyntax.swift */,
 				7DEAD3F22747912C008F0259 /* WhileStatementSyntax.swift */,
+				7DEAD3F6274798F8008F0259 /* ForStatementSyntax.swift */,
 			);
 			path = Syntax;
 			sourceTree = "<group>";
@@ -309,6 +314,7 @@
 				7DEAD3E4274562D7008F0259 /* BoundExpressionStatement.swift */,
 				7DEAD3F027478923008F0259 /* BoundIfStatement.swift */,
 				7DEAD3F42747925F008F0259 /* BoundWhileStatement.swift */,
+				7DEAD3F827479960008F0259 /* BoundForStatement.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -533,6 +539,7 @@
 				7DEAD3E3274561B4008F0259 /* BoundBlockStatement.swift in Sources */,
 				7DEAD3AA2732A742008F0259 /* Compilation.swift in Sources */,
 				7DEAD3C02732A75A008F0259 /* BoundNodeKind.swift in Sources */,
+				7DEAD3F7274798F8008F0259 /* ForStatementSyntax.swift in Sources */,
 				7DEAD3AD2732A742008F0259 /* Evaluator.swift in Sources */,
 				7DEAD3B12732A74E008F0259 /* AssigmentExpressionSyntax.swift in Sources */,
 				7DEAD3932732A0BE008F0259 /* Exception.swift in Sources */,
@@ -540,6 +547,7 @@
 				7DEAD3BD2732A75A008F0259 /* Binder.swift in Sources */,
 				7DEAD3C32732A75A008F0259 /* BoundAssignmentExpression.swift in Sources */,
 				7DEAD3A32732A732008F0259 /* Parser.swift in Sources */,
+				7DEAD3F927479960008F0259 /* BoundForStatement.swift in Sources */,
 				7DEAD3B92732A75A008F0259 /* BoundExpression.swift in Sources */,
 				7DEAD3BB2732A75A008F0259 /* BoundBinaryOperatorKind.swift in Sources */,
 				7DEAD3BC2732A75A008F0259 /* BoundBinaryExpression.swift in Sources */,

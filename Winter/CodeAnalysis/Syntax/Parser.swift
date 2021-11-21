@@ -101,9 +101,23 @@ class Parser {
             return parseIfStatement()
         case .whileKeyword:
             return parseWhileStatement()
+        case .forKeyword:
+            return parseForStatement()
         default:
             return parseExpressionStatement()
         }
+    }
+    
+    private func parseForStatement() -> StatementSyntax {
+        let keyword = matchToken(kind: .forKeyword)
+        let identifier = matchToken(kind: .identifierToken)
+        let equalsToken = matchToken(kind: .equalsToken)
+        let lowerBound = parseExpression()
+        let toKeyword = matchToken(kind: .toKeyword)
+        let upperBound = parseExpression()
+        let body = parseStatement()
+        
+        return ForStatementSyntax(keyword: keyword, identifier: identifier, equalsToken: equalsToken, lowerBound: lowerBound, toKeyword: toKeyword, upperBound: upperBound, body: body)
     }
     
     private func parseWhileStatement() -> StatementSyntax {

@@ -107,8 +107,20 @@ class Evaluator {
             evaluateIfStatement(node as! BoundIfStatement)
         case .whileStatement:
             evaluateWhileStatement(node as! BoundWhileStatement)
+        case .forStatement:
+            evaluateForStatement(node as! BoundForStatement)
         default:
             throw Exception("Unexpected node \(node.kind)")
+        }
+    }
+    
+    private func evaluateForStatement(_ node: BoundForStatement) {
+        let lowerBound = try! evaluateExpression(node.lowerBound) as! Int
+        let upperBound = try! evaluateExpression(node.upperBound) as! Int
+        
+        for i in lowerBound...upperBound {
+            variables[node.variable] = i
+            try! evaluateStatement(node.body)
         }
     }
     

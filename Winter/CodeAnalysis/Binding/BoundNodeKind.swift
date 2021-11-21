@@ -21,4 +21,5 @@ enum BoundNodeKind {
     case variableDeclatation
     case ifStatement
     case whileStatement
+    case forStatement
 }

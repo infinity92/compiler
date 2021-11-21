@@ -57,9 +57,30 @@ class Binder {
             return bindIfStatement(syntax as! IfStatementSyntax)
         case .whileStatement:
             return bindWhileStatement(syntax as! WhileStatementSyntax)
+        case .forStatement:
+            return bindForStatement(syntax as! ForStatementSyntax)
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
+    }
+    
+    private func bindForStatement(_ syntax: ForStatementSyntax) -> BoundStatement {
+        let lowerBound = try! bindExpression(syntax: syntax.lowerBound, Int.self)
+        let upperBound = try! bindExpression(syntax: syntax.upperBound, Int.self)
+        
+        scope = BoundScope(parent: scope)
+        
+        let name = syntax.identifier.text!
+        let variable = VariableSymbol(name: name, isReadOnly: true, varType: type(of: Int.self))
+        if !scope.tryDeclare(variable: variable) {
+            diagnostics.reportVariableAlreadyDeclared(syntax.identifier.span, name)
+        }
+        
+        let body = try! bindStatement(syntax: syntax.body)
+        
+        scope = scope.parent!
+        
+        return BoundForStatement(variable: variable, lowerBound: lowerBound, upperBound: upperBound, body: body)
     }
     
     private func bindWhileStatement(_ syntax: WhileStatementSyntax) -> BoundStatement {
@@ -111,7 +132,7 @@ class Binder {
     
     private func bindExpression(syntax: ExpressionSyntax, _ targerType: Any) throws -> BoundExpression {
         let result = try! bindExpression(syntax: syntax)
-        if type(of: result.expressionType) == type(of: targerType) {
+        if type(of: result.expressionType) != type(of: targerType) {
             diagnostics.reportCannotConvert(syntax.span, result.expressionType, targerType)
         }
         

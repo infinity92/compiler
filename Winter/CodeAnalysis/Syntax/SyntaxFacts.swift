@@ -24,6 +24,10 @@ class SyntaxFacts {
             return .varKeyword
         case "while":
             return .whileKeyword
+        case "for":
+            return .forKeyword
+        case "to":
+            return .toKeyword
         default:
             return .identifierToken
         }
@@ -81,6 +85,10 @@ class SyntaxFacts {
             return "else"
         case .whileKeyword:
             return "while"
+        case .forKeyword:
+            return "for"
+        case .toKeyword:
+            return "to"
         default:
             return nil
         }
