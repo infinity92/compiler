@@ -91,7 +91,7 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
-    func testNameReportsUndefined() {
+    func testNameExpressionReportsUndefined() {
         let text = """
             [x] * 10
         """
@@ -103,7 +103,7 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
-    func testAssignedReportsUndefined() {
+    func testAssignmentExpressionReportsUndefined() {
         let text = """
             [x] = 10
         """
@@ -115,7 +115,7 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
-    func testAssignedReportsCannotAssign() {
+    func testAssignmentExpressionReportsCannotAssign() {
         let text = """
             {
                 let x = 10
@@ -130,7 +130,7 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
-    func testAssignedReportsCannotConvert() {
+    func testAssignmentExpressionReportsCannotConvert() {
         let text = """
             {
                 var x = 10
@@ -209,7 +209,7 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
-    func testUnaryReportsUdefined() {
+    func testUnaryExpressionReportsUdefined() {
         let text = """
             [+]true
         """
@@ -221,7 +221,7 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
-    func testBinaryReportsUdefined() {
+    func testBinaryExpressionReportsUdefined() {
         let text = """
             10 [*] false
         """
