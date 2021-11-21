@@ -8,5 +8,5 @@
 import Foundation
 
 protocol BoundExpression: BoundNode {
-    var expressionType: Any { get }
+    var expressionType: Any.Type { get }
 }

@@ -8,21 +8,21 @@
 import Foundation
 
 struct BoundUnaryOperator {
-    init(syntaxKind: SyntaxKind, kind: BoundUnaryOperatorKind, operandType: Any, resultType: Any) {
+    init(syntaxKind: SyntaxKind, kind: BoundUnaryOperatorKind, operandType: Any.Type, resultType: Any.Type) {
         self.syntaxKind = syntaxKind
         self.kind = kind
         self.operandType = operandType
         self.operatorType = resultType
     }
     
-    init(syntaxKind: SyntaxKind, kind: BoundUnaryOperatorKind, operandType: Any) {
+    init(syntaxKind: SyntaxKind, kind: BoundUnaryOperatorKind, operandType: Any.Type) {
         self.init(syntaxKind: syntaxKind, kind: kind, operandType: operandType, resultType: operandType)
     }
     
     let syntaxKind: SyntaxKind
     let kind: BoundUnaryOperatorKind
-    let operandType: Any
-    let operatorType: Any
+    let operandType: Any.Type
+    let operatorType: Any.Type
     
     private static let operators: [BoundUnaryOperator] = [
         BoundUnaryOperator(syntaxKind: .bangToken, kind: .logicalNagarion, operandType: Bool.self),
@@ -31,9 +31,9 @@ struct BoundUnaryOperator {
         BoundUnaryOperator(syntaxKind: .minusToken, kind: .negation, operandType: Int.self),
     ]
     
-    static func bind(syntaxKind: SyntaxKind, operandType: Any) -> BoundUnaryOperator? {
+    static func bind(syntaxKind: SyntaxKind, operandType: Any.Type) -> BoundUnaryOperator? {
         for op in operators {
-            if op.syntaxKind == syntaxKind && type(of: op.operandType) == type(of: operandType) {
+            if op.syntaxKind == syntaxKind && op.operandType == operandType {
                 return op
             }
         }

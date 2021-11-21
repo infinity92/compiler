@@ -71,7 +71,7 @@ class Binder {
         scope = BoundScope(parent: scope)
         
         let name = syntax.identifier.text!
-        let variable = VariableSymbol(name: name, isReadOnly: true, varType: type(of: Int.self))
+        let variable = VariableSymbol(name: name, isReadOnly: true, varType: Int.self)
         if !scope.tryDeclare(variable: variable) {
             diagnostics.reportVariableAlreadyDeclared(syntax.identifier.span, name)
         }
@@ -84,14 +84,14 @@ class Binder {
     }
     
     private func bindWhileStatement(_ syntax: WhileStatementSyntax) -> BoundStatement {
-        let condition = try! bindExpression(syntax: syntax.condition, type(of: Bool.self))
+        let condition = try! bindExpression(syntax: syntax.condition, Bool.self)
         let body = try! bindStatement(syntax: syntax.body)
         
         return BoundWhileStatement(condition: condition, body: body)
     }
     
     private func bindIfStatement(_ syntax: IfStatementSyntax) -> BoundStatement {
-        let condition = try! bindExpression(syntax: syntax.condition, type(of: Bool.self))
+        let condition = try! bindExpression(syntax: syntax.condition, Bool.self)
         let thenStatemtnt = try! bindStatement(syntax: syntax.thenStatement)
         let elseStatement = syntax.elseClause == nil ? nil : try! bindStatement(syntax: syntax.elseClause!.elseStatement)
         
@@ -130,9 +130,9 @@ class Binder {
         return BoundBlockStatement(statements: statements)
     }
     
-    private func bindExpression(syntax: ExpressionSyntax, _ targerType: Any) throws -> BoundExpression {
+    private func bindExpression(syntax: ExpressionSyntax, _ targerType: Any.Type) throws -> BoundExpression {
         let result = try! bindExpression(syntax: syntax)
-        if type(of: result.expressionType) != type(of: targerType) {
+        if result.expressionType != targerType {
             diagnostics.reportCannotConvert(syntax.span, result.expressionType, targerType)
         }
         
@@ -184,7 +184,7 @@ class Binder {
             diagnostics.reportCannotAssign(syntax.equalsToken.span, name)
         }
         
-        if type(of: boundExpression.expressionType) != type(of: variable!.varType) {
+        if boundExpression.expressionType != variable!.varType {
             diagnostics.reportCannotConvert(syntax.expression.span, boundExpression.expressionType, variable!.varType)
             return boundExpression
         }

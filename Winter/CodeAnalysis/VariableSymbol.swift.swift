@@ -10,7 +10,7 @@ import Foundation
 public struct VariableSymbol {
     public let name: String
     public let isReadOnly: Bool
-    public let varType: Any
+    public let varType: Any.Type
 }
 
 extension VariableSymbol: Hashable {

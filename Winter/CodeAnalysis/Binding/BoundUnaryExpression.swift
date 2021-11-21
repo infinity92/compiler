@@ -15,7 +15,7 @@ struct BoundUnaryExpression: BoundExpression {
         .unaryExpression
     }
     
-    var expressionType: Any  {
+    var expressionType: Any.Type  {
         op.operatorType
     }
 }

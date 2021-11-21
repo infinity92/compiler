@@ -8,7 +8,7 @@
 import Foundation
 
 struct BoundAssignmentExpression: BoundExpression {
-    var expressionType: Any {
+    var expressionType: Any.Type {
         expression.expressionType
     }
     var kind: BoundNodeKind {

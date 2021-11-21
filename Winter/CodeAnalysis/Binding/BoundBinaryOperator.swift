@@ -8,7 +8,7 @@
 import Foundation
 
 struct BoundBinaryOperator {
-    init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, leftType: Any, rightType: Any, resultType: Any) {
+    init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, leftType: Any.Type, rightType: Any.Type, resultType: Any.Type) {
         self.syntaxKind = syntaxKind
         self.kind = kind
         self.leftType = leftType
@@ -16,19 +16,19 @@ struct BoundBinaryOperator {
         self.operatorType = resultType
     }
     
-    init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, operandType: Any, resultType: Any) {
+    init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, operandType: Any.Type, resultType: Any.Type) {
         self.init(syntaxKind: syntaxKind, kind: kind, leftType: operandType, rightType: operandType, resultType: resultType)
     }
     
-    init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, type: Any) {
+    init(syntaxKind: SyntaxKind, kind: BoundBinaryOperatorKind, type: Any.Type) {
         self.init(syntaxKind: syntaxKind, kind: kind, leftType: type, rightType: type, resultType: type)
     }
     
     let syntaxKind: SyntaxKind
     let kind: BoundBinaryOperatorKind
-    let leftType: Any
-    let rightType: Any
-    let operatorType: Any
+    let leftType: Any.Type
+    let rightType: Any.Type
+    let operatorType: Any.Type
     
     private static let operators: [BoundBinaryOperator] = [
         BoundBinaryOperator(syntaxKind: .pluseToken, kind: .addition, type: Int.self),
@@ -48,9 +48,9 @@ struct BoundBinaryOperator {
         BoundBinaryOperator(syntaxKind: .bangEqualsToken, kind: .notEquals, type: Bool.self),
     ]
     
-    static func bind(syntaxKind: SyntaxKind, leftType: Any, rightType: Any) -> BoundBinaryOperator? {
+    static func bind(syntaxKind: SyntaxKind, leftType: Any.Type, rightType: Any.Type) -> BoundBinaryOperator? {
         for op in operators {
-            if op.syntaxKind == syntaxKind && type(of: op.leftType) == type(of: leftType) && type(of: op.rightType) == type(of: rightType) {
+            if op.syntaxKind == syntaxKind && op.leftType == leftType && op.rightType == rightType {
                 return op
             }
         }
