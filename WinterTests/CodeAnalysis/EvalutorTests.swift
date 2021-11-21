@@ -145,6 +145,70 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
+    func testIfStatementReportsCannotConvert() {
+        let text = """
+            {
+                var x = 0
+                if [10]
+                    x = 10
+            }
+        """
+        
+        let diagnostics = """
+            Cannot convert type 'Int' to 'Bool'
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testWhileStatementReportsCannotConvert() {
+        let text = """
+            {
+                var x = 0
+                if [10]
+                    x = 10
+            }
+        """
+        
+        let diagnostics = """
+            Cannot convert type 'Int' to 'Bool'
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testForStatementReportsCannotConvertLowerBound() {
+        let text = """
+            {
+                var result = 0
+                for i = [false] to 10
+                    result = result + i
+            }
+        """
+        
+        let diagnostics = """
+            Cannot convert type 'Bool' to 'Int'
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
+    func testForStatementReportsCannotConvertUpperBound() {
+        let text = """
+            {
+                var result = 0
+                for i = 1 to [true]
+                    result = result + i
+            }
+        """
+        
+        let diagnostics = """
+            Cannot convert type 'Bool' to 'Int'
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
     func testUnaryReportsUdefined() {
         let text = """
             [+]true
