@@ -103,6 +103,18 @@ class EvalutorTests: XCTestCase {
         try! assertHasDiagnostics(text, diagnostics)
     }
     
+    func testNameExpressionReportsNoErrorForInsertedToken() {
+        let text = """
+            []
+        """
+        
+        let diagnostics = """
+            ERROR: Unexpected token <endOfFileToken>, expected <identifierToken>
+        """
+        
+        try! assertHasDiagnostics(text, diagnostics)
+    }
+    
     func testAssignmentExpressionReportsUndefined() {
         let text = """
             [x] = 10

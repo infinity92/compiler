@@ -162,6 +162,10 @@ class Binder {
         let name = syntax.identifierToken.text ?? ""
         var variable: VariableSymbol? = nil
         
+        if name.isEmpty {
+            return BoundLiteralExpression(value: 0)
+        }
+        
         if !scope.tryLookup(name: name, variable: &variable) {
             diagnostics.reportUndefinedName(syntax.identifierToken.span, name)
             return BoundLiteralExpression(value: 0)
