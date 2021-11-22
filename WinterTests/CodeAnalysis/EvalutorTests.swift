@@ -19,6 +19,8 @@ class EvalutorTests: XCTestCase {
         ("4 * 2", 8),
         ("9 / 3", 3),
         ("(10)", 10),
+        ("var a = 10", 10),
+        ("{ var a = 10 (a * a) }", 100),
         ("{ var a = 0 (a = 10) * a }", 100),
         ("{ var a = 0 if a == 0 a = 10 a }", 10),
         ("{ var a = 0 if a == 4 a = 10 a }", 0),
@@ -37,6 +39,8 @@ class EvalutorTests: XCTestCase {
         ("true == false", false),
         ("false != false", false),
         ("true != false", true),
+        ("true && true", true),
+        ("false || false", false),
         ("true", true),
         ("false", false),
         ("!true", false),
@@ -109,7 +113,7 @@ class EvalutorTests: XCTestCase {
         """
         
         let diagnostics = """
-            ERROR: Unexpected token <endOfFileToken>, expected <identifierToken>
+            Unexpected token <endOfFileToken>, expected <identifierToken>
         """
         
         try! assertHasDiagnostics(text, diagnostics)
