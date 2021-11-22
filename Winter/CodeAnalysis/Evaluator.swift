@@ -48,6 +48,26 @@ class Evaluator {
             return (left as! Int) * (right as! Int)
         case .division:
             return (left as! Int) / (right as! Int)
+            
+        case .bitwiseAnd:
+            if binary.expressionType == Int.self {
+                return (left as! Int) & (right as! Int)
+            } else {
+                return (left as! Bool) && (right as! Bool)
+            }
+        case .bitwiseOr:
+            if binary.expressionType == Int.self {
+                return (left as! Int) | (right as! Int)
+            } else {
+                return (left as! Bool) || (right as! Bool)
+            }
+        case .bitwiseXor:
+            if binary.expressionType == Int.self {
+                return (left as! Int) ^ (right as! Int)
+            } else {
+                return (left as! Bool) != (right as! Bool)
+            }
+            
         case .logicalAnd:
             return (left as! Bool) && (right as! Bool)
         case .logicalOr:
@@ -89,6 +109,8 @@ class Evaluator {
             return -(operand as! Int)
         case .logicalNagarion:
             return !(operand as! Bool)
+        case .onesComplement:
+            return ~(operand as! Int)
         default:
             throw Exception("Unexpected unary operator \(unary.op.kind)")
         }

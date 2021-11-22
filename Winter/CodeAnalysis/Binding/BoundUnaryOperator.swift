@@ -29,6 +29,7 @@ struct BoundUnaryOperator {
         
         BoundUnaryOperator(syntaxKind: .pluseToken, kind: .identity, operandType: Int.self),
         BoundUnaryOperator(syntaxKind: .minusToken, kind: .negation, operandType: Int.self),
+        BoundUnaryOperator(syntaxKind: .tildeToken, kind: .onesComplement, operandType: Int.self)
     ]
     
     static func bind(syntaxKind: SyntaxKind, operandType: Any.Type) -> BoundUnaryOperator? {

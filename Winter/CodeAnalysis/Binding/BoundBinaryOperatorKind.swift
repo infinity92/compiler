@@ -13,6 +13,10 @@ enum BoundBinaryOperatorKind {
     case multiplication
     case division
     
+    case bitwiseAnd
+    case bitwiseOr
+    case bitwiseXor
+    
     case logicalAnd
     case logicalOr
     case equals

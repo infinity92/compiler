@@ -14,6 +14,7 @@ class EvalutorTests: XCTestCase {
         ("1", 1),
         ("+1", 1),
         ("-1", -1),
+        ("~1", -2),
         ("14 + 12", 26),
         ("12 - 3", 9),
         ("4 * 2", 8),
@@ -28,6 +29,13 @@ class EvalutorTests: XCTestCase {
         ("{ var a = 0 if a == 4 a = 10 else a = 5 a }", 5),
         ("{ var i = 10 var result = 0 while i > 0 { result = result + i i = i - 1 } result }", 55),
         ("{ var result = 0 for i = 1 to 10 { result = result + i } result }", 55),
+        ("1 | 2", 3),
+        ("1 | 0", 1),
+        ("1 & 3", 1),
+        ("1 & 0", 0),
+        ("1 ^ 0", 1),
+        ("0 ^ 1", 1),
+        ("1 ^ 3", 2),
     ]
     
     private var dataBool:[(String, Bool)] = [
@@ -50,12 +58,23 @@ class EvalutorTests: XCTestCase {
         ("4 <= 4", true),
         ("4 <= 5", true),
         ("5 <= 4", false),
-        
         ("4 > 3", true),
         ("4 > 5", false),
         ("4 >= 4", true),
         ("5 >= 4", true),
         ("4 >= 5", false),
+        ("false | false", false),
+        ("false | true", true),
+        ("true | false", true),
+        ("true | true", true),
+        ("false & false", false),
+        ("false & true", false),
+        ("true & false", false),
+        ("true & true", true),
+        ("false  ^ false", false),
+        ("true ^ false", true),
+        ("false ^ true", true),
+        ("true ^ true", false),
     ]
     
     func testGetTextRoundTrips() {

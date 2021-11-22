@@ -163,7 +163,7 @@ class Parser {
         let openBraceToken = matchToken(kind: .openBraceToken)
         
         while current.kind != .endOfFileToken && current.kind != .closeBraceToken {
-            var startToken = current
+            let startToken = current
             let statement = parseStatement()
             statements.append(statement)
             
@@ -175,7 +175,7 @@ class Parser {
             // already tried to parse an expression statement
             // and reported one.
             if current == startToken {
-                nextToken()
+                let _ = nextToken()
             }
         }
         

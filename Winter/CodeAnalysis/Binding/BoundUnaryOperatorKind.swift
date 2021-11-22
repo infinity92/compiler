@@ -11,4 +11,5 @@ enum BoundUnaryOperatorKind {
     case identity
     case negation
     case logicalNagarion
+    case onesComplement
 }

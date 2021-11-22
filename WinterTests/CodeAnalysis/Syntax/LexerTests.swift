@@ -104,6 +104,18 @@ class LexerTests: XCTestCase {
         if kind1 == .greaterToken && kind2 == .equalsEqualsToken {
             return true
         }
+        if kind1 == .ampersantToken && kind2 == .ampersantToken {
+            return true
+        }
+        if kind1 == .ampersantToken && kind2 == .ampersantAmpersantToken {
+            return true
+        }
+        if kind1 == .pipeToken && kind2 == .pipeToken {
+            return true
+        }
+        if kind1 == .pipeToken && kind2 == .pipePipeToken {
+            return true
+        }
         
         return false
     }

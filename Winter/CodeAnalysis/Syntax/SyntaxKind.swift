@@ -32,6 +32,10 @@ public enum SyntaxKind: CaseIterable {
     case lessToken
     case greaterToken
     case greaterOrEqualToken
+    case tildeToken
+    case ampersantToken
+    case pipeToken
+    case hatToken
     
     // MARK: - Nodes
     case compilationUnit
@@ -73,9 +77,9 @@ public enum SyntaxKind: CaseIterable {
             return 4
         case .equalsEqualsToken, .bangEqualsToken, .lessToken, .lessOrEqualToken, .greaterToken, .greaterOrEqualToken:
             return 3
-        case .ampersantAmpersantToken:
+        case .ampersantAmpersantToken, .ampersantToken:
             return 2
-        case .pipePipeToken:
+        case .pipePipeToken, .pipeToken, .hatToken:
             return 1
         default:
             return 0
@@ -84,7 +88,7 @@ public enum SyntaxKind: CaseIterable {
     
     func getUnaryOperatorPrecedence() -> Int {
         switch self {
-        case .pluseToken, .minusToken, .bangToken:
+        case .pluseToken, .minusToken, .bangToken, .tildeToken:
             return 6
         default:
             return 0

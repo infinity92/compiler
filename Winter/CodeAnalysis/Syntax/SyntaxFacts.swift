@@ -53,16 +53,24 @@ class SyntaxFacts {
             return "}"
         case .bangToken:
             return  "!"
+        case .ampersantToken:
+            return "&"
         case .ampersantAmpersantToken:
             return "&&"
         case .pipePipeToken:
             return "||"
+        case .pipeToken:
+            return "|"
+        case .hatToken:
+            return "^"
         case .equalsEqualsToken:
             return "=="
         case .bangEqualsToken:
             return "!="
         case .equalsToken:
             return  "="
+        case .tildeToken:
+            return "~"
         case .lessToken:
             return  "<"
         case .lessOrEqualToken:

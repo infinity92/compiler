@@ -67,15 +67,27 @@ class Lexer {
         case "}":
             kind = .closeBraceToken
             position += 1
+        case "~":
+            kind = .tildeToken
+            position += 1
+        case "^":
+            kind = .hatToken
+            position += 1
         case "&":
-            if lookahead == "&" {
+            position += 1
+            if current != "&" {
+                kind = .ampersantToken
+            } else {
                 kind = .ampersantAmpersantToken
-                position += 2
+                position += 1
             }
         case "|":
-            if lookahead == "|" {
+            position += 1
+            if current != "|" {
+                kind = .pipeToken
+            } else {
                 kind = .pipePipeToken
-                position += 2
+                position += 1
             }
         case "=":
             position += 1
