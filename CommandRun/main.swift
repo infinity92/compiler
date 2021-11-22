@@ -9,6 +9,7 @@ import Foundation
 import Winter
 
 var showTree = false
+var showProgram = false
 var textBuilder = String()
 var previous: Compilation? = nil
 
@@ -29,6 +30,13 @@ while true {
         } else if (input == "#showTree") {
             showTree = !showTree
             print(showTree ? "Showing parse trees" : "Not showing parse")
+            continue
+        } else if (input == "#showProgram") {
+            showProgram = !showProgram
+            print(showProgram ? "Showing bound tree" : "Not showing bound tree")
+            continue
+        } else if input == "#cls" {
+            print("\u{001B}[2J", terminator: "")
             continue
         } else if (input == "#reset") {
             previous = nil
@@ -53,6 +61,10 @@ while true {
     
     if showTree {
         syntaxTree.root.writeTo()
+    }
+    
+    if showProgram {
+        compilation.emitTree()
     }
     
     if !diagnostics.isEmpty {

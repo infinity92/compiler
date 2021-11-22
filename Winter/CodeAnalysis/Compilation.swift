@@ -44,6 +44,10 @@ public class Compilation {
         
         return EvaluationResult(diagnostics: DiagnosticBag(), value: value)
     }
+    
+    public func emitTree() {
+        globalScope.statement.writeTo()
+    }
 }
 
 
