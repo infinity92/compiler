@@ -28,6 +28,10 @@ public struct DiagnosticBag: Sequence, IteratorProtocol {
         }
     }
     
+    public subscript(index: Int) -> Diagnostic {
+        return diagnostics[index]
+    }
+    
     public func toArray() -> [Diagnostic] {
         return diagnostics
     }
@@ -46,33 +50,33 @@ public struct DiagnosticBag: Sequence, IteratorProtocol {
     }
     
     mutating func reportUnexpectedToken(_ span: TextSpan, _ actualKind: SyntaxKind, _ expectedKind: SyntaxKind) {
-        report(span: span, message: "ERROR: Unexpected token <\(actualKind)>, expected <\(expectedKind)>")
+        report(span: span, message: "Unexpected token <\(actualKind)>, expected <\(expectedKind)>")
     }
     
     mutating func reportUndefinedUnaryOperator(_ span: TextSpan, _ operatorText: String, _ operandType: Any) {
-        let message = "Unary operator '\(operatorText)' is not defined for type \(operandType)"
+        let message = "Unary operator '\(operatorText)' is not defined for type '\(operandType)'"
         report(span: span, message: message)
     }
     
     mutating func reportUndefinedBinaryOperator(_ span: TextSpan, _ operatorText: String, _ boundLeftType: Any, _ boundRightType: Any) {
-        let message = "Binary operator '\(operatorText)' is not defined for type \(boundLeftType) and \(boundRightType)"
+        let message = "Binary operator '\(operatorText)' is not defined for type '\(boundLeftType)' and '\(boundRightType)'"
         report(span: span, message: message)
     }
     
     mutating func reportUndefinedName(_ span: TextSpan, _ name: String) {
-        report(span: span, message: "Variable \(name) doesn't exist")
+        report(span: span, message: "Variable '\(name)' doesn't exist")
     }
     
     mutating func reportCannotConvert(_ span: TextSpan, _ fromeType: Any, _ toType: Any) {
-        report(span: span, message: "Cannot convert type \(fromeType) to \(toType)")
+        report(span: span, message: "Cannot convert type '\(fromeType)' to '\(toType)'")
     }
     
     mutating func reportVariableAlreadyDeclared(_ span: TextSpan, _ name: String) {
-        report(span: span, message: "Variable  \(name) is already declared")
+        report(span: span, message: "Variable '\(name)' is already declared")
     }
     
     mutating func reportCannotAssign(_ span: TextSpan, _ name: String) {
-        report(span: span, message: "Variable  \(name) is read-only and cannot bo assigned to")
+        report(span: span, message: "Variable '\(name)' is read-only and cannot be assigned to")
     }
     
     static func + (lhs: DiagnosticBag, rhs: DiagnosticBag) -> DiagnosticBag  {

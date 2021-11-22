@@ -53,9 +53,50 @@ class Binder {
             return bindExpressionStatement(syntax as! ExpressionStatementSyntax)
         case .variableDeclatation:
             return bindVariableDeclaretion(syntax as! VariableDeclatationSyntax)
+        case .ifStatement:
+            return bindIfStatement(syntax as! IfStatementSyntax)
+        case .whileStatement:
+            return bindWhileStatement(syntax as! WhileStatementSyntax)
+        case .forStatement:
+            return bindForStatement(syntax as! ForStatementSyntax)
         default:
             throw Exception("Unxpected syntax \(syntax.kind)")
         }
+    }
+    
+    private func bindForStatement(_ syntax: ForStatementSyntax) -> BoundStatement {
+        let lowerBound = try! bindExpression(syntax: syntax.lowerBound, Int.self)
+        let upperBound = try! bindExpression(syntax: syntax.upperBound, Int.self)
+        
+        scope = BoundScope(parent: scope)
+        
+        let name = syntax.identifier.text!
+        let variable = VariableSymbol(name: name, isReadOnly: true, varType: Int.self)
+        if !scope.tryDeclare(variable: variable) {
+            diagnostics.reportVariableAlreadyDeclared(syntax.identifier.span, name)
+        }
+        
+        let body = try! bindStatement(syntax: syntax.body)
+        
+        scope = scope.parent!
+        
+        return BoundForStatement(variable: variable, lowerBound: lowerBound, upperBound: upperBound, body: body)
+    }
+    
+    private func bindWhileStatement(_ syntax: WhileStatementSyntax) -> BoundStatement {
+        let condition = try! bindExpression(syntax: syntax.condition, Bool.self)
+        let body = try! bindStatement(syntax: syntax.body)
+        
+        return BoundWhileStatement(condition: condition, body: body)
+    }
+    
+    private func bindIfStatement(_ syntax: IfStatementSyntax) -> BoundStatement {
+        let condition = try! bindExpression(syntax: syntax.condition, Bool.self)
+        let thenStatemtnt = try! bindStatement(syntax: syntax.thenStatement)
+        let elseStatement = syntax.elseClause == nil ? nil : try! bindStatement(syntax: syntax.elseClause!.elseStatement)
+        
+        return BoundIfStatement(condition: condition, thenStatement: thenStatemtnt, elseStatement: elseStatement)
+        
     }
     
     private func bindVariableDeclaretion(_ syntax: VariableDeclatationSyntax) -> BoundStatement {
@@ -89,6 +130,15 @@ class Binder {
         return BoundBlockStatement(statements: statements)
     }
     
+    private func bindExpression(syntax: ExpressionSyntax, _ targerType: Any.Type) throws -> BoundExpression {
+        let result = try! bindExpression(syntax: syntax)
+        if result.expressionType != targerType {
+            diagnostics.reportCannotConvert(syntax.span, result.expressionType, targerType)
+        }
+        
+        return result
+    }
+    
     private func bindExpression(syntax: ExpressionSyntax) throws -> BoundExpression {
         switch syntax.kind {
         case .unaryExpression:
@@ -112,6 +162,10 @@ class Binder {
         let name = syntax.identifierToken.text ?? ""
         var variable: VariableSymbol? = nil
         
+        if name.isEmpty {
+            return BoundLiteralExpression(value: 0)
+        }
+        
         if !scope.tryLookup(name: name, variable: &variable) {
             diagnostics.reportUndefinedName(syntax.identifierToken.span, name)
             return BoundLiteralExpression(value: 0)
@@ -134,7 +188,7 @@ class Binder {
             diagnostics.reportCannotAssign(syntax.equalsToken.span, name)
         }
         
-        if type(of: boundExpression.expressionType) != type(of: variable!.varType) {
+        if boundExpression.expressionType != variable!.varType {
             diagnostics.reportCannotConvert(syntax.expression.span, boundExpression.expressionType, variable!.varType)
             return boundExpression
         }

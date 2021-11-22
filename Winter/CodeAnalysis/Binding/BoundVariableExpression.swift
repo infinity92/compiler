@@ -9,7 +9,7 @@ import Foundation
 
 struct BoundVariableExpression: BoundExpression {
     let variable: VariableSymbol
-    var expressionType: Any {
+    var expressionType: Any.Type {
         variable.varType
     }
     var kind: BoundNodeKind {

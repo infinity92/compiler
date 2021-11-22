@@ -19,4 +19,7 @@ enum BoundNodeKind {
     case blockStatement
     case expressionStatement
     case variableDeclatation
+    case ifStatement
+    case whileStatement
+    case forStatement
 }

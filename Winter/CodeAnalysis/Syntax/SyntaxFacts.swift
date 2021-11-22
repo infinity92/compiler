@@ -10,14 +10,24 @@ import Foundation
 class SyntaxFacts {
     static func getKeywordKind(text: String) -> SyntaxKind {
         switch (text) {
+        case "else":
+            return .elseKeyword
         case "true":
             return .trueKeyword
+        case "if":
+            return .ifKeyword
         case "false":
             return .falseKeyword
         case "let":
             return .letKeyword
         case "var":
             return .varKeyword
+        case "while":
+            return .whileKeyword
+        case "for":
+            return .forKeyword
+        case "to":
+            return .toKeyword
         default:
             return .identifierToken
         }
@@ -53,6 +63,14 @@ class SyntaxFacts {
             return "!="
         case .equalsToken:
             return  "="
+        case .lessToken:
+            return  "<"
+        case .lessOrEqualToken:
+            return  "<="
+        case .greaterToken:
+            return  ">"
+        case .greaterOrEqualToken:
+            return  ">="
         case .trueKeyword:
             return "true"
         case .falseKeyword:
@@ -61,6 +79,16 @@ class SyntaxFacts {
             return "let"
         case .varKeyword:
             return "var"
+        case .ifKeyword:
+            return "if"
+        case .elseKeyword:
+            return "else"
+        case .whileKeyword:
+            return "while"
+        case .forKeyword:
+            return "for"
+        case .toKeyword:
+            return "to"
         default:
             return nil
         }

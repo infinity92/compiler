@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct TextSpan {
+public struct TextSpan: Equatable {
     public let start: Int
     public let length: Int
     public var end: Int {

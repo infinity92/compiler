@@ -56,6 +56,14 @@ class Evaluator {
             return try! equalExpressions(left, right)
         case .notEquals:
             return try! !equalExpressions(left, right)
+        case .less:
+            return (left as! Int) < (right as! Int)
+        case .lessOrEquals:
+            return (left as! Int) <= (right as! Int)
+        case .greater:
+            return (left as! Int) > (right as! Int)
+        case .greaterOrEquals:
+            return (left as! Int) >= (right as! Int)
         default:
             throw Exception("Unexpected binary operator \(binary.op.kind)")
         }
@@ -95,9 +103,39 @@ class Evaluator {
             evaluateExpressionStatement(node as! BoundExpressionStatement)
         case .variableDeclatation:
             evaluateVariableDeclaration(node as! BoundVariableDeclaration)
-            
+        case .ifStatement:
+            evaluateIfStatement(node as! BoundIfStatement)
+        case .whileStatement:
+            evaluateWhileStatement(node as! BoundWhileStatement)
+        case .forStatement:
+            evaluateForStatement(node as! BoundForStatement)
         default:
             throw Exception("Unexpected node \(node.kind)")
+        }
+    }
+    
+    private func evaluateForStatement(_ node: BoundForStatement) {
+        let lowerBound = try! evaluateExpression(node.lowerBound) as! Int
+        let upperBound = try! evaluateExpression(node.upperBound) as! Int
+        
+        for i in lowerBound...upperBound {
+            variables[node.variable] = i
+            try! evaluateStatement(node.body)
+        }
+    }
+    
+    private func evaluateWhileStatement(_ node: BoundWhileStatement) {
+        while (try! evaluateExpression(node.condition) as! Bool) {
+            try! evaluateStatement(node.body)
+        }
+    }
+    
+    private func evaluateIfStatement(_ node: BoundIfStatement) {
+        let condition = try! evaluateExpression(node.condition) as! Bool
+        if condition {
+            try! evaluateStatement(node.thenStatement)
+        } else if node.elseStatement != nil {
+            try! evaluateStatement(node.elseStatement!)
         }
     }
     

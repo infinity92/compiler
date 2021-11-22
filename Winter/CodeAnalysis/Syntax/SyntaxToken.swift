@@ -16,3 +16,16 @@ public struct SyntaxToken: SyntaxNode {
         TextSpan(start: position, length: text?.count ?? 0)
     }
 }
+
+
+extension SyntaxToken: Equatable {
+    public static func == (lhs: SyntaxToken, rhs: SyntaxToken) -> Bool {
+        lhs.kind == rhs.kind
+        && lhs.text == rhs.text
+        && lhs.position == rhs.position
+        && type(of:lhs.value) == type(of:rhs.value)
+        && lhs.span == rhs.span
+    }
+    
+    
+}

@@ -97,9 +97,55 @@ class Parser {
             return parseBlockStatement()
         case .letKeyword, .varKeyword:
             return parseVariableDeclatation()
+        case .ifKeyword:
+            return parseIfStatement()
+        case .whileKeyword:
+            return parseWhileStatement()
+        case .forKeyword:
+            return parseForStatement()
         default:
             return parseExpressionStatement()
         }
+    }
+    
+    private func parseForStatement() -> StatementSyntax {
+        let keyword = matchToken(kind: .forKeyword)
+        let identifier = matchToken(kind: .identifierToken)
+        let equalsToken = matchToken(kind: .equalsToken)
+        let lowerBound = parseExpression()
+        let toKeyword = matchToken(kind: .toKeyword)
+        let upperBound = parseExpression()
+        let body = parseStatement()
+        
+        return ForStatementSyntax(keyword: keyword, identifier: identifier, equalsToken: equalsToken, lowerBound: lowerBound, toKeyword: toKeyword, upperBound: upperBound, body: body)
+    }
+    
+    private func parseWhileStatement() -> StatementSyntax {
+        let keyword = matchToken(kind: .whileKeyword)
+        let condition = parseExpression()
+        let body = parseStatement()
+        
+        return WhileStatementSyntax(whileKeyword: keyword, condition: condition, body: body)
+    }
+    
+    private func parseIfStatement() -> StatementSyntax {
+        let keyword = matchToken(kind: .ifKeyword)
+        let condition = parseExpression()
+        let statement = parseStatement()
+        let elseClause = parseElseClause()
+        
+        return IfStatementSyntax(ifKeyword: keyword, condition: condition, thenStatement: statement, elseClause: elseClause)
+    }
+    
+    private func parseElseClause() -> ElseClauseSyntax? {
+        if current.kind != .elseKeyword {
+            return nil
+        }
+        
+        let keyword = nextToken()
+        let statement = parseStatement()
+        
+        return ElseClauseSyntax(elseKeyword: keyword, elseStatement: statement)
     }
     
     private func parseVariableDeclatation() -> StatementSyntax {
@@ -117,8 +163,20 @@ class Parser {
         let openBraceToken = matchToken(kind: .openBraceToken)
         
         while current.kind != .endOfFileToken && current.kind != .closeBraceToken {
+            var startToken = current
             let statement = parseStatement()
             statements.append(statement)
+            
+            // If ParseStatemnt() did not consume any tokens,
+            // we need to skip the current token and continue
+            // in order to avoid an infinite loop
+            //
+            // We don't need to report an error, because we'll
+            // already tried to parse an expression statement
+            // and reported one.
+            if current == startToken {
+                nextToken()
+            }
         }
         
         let closeBraceToken = matchToken(kind: .closeBraceToken)
