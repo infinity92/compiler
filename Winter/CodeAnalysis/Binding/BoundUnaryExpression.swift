@@ -19,3 +19,12 @@ struct BoundUnaryExpression: BoundExpression {
         op.operatorType
     }
 }
+
+//extension BoundUnaryExpression {
+//    static func == (lhs: BoundUnaryExpression, rhs: BoundUnaryExpression) -> Bool {
+//        lhs.kind == rhs.kind
+//        && lhs.expressionType == rhs.expressionType
+//        && lhs.operand == rhs.operand
+//        && lhs.op == rhs.op
+//    }
+//}

@@ -42,3 +42,12 @@ struct BoundUnaryOperator {
         return nil
     }
 }
+
+//extension BoundUnaryOperator: Equatable {
+//    static func == (lhs: BoundUnaryOperator, rhs: BoundUnaryOperator) -> Bool {
+//        lhs.syntaxKind == rhs.syntaxKind
+//        && lhs.kind == rhs.kind
+//        && lhs.operandType == rhs.operandType
+//        && lhs.operatorType == rhs.operandType
+//    }
+//}

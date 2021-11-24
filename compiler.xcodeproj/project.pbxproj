@@ -76,6 +76,8 @@
 		7DEAD3F7274798F8008F0259 /* ForStatementSyntax.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F6274798F8008F0259 /* ForStatementSyntax.swift */; };
 		7DEAD3F927479960008F0259 /* BoundForStatement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3F827479960008F0259 /* BoundForStatement.swift */; };
 		7DEAD3FB274B7EF7008F0259 /* TerminalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3FA274B7EF7008F0259 /* TerminalColor.swift */; };
+		7DEAD3FE274BB349008F0259 /* Lowerer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3FD274BB349008F0259 /* Lowerer.swift */; };
+		7DEAD400274BB3B6008F0259 /* BoundTreeRewriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DEAD3FF274BB3B6008F0259 /* BoundTreeRewriter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -188,6 +190,8 @@
 		7DEAD3F6274798F8008F0259 /* ForStatementSyntax.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForStatementSyntax.swift; sourceTree = "<group>"; };
 		7DEAD3F827479960008F0259 /* BoundForStatement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundForStatement.swift; sourceTree = "<group>"; };
 		7DEAD3FA274B7EF7008F0259 /* TerminalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalColor.swift; sourceTree = "<group>"; };
+		7DEAD3FD274BB349008F0259 /* Lowerer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lowerer.swift; sourceTree = "<group>"; };
+		7DEAD3FF274BB3B6008F0259 /* BoundTreeRewriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoundTreeRewriter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +255,7 @@
 			children = (
 				7DEAD3CC274182AF008F0259 /* Text */,
 				7DEAD29727297550008F0259 /* Binding */,
+				7DEAD3FC274BB329008F0259 /* Lowering */,
 				7DEAD29627297488008F0259 /* Syntax */,
 				7DDEE4BF27218EF800892378 /* Evaluator.swift */,
 				7DEAD2B4272EE0F7008F0259 /* Compilation.swift */,
@@ -317,6 +322,7 @@
 				7DEAD3F027478923008F0259 /* BoundIfStatement.swift */,
 				7DEAD3F42747925F008F0259 /* BoundWhileStatement.swift */,
 				7DEAD3F827479960008F0259 /* BoundForStatement.swift */,
+				7DEAD3FF274BB3B6008F0259 /* BoundTreeRewriter.swift */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -386,6 +392,14 @@
 				7DEAD3D12742B511008F0259 /* SourceTextTests.swift */,
 			);
 			path = Text;
+			sourceTree = "<group>";
+		};
+		7DEAD3FC274BB329008F0259 /* Lowering */ = {
+			isa = PBXGroup;
+			children = (
+				7DEAD3FD274BB349008F0259 /* Lowerer.swift */,
+			);
+			path = Lowering;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -570,6 +584,7 @@
 				7DEAD3AC2732A742008F0259 /* TextSpan.swift in Sources */,
 				7DEAD3C12732A75A008F0259 /* BoundLiteralExpression.swift in Sources */,
 				7DEAD3E127456149008F0259 /* BoundStatement.swift in Sources */,
+				7DEAD400274BB3B6008F0259 /* BoundTreeRewriter.swift in Sources */,
 				7DEAD3A42732A732008F0259 /* SyntaxToken.swift in Sources */,
 				7DEAD3C22732A75A008F0259 /* BoundBinaryOperator.swift in Sources */,
 				7DEAD3DF27455AD2008F0259 /* ExpressionStatementSyntax.swift in Sources */,
@@ -584,6 +599,7 @@
 				7DEAD3D927435D1E008F0259 /* BoundGlobalScope.swift in Sources */,
 				7DEAD3922732A0BE008F0259 /* String+Extension.swift in Sources */,
 				7DEAD3A52732A732008F0259 /* SyntaxKind.swift in Sources */,
+				7DEAD3FE274BB349008F0259 /* Lowerer.swift in Sources */,
 				7DEAD3EF27476770008F0259 /* ElseClauseSyntax.swift in Sources */,
 				7DEAD3B42732A74E008F0259 /* ParenthesizedExpressionSyntax.swift in Sources */,
 			);
