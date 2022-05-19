@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol BoundExpression: BoundNode /*, Equatable*/ {
+protocol BoundExpression: BoundNode, Equatable {
     var expressionType: Any.Type { get }
 }
