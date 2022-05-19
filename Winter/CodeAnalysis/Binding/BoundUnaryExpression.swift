@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BoundUnaryExpression: BoundExpression, Equatable {
+struct BoundUnaryExpression: BoundExpression /*, Equatable*/ {
     let op: BoundUnaryOperator
     let operand: BoundExpression
     
@@ -20,11 +20,11 @@ struct BoundUnaryExpression: BoundExpression, Equatable {
     }
 }
 
-extension BoundUnaryExpression {
-    static func == (lhs: BoundUnaryExpression, rhs: BoundUnaryExpression) -> Bool {
-        lhs.kind == rhs.kind
-        && lhs.expressionType == rhs.expressionType
-        && lhs.operand == rhs.operand
-        && lhs.op == rhs.op
-    }
-}
+//extension BoundUnaryExpression {
+//    static func == (lhs: BoundUnaryExpression, rhs: BoundUnaryExpression) -> Bool {
+//        lhs.kind == rhs.kind
+//        && lhs.expressionType == rhs.expressionType
+//        && lhs.operand == rhs.operand
+//        && lhs.op == rhs.op
+//    }
+//}

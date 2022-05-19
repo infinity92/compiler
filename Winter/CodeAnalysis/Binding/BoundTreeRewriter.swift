@@ -8,8 +8,8 @@
 import Foundation
 
 protocol BoundTreeRewriter {
-    func rewrite(statement node: BoundStatement) -> BoundStatement
-    func rewrite(expression node: BoundExpression) -> BoundExpression
+//    func rewrite(statement node: BoundStatement) -> BoundStatement
+//    func rewrite(expression node: BoundExpression) -> BoundExpression
 }
 
 extension BoundTreeRewriter {
@@ -120,14 +120,14 @@ extension BoundTreeRewriter {
 //        return BoundAssignmentExpression(variable: node.variable, expression: expression)
 //    }
 //
-    func rewriteUnaryExpression(_ node: BoundUnaryExpression) -> BoundExpression {
-        let operand = rewrite(expression: node.operand)
-        if operand == node.operand {
-            return node
-        }
-
-        return BoundUnaryExpression(op: node.op, operand: operand)
-    }
+//    func rewriteUnaryExpression(_ node: BoundUnaryExpression) -> BoundExpression {
+//        let operand = rewrite(expression: node.operand)
+//        if operand == node.operand {
+//            return node
+//        }
+//
+//        return BoundUnaryExpression(op: node.op, operand: operand)
+//    }
 //
 //    func rewriteBinaryExpression(_ node: BoundBinaryExpression) -> BoundExpression {
 //        let left = rewrite(expression: node.left)
