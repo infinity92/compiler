@@ -1,7 +1,7 @@
 # Winter Programming Language
 
 ## How to use 
-It is easy. Clone project and run it in xcode and then write text your programm
+It is easy. Clone the project and run it in xcode and then write text of your program
 
 ## Usage
 Compiller can it:
