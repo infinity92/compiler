@@ -19,6 +19,16 @@ Compiller can it:
  }
  ```
  
+ ```
+ var i = 10 
+ var result = 0
+ while (i > 0)
+ { 
+     result = result + i 
+     i = i - 1 
+ }
+ ```
+ 
  - Conditions: 
  ```
  a = 1
